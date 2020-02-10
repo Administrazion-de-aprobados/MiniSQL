@@ -8,5 +8,12 @@ namespace Library
 {
     class Column
     {
+        IList<string> lista;
+
+        public Column()
+        {
+            lista = new List<string>();
+        }
+
     }
 }

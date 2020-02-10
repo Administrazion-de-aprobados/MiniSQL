@@ -8,5 +8,26 @@ namespace Library
 {
     public class DataBase
     {
+
+        Dictionary<string, User> Users;
+        Dictionary<string, Table> Tables;
+        private Admin admin;
+        public string Name;
+
+
+        public DataBase(string name, string adminName, string pass)
+        {
+            Users = new Dictionary<string, User>();
+            Tables = new Dictionary<string, Table>();
+
+            Name = name;
+            admin = new Admin(adminName, pass);
+
+        }
+
+
+
+
+
     }
 }

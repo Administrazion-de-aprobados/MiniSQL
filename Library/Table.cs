@@ -8,5 +8,15 @@ namespace Library
 {
     class Table
     {
+
+        Dictionary<string, Column> tabla;
+
+            public Table()
+        {
+
+            tabla = new Dictionary<string, Column>();
+
+
+        }
     }
 }

@@ -8,5 +8,15 @@ namespace Library
 {
     class Admin
     {
+        public string Name;
+        public string Password;
+
+        public Admin(string name, string pass)
+        {
+            Name = name;
+            Password = pass;
+        }
+
+
     }
 }
