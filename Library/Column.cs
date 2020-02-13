@@ -15,19 +15,21 @@ namespace Library
             lista = new List<string>();
         }
 
-        public void searchData() { 
+        public void searchData(Operator op) { 
+        
+            
+        }
+
+
+        public void deleteData(string data) { 
         
         }
 
-        public void deleteData() { 
-        
+        public void updateData(string data, Operator op, string dataToChange) { 
+            
         }
 
-        public void updateData() { 
-        
-        }
-
-        public void insert() { 
+        public void insert(string data ) { 
         
         }
 

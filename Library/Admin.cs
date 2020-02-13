@@ -17,26 +17,26 @@ namespace Library
             Password = pass;
         }
 
-        public void createSecurityProfile() {
+        public void createSecurityProfile(string name) {
 
         }
 
-        public void dropSecurityProfile() {
+        public void dropSecurityProfile(string name) {
 
         }
 
-        public void grant() { 
+        public void grant(string privilege, string table, string securityProf) { 
         
         }
-        public void revoke() { 
-        
-        }
-
-        public void addUser() { 
+        public void revoke(string privilege, string table, string securityProf) { 
         
         }
 
-        public void deleteUser() { 
+        public void addUser(string user, string password, string securityProf) { 
+        
+        }
+
+        public void deleteUser(string user) { 
         
         }
 

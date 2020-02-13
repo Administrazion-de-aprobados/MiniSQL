@@ -18,19 +18,19 @@ namespace Library
 
 
         }
-        public void searchColumnName()
+        public void searchColumnName(string name)
         {
 
         }
-        public void deleteColumn()
+        public void deleteColumn(string name)
         {
 
         }
-        public void update()
+        public void update(string name, string dateToUpdate, Operator op)
         {
 
         }
-        public void insert()
+        public void insert(string columnName, string data)
         {
 
         }

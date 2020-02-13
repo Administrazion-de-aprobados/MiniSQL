@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Library
 {
+    public enum Operator { Greater, Less, Equal};
     public class DataBase
     {
-
         Dictionary<string, User> Users;
         Dictionary<string, Table> Tables;
         private Admin admin;
@@ -25,15 +25,15 @@ namespace Library
 
         }
 
-        public void searchColumnName() { 
+        public void searchColumnName(string name) { 
         
         }
 
-        public void deleteColumn() { 
+        public void deleteColumn(string name) { 
         
         }
 
-        public void update() { 
+        public void update(string name, string dateToUpdate, Operator op, string tableName) { 
         
         }
 
