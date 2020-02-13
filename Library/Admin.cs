@@ -17,6 +17,29 @@ namespace Library
             Password = pass;
         }
 
+        public void createSecurityProfile() {
+
+        }
+
+        public void dropSecurityProfile() {
+
+        }
+
+        public void grant() { 
+        
+        }
+        public void revoke() { 
+        
+        }
+
+        public void addUser() { 
+        
+        }
+
+        public void deleteUser() { 
+        
+        }
+
 
     }
 }

@@ -15,5 +15,21 @@ namespace Library
             lista = new List<string>();
         }
 
+        public void searchData() { 
+        
+        }
+
+        public void deleteData() { 
+        
+        }
+
+        public void updateData() { 
+        
+        }
+
+        public void insert() { 
+        
+        }
+
     }
 }
