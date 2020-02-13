@@ -18,5 +18,21 @@ namespace Library
 
 
         }
+        public void searchColumnName()
+        {
+
+        }
+        public void deleteColumn()
+        {
+
+        }
+        public void update()
+        {
+
+        }
+        public void insert()
+        {
+
+        }
     }
 }
