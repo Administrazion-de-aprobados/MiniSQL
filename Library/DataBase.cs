@@ -24,6 +24,15 @@ namespace Library
             admin = new Admin(adminName, pass);
 
         }
+        public void createTable(string name)
+        {
+            
+        }
+
+        public void dropTable(string name)
+        {
+
+        }
 
         public void searchColumnName() { 
         

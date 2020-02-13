@@ -8,16 +8,17 @@ namespace Library
 {
     class Table
     {
+        public string Name;
 
         Dictionary<string, Column> tabla;
 
-            public Table()
+        public Table(string name)
         {
-
+            Name = name;
             tabla = new Dictionary<string, Column>();
 
-
         }
+        
         public void searchColumnName()
         {
 
