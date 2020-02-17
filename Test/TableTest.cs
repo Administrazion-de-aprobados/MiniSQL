@@ -10,5 +10,28 @@ namespace Test
     [TestClass]
     class TableTest
     {
+        [TestMethod]
+        public void searchColumnName()
+        {
+
+        }
+
+        [TestMethod]
+        public void deleteColumn()
+        {
+
+        }
+
+        [TestMethod]
+        public void update()
+        {
+
+        }
+
+        [TestMethod]
+        public void insert()
+        {
+
+        }
     }
 }

@@ -10,7 +10,12 @@ namespace Test
     [TestClass]
     class UserTest
     {
+        [TestMethod]
+        public Boolean searchPrivilegeTable()
+        {
 
+            return false;
+        }
 
     }
 }
