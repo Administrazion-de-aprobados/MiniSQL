@@ -7,11 +7,38 @@ namespace Test
     public class DataBaseTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void createTable()
         {
 
+        }
 
+        [TestMethod]
+        public void dropTable()
+        {
 
+        }
+
+        [TestMethod]
+        public void searchColumnName()
+        {
+
+        }
+
+        [TestMethod]
+        public void deleteColumn()
+        {
+
+        }
+
+        [TestMethod]
+        public void update()
+        {
+
+        }
+
+        [TestMethod]
+        public void insert()
+        {
 
         }
     }
