@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    class Admin
+   public class Admin
     {
         public string Name;
         public string Password;

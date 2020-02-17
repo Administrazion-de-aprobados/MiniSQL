@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
+using Library;
 
 namespace Test
 {
@@ -12,33 +12,33 @@ namespace Test
     class AdminTest
     {
         [TestMethod]
-        public void testCreateSecurityProfile(string name)
+        public void testCreateSecurityProfile()
         {
-
+           
         }
 
         [TestMethod]
-        public void testdropSecurityProfile(string name)
-        {
-
-        }
-        [TestMethod]
-        public void testgrant(string privilege, string table, string securityProf)
+        public void testdropSecurityProfile()
         {
 
         }
         [TestMethod]
-        public void testrevoke(string privilege, string table, string securityProf)
+        public void testgrant()
         {
 
         }
         [TestMethod]
-        public void testaddUser(string user, string password, string securityProf)
+        public void testrevoke()
         {
 
         }
         [TestMethod]
-        public void testdeleteUser(string user)
+        public void testaddUser()
+        {
+
+        }
+        [TestMethod]
+        public void testdeleteUser()
         {
 
         }
