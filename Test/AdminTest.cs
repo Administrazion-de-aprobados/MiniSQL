@@ -11,5 +11,38 @@ namespace Test
     [TestClass]
     class AdminTest
     {
+        [TestMethod]
+        public void testCreateSecurityProfile(string name)
+        {
+
+        }
+
+        [TestMethod]
+        public void testdropSecurityProfile(string name)
+        {
+
+        }
+        [TestMethod]
+        public void testgrant(string privilege, string table, string securityProf)
+        {
+
+        }
+        [TestMethod]
+        public void testrevoke(string privilege, string table, string securityProf)
+        {
+
+        }
+        [TestMethod]
+        public void testaddUser(string user, string password, string securityProf)
+        {
+
+        }
+        [TestMethod]
+        public void testdeleteUser(string user)
+        {
+
+        }
+
+
     }
 }
