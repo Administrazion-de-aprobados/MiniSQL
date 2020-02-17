@@ -9,8 +9,8 @@ namespace Library
     public enum Operator { Greater, Less, Equal};
     public class DataBase
     {
-        Dictionary<string, User> Users;
-        Dictionary<string, Table> Tables;
+        public Dictionary<string, User> Users;
+        public Dictionary<string, Table> Tables;
         private Admin admin;
         public string Name;
 

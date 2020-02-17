@@ -12,6 +12,15 @@ namespace Test
 
        public static void BDcreatioon()
         {
+           
+            DataBase database = new DataBase("BD","admin","admin");
+            database.createTable("table");
+            Table table;
+
+            if (database.Tables.ContainsKey("table"))
+            {
+                table = database.Tables["table"];
+            }
 
 
 
