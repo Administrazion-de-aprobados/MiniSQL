@@ -21,7 +21,6 @@ namespace Library
         {
 
 
-
         }
 
         public Boolean searchPrivilege(string privilege)
