@@ -26,12 +26,13 @@ namespace Library
         }
         public void createTable(string name)
         {
-            
+            Table table = new Table(name);
+            Tables.Add(name, table);
         }
 
         public void dropTable(string name)
         {
-
+            Tables.Remove(name);
         }
 
         public void searchColumnName(string name) { 
