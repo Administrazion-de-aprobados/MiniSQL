@@ -14,6 +14,14 @@ namespace Test
         [TestMethod]
         public void testCreateSecurityProfile()
         {
+            String table="tablaPrueba";
+            String name = "JUAN";
+            String pass = "123456789";
+
+            Admin admin = new Admin(name,pass);
+
+            
+
            
         }
 

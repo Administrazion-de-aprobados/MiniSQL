@@ -15,9 +15,10 @@ namespace Library
         {
             Name = name;
             Password = pass;
+            List<SecurityProfile> securityProfiles = new List<SecurityProfile>();
         }
 
-        public void createSecurityProfile(string name) {
+        public void createSecurityProfile(string tableName) {
 
         }
 
@@ -39,6 +40,8 @@ namespace Library
         public void deleteUser(string user) { 
         
         }
+
+       
 
 
     }

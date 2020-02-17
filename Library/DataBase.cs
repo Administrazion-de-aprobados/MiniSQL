@@ -14,7 +14,6 @@ namespace Library
         private Admin admin;
         public string Name;
 
-
         public DataBase(string name, string adminName, string pass)
         {
             Users = new Dictionary<string, User>();
@@ -26,12 +25,13 @@ namespace Library
         }
         public void createTable(string name)
         {
-            
+            Table table = new Table(name);
+            Tables.Add(name, table);
         }
 
         public void dropTable(string name)
         {
-
+            Tables.Remove(name);
         }
 
         public void searchColumnName(string name) { 
@@ -42,11 +42,11 @@ namespace Library
         
         }
 
-        public void update(string name, string dateToUpdate, Operator op, string tableName) { 
+        public void update(string tableName, string columnName, string dataToUpdate, Operator op, String valueToCompare ) { 
         
         }
 
-        public void insert() { 
+        public void insert(string nameTable, string nameCol, string dataToInsert) { 
         
         }
 
