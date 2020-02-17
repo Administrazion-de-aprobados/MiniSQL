@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    class SecurityProfile
+    public class SecurityProfile
     {
         string tableName;
         IList<string> privileges;

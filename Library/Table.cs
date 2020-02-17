@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    class Table
+    public class Table
     {
         public string Name;
 

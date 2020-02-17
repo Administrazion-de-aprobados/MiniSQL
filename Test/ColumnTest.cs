@@ -10,5 +10,28 @@ namespace Test
     [TestClass]
     class ColumnTest
     {
+        [TestMethod]
+        public void searchData()
+        {
+            
+        }
+
+        [TestMethod]
+        public void deleteData()
+        {
+
+        }
+
+        [TestMethod]
+        public void updateData()
+        {
+
+        }
+
+        [TestMethod]
+        public void insert()
+        {
+
+        }
     }
 }

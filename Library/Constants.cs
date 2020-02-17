@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    class Constants
+    public class Constants
     {
         public const string CreateDatabaseSuccess = "Database created";
         public const string OpenDatabaseSuccess = "Database opened";

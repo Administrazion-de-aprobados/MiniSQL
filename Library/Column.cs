@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    class Column
+    public class Column
     {
         IList<string> lista;
 
