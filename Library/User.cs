@@ -15,8 +15,7 @@ namespace Library
         public User (String name, String pass)
         {
             Name = name;
-            Password = pass;
-            privileges = new List<SecurityProfile>();
+            Password = pass;   
         }
 
         public Boolean searchPrivilegeTable(string table, string privilege)

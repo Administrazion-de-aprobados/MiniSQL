@@ -22,11 +22,13 @@ namespace Library
         {
 
         }
+        public void createColumn(string name) { 
+        }
         public void deleteColumn(string name)
         {
 
         }
-        public void update(string name, string dateToUpdate, Operator op)
+        public void update(string columnName, string dataToUpdate, Operator op, String valueToCompare)
         {
 
         }
