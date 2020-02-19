@@ -22,7 +22,11 @@ namespace Library
         {
 
         }
-        public void createColumn(string name) { 
+        public void createColumn(string name) {
+            
+            Column column = new Column();
+            tabla.Add(name, column);
+
         }
         public void deleteColumn(string name)
         {

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace Library
 {
     public enum Operator { Greater, Less, Equal};
+
+
     public class DataBase
     {
         public Dictionary<string, User> Users;
@@ -50,9 +52,46 @@ namespace Library
         
         }
 
+        public void writte()
+        {
+            if(File.Exist(Name))
+            {
+                deletefile();
+            }
+
+            StreamWriter sw = File.CreateText(Name);
 
 
+            sw.WriteLine(admin.Name + "," + admin.Password);
+
+            foreach(KeyValuePair<string, Table> entry in Tables)
+            {
+                string tableName = entry.Key;
+                sw.WriteLine(tableName);
+
+                Table table = entry.Value;
+                foreach(KeyValuePair<string, Column> entry2 in table)
+                {
+                    string columnName = entry2.Key;
+                    Column column = entry2.Value;
+                    string line = columnName + "," + column.columnType + ";";
+
+                    foreach(string value in column.list)
+                    {
+                         line = line +","+ value;
+                    }
+                    sw.WriteLine(line);
 
 
+                }
+                sw.WriteLine(" ");
+
+            }
+        }
+
+        public void deletefile(){
+        
+        
+        }
     }
 }

@@ -20,10 +20,11 @@ namespace Test
             if (database.Tables.ContainsKey("table"))
             {
                 table = database.Tables["table"];
+                table.createColumn("column");
+
             }
 
-
-
+            database.writte();
 
         }
 

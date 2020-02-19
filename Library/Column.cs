@@ -8,11 +8,13 @@ namespace Library
 {
     public class Column
     {
-        IList<string> lista;
+        public IList<string> list;
+        public string columnType;
+
 
         public Column()
         {
-            lista = new List<string>();
+            list = new List<string>();
         }
 
         public void searchData(Operator op) { 
