@@ -7,7 +7,7 @@ using Library;
 
 namespace Test
 {
-    public class BDcreation
+    public static class BDcreation
     {
 
        public static void BDcreatioon()

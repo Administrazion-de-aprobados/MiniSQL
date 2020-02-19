@@ -11,6 +11,7 @@ namespace Test
     [TestClass]
     class AdminTest
     {
+
         [TestMethod]
         public void testCreateSecurityProfile()
         {

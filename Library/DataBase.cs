@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -54,7 +55,7 @@ namespace Library
 
         public void writte()
         {
-            if(File.Exist(Name))
+            if(File.Exists(Name))
             {
                 deletefile();
             }
@@ -70,7 +71,7 @@ namespace Library
                 sw.WriteLine(tableName);
 
                 Table table = entry.Value;
-                foreach(KeyValuePair<string, Column> entry2 in table)
+                foreach(KeyValuePair<string, Column> entry2 in table.table)
                 {
                     string columnName = entry2.Key;
                     Column column = entry2.Value;
