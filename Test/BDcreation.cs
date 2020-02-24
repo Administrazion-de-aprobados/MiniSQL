@@ -20,7 +20,10 @@ namespace Test
             Table table = database.Tables["table"];
             table.createColumn("column");
 
-            
+            Column column = table.Columns["column"];
+            column.list.Add("data");
+
+
 
             database.writte();
 

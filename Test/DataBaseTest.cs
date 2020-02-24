@@ -10,10 +10,13 @@ namespace Test
         [TestMethod]
         public void createTable()
         {
-            Library.DataBase bd = new Library.DataBase("BD", "admin", "admin");
+            BDcreation.BDcreatioon();
+            DataBase db = new DataBase();
+            db.load("BD");
 
-            bd.BDcreatioon(bd);
-           
+            db.createTable("newTable");
+
+            Assert.IsTrue(db.Tables.ContainsKey("newTable"));
         }
 
         [TestMethod]
@@ -37,6 +40,7 @@ namespace Test
             DataBase db = new DataBase();
             db.load("BD");
 
+            Assert.IsTrue(db.searchColumnName("column"));
         }
 
         [TestMethod]
@@ -67,13 +71,26 @@ namespace Test
 
             db.update("table", "column", "newdata",Equal, "data");
 
+            string newdata = column.list[1];
 
+            Assert.IsFalse(data == newdata)
         }
 
         [TestMethod]
         public void insert()
         {
 
+            BDcreation.BDcreatioon();
+            DataBase db = new DataBase();
+            db.load("BD");
+
+            db.insert("table", "column", "newData");
+
+
+            Table table = db.Tables["table"];
+            Column column = table.Columns["column"];
+
+            Assert.IsFalse(column.list.Contains("newData"));
         }
     }
 }

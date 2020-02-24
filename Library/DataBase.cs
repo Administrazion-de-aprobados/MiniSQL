@@ -45,8 +45,8 @@ namespace Library
             Tables.Remove(name);
         }
 
-        public void searchColumnName(string name) { 
-        
+        public Boolean searchColumnName(string name) {
+            return false;
         }
 
         public void deleteColumn(string tablename, string name) { 
