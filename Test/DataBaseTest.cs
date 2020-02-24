@@ -9,7 +9,10 @@ namespace Test
         [TestMethod]
         public void createTable()
         {
+            Library.DataBase bd = new Library.DataBase("BD", "admin", "admin");
 
+            bd.BDcreatioon(bd);
+           
         }
 
         [TestMethod]

@@ -55,16 +55,20 @@ namespace Library
 
         public void writte()
         {
+             
             if(File.Exists(Name))
             {
+                
                 deletefile();
             }
 
+            //create the txt
             StreamWriter sw = File.CreateText(Name);
 
-
+            //admin name and password for the txt
             sw.WriteLine(admin.Name + "," + admin.Password);
-
+            
+            //iterates the keys from the hastable
             foreach(KeyValuePair<string, Table> entry in Tables)
             {
                 string tableName = entry.Key;
@@ -73,8 +77,8 @@ namespace Library
                 Table table = entry.Value;
                 foreach(KeyValuePair<string, Column> entry2 in table.table)
                 {
-                    string columnName = entry2.Key;
-                    Column column = entry2.Value;
+                    string columnName = entry2.Key; //the key from the line 
+                    Column column = entry2.Value;//the value from the line 
                     string line = columnName + "," + column.columnType + ";";
 
                     foreach(string value in column.list)
@@ -90,9 +94,43 @@ namespace Library
             }
         }
 
+       public static DataBase load(string txtName) {
+
+            if(File.Exists(txtName)){
+
+                foreach (String line in File.ReadAllLines(txtName)) { 
+                    
+
+                }
+            
+            }
+       
+         DataBase db = new DataBase(txtName, string adminName, string pass);
+
+
+          return  db;
+        
+       }
         public void deletefile(){
         
         
+        }
+
+        public stvoid BDcreatioon(DataBase database)
+        {
+            
+            database.createTable("table");
+            Table table;
+
+            if (database.Tables.ContainsKey("table"))
+            {
+                table = database.Tables["table"];
+                table.createColumn("column");
+
+            }
+
+            database.writte();
+
         }
     }
 }
