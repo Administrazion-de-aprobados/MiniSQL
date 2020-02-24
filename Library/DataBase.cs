@@ -104,8 +104,8 @@ namespace Library
                 }
             
             }
-       
-         DataBase db = new DataBase(txtName, string adminName, string pass);
+
+       // DataBase db = new DataBase(txtName, adminName, pass);
 
 
           return  db;
@@ -116,7 +116,7 @@ namespace Library
         
         }
 
-        public stvoid BDcreatioon(DataBase database)
+        public void BDcreatioon(DataBase database)
         {
             
             database.createTable("table");
