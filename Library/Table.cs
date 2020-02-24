@@ -10,12 +10,12 @@ namespace Library
     {
         public string Name;
 
-        public Dictionary<string, Column> table;
+        public Dictionary<string, Column> Columns;
 
         public Table(string name)
         {
             Name = name;
-            table = new Dictionary<string, Column>();
+            Columns = new Dictionary<string, Column>();
 
         }
         public void searchColumnName(string name)
@@ -25,7 +25,7 @@ namespace Library
         public void createColumn(string name) {
             
             Column column = new Column();
-            table.Add(name, column);
+            Columns.Add(name, column);
 
         }
         public void deleteColumn(string name)

@@ -26,6 +26,14 @@ namespace Library
             admin = new Admin(adminName, pass);
 
         }
+        public DataBase()
+        {
+            Users = new Dictionary<string, User>();
+            Tables = new Dictionary<string, Table>();
+        }
+
+
+
         public void createTable(string name)
         {
             Table table = new Table(name);
@@ -41,7 +49,7 @@ namespace Library
         
         }
 
-        public void deleteColumn(string name) { 
+        public void deleteColumn(string tablename, string name) { 
         
         }
 
@@ -79,7 +87,7 @@ namespace Library
                 {
                     string columnName = entry2.Key; //the key from the line 
                     Column column = entry2.Value;//the value from the line 
-                    string line = columnName + "," + column.columnType + ";";
+                    string line = columnName + "," + column.columnType + ",";
 
                     foreach(string value in column.list)
                     {
