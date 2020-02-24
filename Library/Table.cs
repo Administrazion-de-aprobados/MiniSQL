@@ -22,6 +22,9 @@ namespace Library
         {
 
         }
+        public void addToColumn() { 
+            
+        }
         public void createColumn(string name) {
             
             Column column = new Column();

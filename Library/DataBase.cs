@@ -96,21 +96,51 @@ namespace Library
 
         }
 
-       public static DataBase load(string txtName) {
+       public void load(string txtName) {
 
+            
             if(File.Exists(txtName)){
 
-                foreach (String line in File.ReadAllLines(txtName)) { 
+                string[] filas = File.ReadAllLines(txtName);
+
+                string[] line1 = filas[0].Split(',');
+
+                string adminName = line1[0];
+
+                string pass = line1[1];
+
+                Boolean newTable=true;
+                for (int i =1; i<=filas.Length; i++) {
+                    Table tab;
+                    string tableName;
+                    if (newTable == true)
+                    {
+
+                        tableName = filas[i];
+                        newTable = false;
+                        tab = new Table(tableName);
+
+                    }
+
+                    else {
+                       String[] line = filas[i].Split(',');
+                        string columnName = line[0];
+                        string dataType = line[1];
+                        for (int j = 2; j<=line.Length;j++) { 
+
+                        }
+
+
+
+
+                    }
                     
+                    }
 
                 }
-            
+
+
             }
-
-       // DataBase db = new DataBase(txtName, adminName, pass);
-
-
-          return  null;
         
        }
         public void deletefile(){
