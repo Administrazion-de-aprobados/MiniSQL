@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 namespace Test
 {
     [TestClass]
-    class ColumnTest
+    public class ColumnTest
     {
         [TestMethod]
         public void searchData()
         {
-            
+            BDcreation.BDcreatioon();
+
         }
 
         [TestMethod]

@@ -92,6 +92,8 @@ namespace Library
                 sw.WriteLine(" ");
 
             }
+            sw.Close();
+
         }
 
        public static DataBase load(string txtName) {
@@ -105,10 +107,10 @@ namespace Library
             
             }
        
-         DataBase db = new DataBase(txtName, string adminName, string pass);
+        // DataBase db = new DataBase(txtName, string adminName, string pass);
 
 
-          return  db;
+          return  null;
         
        }
         public void deletefile(){
@@ -116,7 +118,7 @@ namespace Library
         
         }
 
-        public stvoid BDcreatioon(DataBase database)
+        public void BDcreatioon(DataBase database)
         {
             
             database.createTable("table");
