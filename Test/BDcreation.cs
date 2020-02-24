@@ -16,14 +16,11 @@ namespace Test
            
             DataBase database = new DataBase("BD","admin","admin");
             database.createTable("table");
-            Table table;
+            
+            Table table = database.Tables["table"];
+            table.createColumn("column");
 
-            if (database.Tables.ContainsKey("table"))
-            {
-                table = database.Tables["table"];
-                table.createColumn("column");
-
-            }
+            
 
             database.writte();
 
