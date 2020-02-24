@@ -69,11 +69,11 @@ namespace Test
             Column column = table.Columns["column"];
             string data = column.list[1];
 
-            db.update("table", "column", "newdata",Equal, "data");
+            db.update("table", "column", "newdata",Operator.Equal, "data");
 
             string newdata = column.list[1];
 
-            Assert.IsFalse(data == newdata)
+            Assert.IsFalse(data == newdata);
         }
 
         [TestMethod]
