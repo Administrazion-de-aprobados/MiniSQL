@@ -83,7 +83,7 @@ namespace Library
                 sw.WriteLine(tableName);
 
                 Table table = entry.Value;
-                foreach(KeyValuePair<string, Column> entry2 in table.table)
+                foreach(KeyValuePair<string, Column> entry2 in table.Columns)
                 {
                     string columnName = entry2.Key; //the key from the line 
                     Column column = entry2.Value;//the value from the line 
@@ -118,37 +118,55 @@ namespace Library
                 string pass = line1[1];
 
                 Boolean newTable=true;
+
                 for (int i =1; i<=filas.Length; i++) {
-                    Table tab;
+                    Table tab = null;
                     string tableName;
-                    if (newTable == true)
+
+                    if (filas[i] == " ")
                     {
-
-                        tableName = filas[i];
-                        newTable = false;
-                        tab = new Table(tableName);
-
+                        newTable = true;
                     }
 
-                    else {
-                       String[] line = filas[i].Split(',');
-                        string columnName = line[0];
-                        string dataType = line[1];
-                        for (int j = 2; j<=line.Length;j++) { 
+                    else
+                    {
+                        if (newTable == true)
+                        {
+
+                            tableName = filas[i];
+                            newTable = false;
+                            tab = new Table(tableName);
 
                         }
 
 
 
 
+                        String[] line = filas[i].Split(',');
+                        string columnName = line[0];
+                        string dataType = line[1];
+                        List<string> data = new List<string>();
+                        for (int j = 2; j <= line.Length; j++)
+                        {
+
+                            data.Add(line[j]);
+                        }
+
+                        tab.addToTable(columnName, data);
+
+
                     }
+                    
+
+
+                    
                     
                     }
 
                 }
 
 
-            }
+            
         
        }
         public void deletefile(){

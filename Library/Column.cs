@@ -22,6 +22,12 @@ namespace Library
             
         }
 
+        public void addColumns(List<String> columnValues) {
+            foreach (string value in columnValues) {
+                list.Add(value);
+                }
+        }
+
 
         public void deleteData(string data) { 
         
