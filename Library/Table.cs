@@ -22,17 +22,17 @@ namespace Library
         {
 
         }
-        public void addToTable(string name, List<String> columnValues) {
+        public void addToTable(string name, Type type, List<String> columnValues) {
 
-            Column column = new Column();
+            Column column = new Column(name, type);
             column.addColumns(columnValues);
             Columns.Add(name,column);
            
             
         }
-        public void createColumn(string name) {
+        public void createColumn(string name, Type type) {
             
-            Column column = new Column();
+            Column column = new Column(name, type);
             Columns.Add(name, column);
 
         }
