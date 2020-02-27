@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace Library
 {
     public enum Operator { Greater, Less, Equal};
+    public enum Type {Text, Int, Double};
 
 
     public class DataBase
@@ -100,7 +101,7 @@ namespace Library
                 {
                     string columnName = entry2.Key; //the key from the line 
                     Column column = entry2.Value;//the value from the line 
-                    string line = columnName + "," + column.columnType;
+                    string line = columnName + "," + column.ColumnType;
 
                     foreach(string value in column.list)
                     {
@@ -198,7 +199,7 @@ namespace Library
             if (database.Tables.ContainsKey("table"))
             {
                 table = database.Tables["table"];
-                table.createColumn("column");
+                table.createColumn("column", Type.Text);
 
             }
 

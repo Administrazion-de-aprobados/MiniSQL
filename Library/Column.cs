@@ -9,13 +9,14 @@ namespace Library
     public class Column
     {
         public IList<string> list;
-        public string ColumnType;
+        public Type ColumnType;
+        public string Name;
 
-
-        public Column(string columnType)
+        public Column(string name, Type columnType)
         {
             list = new List<string>();
             ColumnType = columnType;
+            Name = name;
         }
 
         public void searchData(Operator op) { 
