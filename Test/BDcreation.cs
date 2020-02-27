@@ -18,7 +18,7 @@ namespace Test
             database.createTable("table");
             
             Table table = database.Tables["table"];
-            table.createColumn("column");
+            table.createColumn("column", Library.Type.Text);
 
             Column column = table.Columns["column"];
             column.list.Add("data");
