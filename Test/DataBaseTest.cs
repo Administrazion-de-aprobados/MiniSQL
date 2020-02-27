@@ -73,7 +73,7 @@ namespace Test
 
             string newdata = column.list[1];
 
-            Assert.IsFalse(data == newdata);
+            Assert.IsFalse("newdata" == newdata);
         }
 
         [TestMethod]

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Library;
 
 namespace Test
 {
@@ -17,6 +18,12 @@ namespace Test
             DataBase db = new DataBase();
             db.load("BD");
 
+            Table table = db.Tables["table"];
+
+            Dictionary<string, Column> ht = table.Columns;
+
+            Assert.IsTrue(ht.ContainsKey("column"));
+
         }
 
         [TestMethod]
@@ -26,9 +33,8 @@ namespace Test
             DataBase db = new DataBase();
             db.load("BD");
 
-
-            db.deleteColumn("table", "column");
             Table table = db.Tables["table"];
+            table.deleteColumn("column");
             Assert.IsFalse(table.Columns.ContainsKey("column"));
         }
 
@@ -39,15 +45,17 @@ namespace Test
             DataBase db = new DataBase();
             db.load("BD");
 
+       
             Table table = db.Tables["table"];
             Column column = table.Columns["column"];
-            string data = column.list[1];
+          //string OldData = column.list[1];
 
-            db.update("table", "column", "newdata", Operator.Equal, "data");
+            table.update("column", "newdata", Operator.Equal, "data");
 
-            string newdata = column.list[1];
+            string newData = column.list[1];
 
-            Assert.IsFalse(data == newdata);
+            Assert.IsTrue(newData == "data");
+
         }
 
         [TestMethod]
@@ -56,14 +64,12 @@ namespace Test
             BDcreation.BDcreatioon();
             DataBase db = new DataBase();
             db.load("BD");
-
-            db.insert("table", "column", "newData");
-
-
             Table table = db.Tables["table"];
+            table.insert("column", "newData");
+
             Column column = table.Columns["column"];
 
-            Assert.IsFalse(column.list.Contains("newData"));
+            Assert.IsTrue(column.list.Contains("newData"));
         }
     }
 }
