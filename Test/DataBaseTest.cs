@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Library;
 
@@ -57,6 +58,42 @@ namespace Test
             Assert.IsFalse(table.Columns.ContainsKey("column"));
 
         }
+
+        [TestMethod]
+        public void deleteData()
+        {
+
+            BDcreation.BDcreatioon();
+            DataBase db = new DataBase();
+            db.load("BD");
+
+            db.deleteData("table", "column", Operator.Equal, "data");
+
+            Table table = db.Tables["table"];
+            Column column = table.Columns["column"];
+            Assert.IsFalse(column.list.Contains("data"));
+
+        }
+
+        [TestMethod]
+        public void select()
+        {
+            BDcreation.BDcreatioon();
+            DataBase db = new DataBase();
+            db.load("BD");
+
+
+            IList<string> list = new List<string>();
+            list.Add("column");
+
+            Dictionary<string, Column> table = db.select(list, "table", "column", Operator.Equal, "data");
+
+            Assert.IsTrue(table.ContainsKey("column"));
+
+
+        }
+
+
 
         [TestMethod]
         public void update()

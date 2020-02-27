@@ -45,23 +45,36 @@ namespace Library
             Tables.Remove(name);
         }
 
-        public Boolean searchColumnName(string name) {
+        public Boolean searchColumnName(string name)
+        {
             return false;
         }
 
-        public void deleteColumn(string tablename, string name) { 
+        public void deleteColumn(string tablename, string name)
+        {
+
+        }
+
+        public Dictionary<string, Column> select (IList<string> columnsNames, string tableName, string columnName, Operator op, string dataToCompare)
+        {
+            return null;
+        }
+        public void deleteData(string tableName,string columnName, Operator op, string ValueToCompare) 
+        {  
         
         }
 
-        public void update(string tableName, string columnName, string dataToUpdate, Operator op, String valueToCompare ) { 
+        public void update(string tableName, string columnName, string dataToUpdate, Operator op, string valueToCompare )
+        { 
         
         }
 
-        public void insert(string nameTable, string nameCol, string dataToInsert) { 
+        public void insert(string nameTable, string nameCol, string dataToInsert) 
+        { 
         
         }
 
-        public void writte()
+        public void write()
         {
              
             if(File.Exists(Name))
@@ -87,7 +100,7 @@ namespace Library
                 {
                     string columnName = entry2.Key; //the key from the line 
                     Column column = entry2.Value;//the value from the line 
-                    string line = columnName + "," + column.columnType + ",";
+                    string line = columnName + "," + column.columnType;
 
                     foreach(string value in column.list)
                     {
@@ -104,7 +117,8 @@ namespace Library
 
         }
 
-       public void load(string txtName) {
+       public void load(string txtName) 
+        {
 
             
             if(File.Exists(txtName)){
@@ -169,7 +183,8 @@ namespace Library
             
         
        }
-        public void deletefile(){
+        public void deletefile()
+        {
         
         
         }
