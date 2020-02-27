@@ -203,7 +203,7 @@ namespace Library
 
             }
 
-            database.writte();
+            database.write();
 
         }
     }
