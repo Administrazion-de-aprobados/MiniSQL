@@ -9,7 +9,7 @@ using Library;
 namespace Test
 {
     [TestClass]
-    class TableTest
+     class TableTest
     {
         [TestMethod]
         public void searchColumnName()
