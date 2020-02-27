@@ -33,7 +33,7 @@ namespace Library
         
         }
 
-        public void updateData(string data, Operator op, string dataToChange) { 
+        public void updateData(string newdata, Operator op, string dataToChange) { 
             
         }
 
