@@ -65,7 +65,7 @@ namespace Test
 
             column.insert("newData");
 
-            Assert.IsFalse(column.list.Contains("newData"));
+            Assert.IsTrue(column.list.Contains("newData"));
         }
     }
 }

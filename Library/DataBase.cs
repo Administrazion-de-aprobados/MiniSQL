@@ -178,7 +178,7 @@ namespace Library
                             }
 
                             tab.addToTable(columnName, tp, data);
-                            Tables.Add(columnName, tab);
+                            Tables.Add(tableName, tab);
                         }
                      
                     }

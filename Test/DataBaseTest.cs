@@ -126,7 +126,7 @@ namespace Test
             Table table = db.Tables["table"];
             Column column = table.Columns["column"];
 
-            Assert.IsFalse(column.list.Contains("newData"));
+            Assert.IsTrue(column.list.Contains("newData"));
         }
 
         [TestMethod]
@@ -170,7 +170,7 @@ namespace Test
 
             if (db.Tables.ContainsKey("table"))
             {
-                Table table1 = db.Tables["tables"];
+                Table table1 = db.Tables["table"];
 
                 if (table1.Columns.ContainsKey("column")) 
                 {
