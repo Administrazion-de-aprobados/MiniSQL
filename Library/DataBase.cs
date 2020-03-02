@@ -75,13 +75,22 @@ namespace Library
         
         }
 
+        public IList<int> where()
+        {
+            return null;
+        }
+
+
+
+
+
         public void write()
         {
              
             if(File.Exists(Name))
             {
                 
-                deletefile();
+                deletefile(Name);
             }
 
             //create the txt
@@ -172,10 +181,6 @@ namespace Library
 
                     }
                     
-
-
-                    
-                    
                     }
 
                 }
@@ -184,27 +189,9 @@ namespace Library
             
         
        }
-        public void deletefile()
+        public void deletefile(string name)
         {
-        
-        
-        }
-
-        public void BDcreatioon(DataBase database)
-        {
-            
-            database.createTable("table");
-            Table table;
-
-            if (database.Tables.ContainsKey("table"))
-            {
-                table = database.Tables["table"];
-                table.createColumn("column", Type.Text);
-
-            }
-
-            database.write();
-
+            File.Delete(name);
         }
     }
 }

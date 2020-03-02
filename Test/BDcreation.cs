@@ -23,8 +23,6 @@ namespace Test
             Column column = table.Columns["column"];
             column.list.Add("data");
 
-
-
             database.write();
 
         }

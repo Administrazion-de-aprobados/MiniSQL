@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Library;
+using System.IO;
 
 namespace Test
 {
@@ -127,5 +128,75 @@ namespace Test
 
             Assert.IsFalse(column.list.Contains("newData"));
         }
+
+        [TestMethod]
+        public void writeandLoad()
+        {
+
+            DataBase database = new DataBase("BD", "admin", "admin");
+            database.createTable("table");
+
+            Table table = database.Tables["table"];
+            table.createColumn("column", Library.Type.Text);
+
+            Column column = table.Columns["column"];
+            column.list.Add("data");
+
+            database.write();
+
+            DataBase db = new DataBase();
+
+            db.load("BD");
+
+            if (db.Tables.ContainsKey("table"))
+            {
+                Table table1 = db.Tables["tables"];
+
+                if (table1.Columns.ContainsKey("column")) 
+                {
+                    Column column1 = table1.Columns["column"];
+                    if (column1.list.Contains("data"))
+                    {
+                        Assert.IsTrue(true);
+                    }
+                    else
+                    {
+                        Assert.IsTrue(false);
+                    }
+                }
+                else
+                {
+                    Assert.IsTrue(false);
+                }
+            }
+            else
+            {
+                Assert.IsTrue(false);
+            }
+
+        }
+
+        [TestMethod]
+        public void delete()
+        {
+
+            DataBase database = new DataBase("BD", "admin", "admin");
+            database.createTable("table");
+
+            Table table = database.Tables["table"];
+            table.createColumn("column", Library.Type.Text);
+
+            Column column = table.Columns["column"];
+            column.list.Add("data");
+
+            database.write();
+
+            database.deletefile("BD");
+
+            Assert.IsFalse(File.Exists("BD"));
+
+        }
+
+
     }
 }
