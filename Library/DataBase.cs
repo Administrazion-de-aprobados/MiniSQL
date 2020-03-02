@@ -143,11 +143,11 @@ namespace Library
 
                 Boolean newTable=true;
 
-                for (int i =1; i<=filas.Length; i++) {
+                for (int i =1; i<filas.Length; i++) {
                     Table tab = null;
                     string tableName;
 
-                    if (filas[i] == " ")
+                    if (filas[i] == "")
                     {
                         newTable = true;
                     }
@@ -161,28 +161,29 @@ namespace Library
                             newTable = false;
                             tab = new Table(tableName);
 
+
+
+
+
+
+                            String[] line = filas[i + 1].Split(',');
+                            string columnName = line[0];
+                            string datat = line[1];
+                            datat = datat.ToLower();
+                            List<string> data = new List<string>();
+
+                            Type tp = dataType(datat);
+                            for (int j = 2; j < line.Length; j++)
+                            {
+
+                                data.Add(line[j]);
+                            }
+
+                            tab.addToTable(columnName, tp, data);
                         }
-
-
-
-
-                        String[] line = filas[i].Split(',');
-                        string columnName = line[0];
-                        string dataType = line[1];
-                        List<string> data = new List<string>();
-                        
-                        
-                        for (int j = 2; j <= line.Length; j++)
-                        {
-
-                            data.Add(line[j]);
-                        }
-
-                        tab.addToTable(columnName, dataType ,data);
-
 
                     }
-                    
+                   
                     }
 
                 }
@@ -191,7 +192,30 @@ namespace Library
             
         
        }
-        public void deletefile(string name)
+
+        public Type dataType(string loadData) {
+
+            Type tipo = Type.Text;
+            if (loadData == "text")
+            {
+
+                tipo = Type.Text;
+            }
+            else if (loadData == "int")
+            {
+                tipo = Type.Int;
+            }
+            else {
+
+                tipo = Type.Double;
+                    }
+
+
+
+            return tipo;
+
+        }
+        public void deletefile()
         {
             File.Delete(name);
         }
