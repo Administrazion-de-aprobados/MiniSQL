@@ -75,7 +75,7 @@ namespace Library
         
         }
 
-        public IList<int> where()
+        public IList<int> where(string tableName, string columnName, Type type, string valueToCompare)
         {
             return null;
         }

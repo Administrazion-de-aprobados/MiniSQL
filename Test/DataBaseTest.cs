@@ -130,6 +130,26 @@ namespace Test
         }
 
         [TestMethod]
+        public void where()
+        {
+            BDcreation.BDcreatioon();
+            DataBase db = new DataBase();
+            db.load("BD");
+
+            IList<int> lista = new List<int>();
+
+            IList<int> list = db.where("table", "column", Library.Type.Text, "data");
+
+            Assert.IsTrue(lista[0] == list[0]);
+
+
+        }
+
+
+
+
+
+        [TestMethod]
         public void writeandLoad()
         {
 
