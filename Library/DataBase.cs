@@ -161,13 +161,15 @@ namespace Library
                         string columnName = line[0];
                         string dataType = line[1];
                         List<string> data = new List<string>();
+                        
+                        
                         for (int j = 2; j <= line.Length; j++)
                         {
 
                             data.Add(line[j]);
                         }
 
-                        tab.addToTable(columnName, data);
+                        tab.addToTable(columnName, dataType ,data);
 
 
                     }
