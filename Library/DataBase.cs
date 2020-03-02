@@ -138,9 +138,12 @@ namespace Library
                 string[] line1 = filas[0].Split(',');
 
                 string adminName = line1[0];
-
+               
                 string pass = line1[1];
 
+                Admin admiin = new Admin(adminName,pass);
+
+                admin = admiin;
                 Boolean newTable=true;
 
                 for (int i =1; i<filas.Length; i++) {
@@ -161,11 +164,6 @@ namespace Library
                             newTable = false;
                             tab = new Table(tableName);
 
-
-
-
-
-
                             String[] line = filas[i + 1].Split(',');
                             string columnName = line[0];
                             string datat = line[1];
@@ -180,8 +178,9 @@ namespace Library
                             }
 
                             tab.addToTable(columnName, tp, data);
+                            Tables.Add(columnName, tab);
                         }
-
+                     
                     }
                    
                     }
@@ -215,7 +214,7 @@ namespace Library
             return tipo;
 
         }
-        public void deletefile()
+        public void deletefile(string name)
         {
             File.Delete(name);
         }
