@@ -75,8 +75,50 @@ namespace Library
         
         }
 
-        public IList<int> where(string tableName, string columnName, Type type, string valueToCompare)
+        public IList<int> where(string tableName, string columnName, Operator op, string valueToCompare)
         {
+            if (Tables.ContainsKey(tableName))
+            {
+                Table table = Tables[tableName];
+
+                if (table.Columns.ContainsKey(columnName))
+                {
+                    Column column = table.Columns[columnName];
+
+                    string operatoor = operatorTostring(op);
+
+                    IList<string> list = column.list;
+
+
+                    //hacer el if dentro del forech y crear un metodo para comparar el valor de la lista con el valor a comparar el operador y el tipo de la columna
+                    if (column.ColumnType.Equals("Int"))
+                    {
+                        foreach(string item in column.list)
+                        {
+
+
+
+                        }
+
+
+                    }
+
+
+                }
+                else
+                {
+
+                }
+
+            }
+            else
+            {
+
+            }
+
+
+
+
             return null;
         }
 
@@ -191,6 +233,28 @@ namespace Library
             
         
        }
+
+        public string operatorTostring(Operator op)
+        {
+            string operatoor = null;
+
+            if (op.Equals("Equal"))
+            {
+                operatoor = "==";
+            }
+            else if (op.Equals("Greater"))
+            {
+                operatoor = ">";
+            }
+            else if (op.Equals("Less"))
+            {
+                operatoor = "<";
+            }
+
+            return operatoor;
+        }
+
+
 
         public Type dataType(string loadData) {
 
