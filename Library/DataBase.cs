@@ -56,27 +56,30 @@ namespace Library
 
         }
 
-        public Dictionary<string, Column> select (IList<string> columnsNames, string tableName, string columnName, Operator op, string dataToCompare)
+        public Dictionary<string, Column> select(IList<string> columnsNames, string tableName, string columnName, Operator op, string dataToCompare)
         {
             return null;
         }
-        public void deleteData(string tableName,string columnName, Operator op, string ValueToCompare) 
-        {  
-        
+        public void deleteData(string tableName, string columnName, Operator op, string ValueToCompare)
+        {
+
         }
 
-        public void update(string tableName, string columnName, string dataToUpdate, Operator op, string valueToCompare )
-        { 
-        
+        public void update(string tableName, string columnName, string dataToUpdate, Operator op, string valueToCompare)
+        {
+
         }
 
-        public void insert(string nameTable, string nameCol, string dataToInsert) 
-        { 
-        
+        public void insert(string nameTable, string nameCol, string dataToInsert)
+        {
+
         }
 
+        //This code return a list of the positions the where should act
         public IList<int> where(string tableName, string columnName, Operator op, string valueToCompare)
         {
+            IList<int> returnList = new List<int>();
+
             if (Tables.ContainsKey(tableName))
             {
                 Table table = Tables[tableName];
@@ -85,45 +88,119 @@ namespace Library
                 {
                     Column column = table.Columns[columnName];
 
-                    string operatoor = operatorTostring(op);
-
                     IList<string> list = column.list;
+                    int i = 0;
 
-
-                    //hacer el if dentro del forech y crear un metodo para comparar el valor de la lista con el valor a comparar el operador y el tipo de la columna
-                    if (column.ColumnType.Equals("Int"))
+                    foreach (string item in list)
                     {
-                        foreach(string item in column.list)
+                        if (hasItem(column.ColumnType, item, op, valueToCompare) == true)
                         {
-
-
-
+                            returnList.Add(i);
                         }
 
-
+                        i++;
                     }
-
-
                 }
                 else
                 {
-
+                    //this should return an error from constatns but as we dont know how we will do the console we will implement this when we start with the console code
                 }
 
             }
             else
             {
-
+                //this should return an error from constatns but as we dont know how we will do the console we will implement this when we start with the console code
             }
 
 
 
-
-            return null;
+            return returnList;
         }
 
+        // A method that returns true if the 
+        public Boolean hasItem(Type type, string value, Operator op, string valueToCompare)
+        {
+            string operatoor = operatorTostring(op);
+            Boolean isTrue = false;
 
+            if (type == Type.Text)
+            {
+                if (operatoor.Equals("="))
+                {
+                    if (value.Equals(valueToCompare))
+                    {
+                        isTrue = true;
+                    }
+                }
+                else
+                {
+                    //error because a text cant be > or <
+                }
 
+            }
+
+            //for type true
+            else if (type == Type.Int)
+            {
+                int value1 = int.Parse(value);
+                int valueToCompare1 = int.Parse(valueToCompare);
+
+                if (operatoor.Equals("="))
+                {
+                    if (value1 == valueToCompare1)
+                    {
+                        isTrue = true;
+                    }
+
+                }
+                else if (operatoor.Equals("<"))
+                {
+                    if (value1 < valueToCompare1)
+                    {
+                        isTrue = true;
+                    }
+                }
+                else if (operatoor.Equals(">"))
+                {
+                    if (value1 > valueToCompare1)
+                    {
+                        isTrue = true;
+                    }
+                }
+            }
+
+            //For type double 
+            else if (type == Type.Double)
+            {
+                Double value1 = Double.Parse(value);
+                Double valueToCompare1 = Double.Parse(valueToCompare);
+
+                if (operatoor.Equals("="))
+                {
+                    if (value1 == valueToCompare1)
+                    {
+                        isTrue = true;
+                    }
+
+                }
+                else if (operatoor.Equals("<"))
+                {
+                    if (value1 < valueToCompare1)
+                    {
+                        isTrue = true;
+                    }
+                }
+                else if (operatoor.Equals(">"))
+                {
+                    if (value1 > valueToCompare1)
+                    {
+                        isTrue = true;
+                    }
+                }
+            }
+            return isTrue;
+        }
+    
 
 
         public void write()
@@ -238,15 +315,15 @@ namespace Library
         {
             string operatoor = null;
 
-            if (op.Equals("Equal"))
+            if (op == Operator.Equal)
             {
-                operatoor = "==";
+                operatoor = "=";
             }
-            else if (op.Equals("Greater"))
+            else if (op == Operator.Greater)
             {
                 operatoor = ">";
             }
-            else if (op.Equals("Less"))
+            else if (op == Operator.Less)
             {
                 operatoor = "<";
             }
@@ -271,13 +348,12 @@ namespace Library
             else {
 
                 tipo = Type.Double;
-                    }
-
-
+            }
 
             return tipo;
 
         }
+
         public void deletefile(string name)
         {
             File.Delete(name);

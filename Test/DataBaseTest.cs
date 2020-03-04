@@ -137,8 +137,9 @@ namespace Test
             db.load("BD");
 
             IList<int> lista = new List<int>();
+            lista.Add(0);
 
-            IList<int> list = db.where("table", "column", Library.Type.Text, "data");
+            IList<int> list = db.where("table", "column", Operator.Equal, "data");
 
             Assert.IsTrue(lista[0] == list[0]);
 
