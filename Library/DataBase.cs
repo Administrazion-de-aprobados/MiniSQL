@@ -56,9 +56,42 @@ namespace Library
 
         }
 
-        public Dictionary<string, Column> select(IList<string> columnsNames, string tableName, string columnName, Operator op, string dataToCompare)
+        // select all? no se si hay que hacerlo o no
+        public Table select(IList<string> columnsNames, string tableName, string columnName, Operator op, string dataToCompare)
         {
-            return null;
+            Table tableToReturn = new Table("select");
+            if (Tables.ContainsKey(tableName))
+            {
+                Table table = Tables[tableName];
+
+                IList<int> itemsPosition = where(tableName, columnName, op, dataToCompare);
+
+                foreach (string column in columnsNames)
+                {
+                    if (table.Columns.ContainsKey(column))
+                    {
+                        Column coluumn = table.Columns[column];
+
+                        List<string> list = new List<string>();
+
+                        foreach (int num in itemsPosition)
+                        {
+                            list.Add(coluumn.list[num]);
+                        }
+
+                        tableToReturn.addToTable(coluumn.Name, coluumn.ColumnType, list);
+                    }
+                    else
+                    {
+                        //error columns doesnt exist
+                    }
+                }
+            }
+            else
+            {
+                // error table doesnt exist
+            }
+            return tableToReturn;
         }
         public void deleteData(string tableName, string columnName, Operator op, string ValueToCompare)
         {
@@ -70,10 +103,11 @@ namespace Library
 
         }
 
-        public void insert(string nameTable, string nameCol, string dataToInsert)
+        public void insert(string nameTable, string nameCol, string dataToIInsert)
         {
 
         }
+
 
         //This code return a list of the positions the where should act
         public IList<int> where(string tableName, string columnName, Operator op, string valueToCompare)
