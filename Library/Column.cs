@@ -31,15 +31,19 @@ namespace Library
         }
 
 
-        public void deleteData(string data) { 
-        
+        public void deleteData( int i) {
+            list.RemoveAt(i);
         }
 
         public void updateData(string newdata, Operator op, string dataToChange) { 
+
+
             
         }
 
-        public void insert(string data ) { 
+        public void insert(string data ) {
+
+            list.Add(data);
         
         }
 

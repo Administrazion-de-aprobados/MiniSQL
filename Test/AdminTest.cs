@@ -9,7 +9,7 @@ using Library;
 namespace Test
 {
     [TestClass]
-    class AdminTest
+    public class AdminTest
     {
 
         [TestMethod]

@@ -11,7 +11,7 @@ namespace Test
     [TestClass]
     public class ColumnTest
     {
-        [TestMethod]
+        //[TestMethod]
         public void searchData()
         {
             BDcreation.BDcreatioon();
@@ -21,7 +21,7 @@ namespace Test
 
         }
 
-        [TestMethod]
+       // [TestMethod]
         public void deleteData()
         {
             BDcreation.BDcreatioon();
@@ -30,11 +30,11 @@ namespace Test
 
             Table table = db.Tables["table"];
             Column column = table.Columns["column"];
-            column.deleteData("data");
+            column.deleteData(0);
             Assert.IsTrue(column.list[0]!="data");
         }
 
-        [TestMethod]
+       // [TestMethod]
         public void updateData()
         {
             BDcreation.BDcreatioon();
@@ -53,7 +53,7 @@ namespace Test
             Assert.IsFalse(data == newdata);
         }
 
-        [TestMethod]
+       // [TestMethod]
         public void insert()
         {
             BDcreation.BDcreatioon();

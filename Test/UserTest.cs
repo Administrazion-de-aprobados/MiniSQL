@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Test
 {
     [TestClass]
-    class UserTest
+   public class UserTest
     {
         [TestMethod]
         public Boolean searchPrivilegeTable()
