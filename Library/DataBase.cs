@@ -65,13 +65,50 @@ namespace Library
 
         }
 
-        public void update(string tableName, string columnName, string dataToUpdate, Operator op, string valueToCompare)
+        public void update(string tableName, string columnName, string newData, Operator op, string valueToCompare)
         {
+
+            if (Tables.ContainsKey(tableName)) {
+
+                Table tabTables = Tables[tableName];
+
+                Dictionary<string,Column> tabColumn = tabTables.Columns;
+
+                if (tabColumn.ContainsKey(columnName)) {
+
+                    Column col = tabColumn[columnName];
+
+                   //IList<string> dataList = col.list;
+
+                    IList<int> position = where(tableName,columnName,op, valueToCompare);
+
+                    foreach (int i in position) {
+
+                       //remplace into the list from the column hashtable
+
+                    
+                    }
+                    
+
+
+
+
+                
+                
+                }
+
+
+
+
+            }
 
         }
 
         public void insert(string nameTable, string nameCol, string dataToInsert)
         {
+
+
+
 
         }
 
