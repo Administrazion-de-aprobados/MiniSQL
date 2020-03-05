@@ -93,7 +93,7 @@ namespace Library
 
                     foreach (string item in list)
                     {
-                        if (hasItem(column.ColumnType, item, op, valueToCompare) == true)
+                        if (compareValues(column.ColumnType, item, op, valueToCompare) == true)
                         {
                             returnList.Add(i);
                         }
@@ -118,7 +118,7 @@ namespace Library
         }
 
         // A method that returns true if the 
-        public Boolean hasItem(Type type, string value, Operator op, string valueToCompare)
+        public Boolean compareValues(Type type, string value, Operator op, string valueToCompare)
         {
             string operatoor = operatorTostring(op);
             Boolean isTrue = false;
@@ -139,69 +139,58 @@ namespace Library
 
             }
 
-            //for type true
-            else if (type == Type.Int)
-            {
-                int value1 = int.Parse(value);
-                int valueToCompare1 = int.Parse(valueToCompare);
-
-                if (operatoor.Equals("="))
-                {
-                    if (value1 == valueToCompare1)
-                    {
-                        isTrue = true;
-                    }
-
-                }
-                else if (operatoor.Equals("<"))
-                {
-                    if (value1 < valueToCompare1)
-                    {
-                        isTrue = true;
-                    }
-                }
-                else if (operatoor.Equals(">"))
-                {
-                    if (value1 > valueToCompare1)
-                    {
-                        isTrue = true;
-                    }
-                }
-            }
-
-            //For type double 
+            //for type int or double
             else if (type == Type.Double)
             {
                 Double value1 = Double.Parse(value);
                 Double valueToCompare1 = Double.Parse(valueToCompare);
 
-                if (operatoor.Equals("="))
-                {
-                    if (value1 == valueToCompare1)
-                    {
-                        isTrue = true;
-                    }
+                isTrue = compareTwoNumber<Double>(value1, operatoor, valueToCompare1);
 
-                }
-                else if (operatoor.Equals("<"))
-                {
-                    if (value1 < valueToCompare1)
-                    {
-                        isTrue = true;
-                    }
-                }
-                else if (operatoor.Equals(">"))
-                {
-                    if (value1 > valueToCompare1)
-                    {
-                        isTrue = true;
-                    }
-                }
+            }
+            else if(type == Type.Int)
+            {
+                int value1 = int.Parse(value);
+                int valueToCompare1 = int.Parse(valueToCompare);
+
+                isTrue = compareTwoNumber<int>(value1, operatoor, valueToCompare1);
+
             }
             return isTrue;
         }
-    
 
+        //This method compares two dobles and depending of the comparator will return true or false
+        public Boolean compareTwoNumber<T>(T number1, string op,T number2) where T : System.IComparable<T>
+        {
+            Boolean isTrue = false;
+
+            if (op.Equals("="))
+            {
+                if (number1.CompareTo(number2)==0)
+                {
+                    isTrue = true;
+                }
+
+            }
+            else if (op.Equals("<"))
+            {
+                if (number1.CompareTo(number2) < 0)
+                {
+                    isTrue = true;
+                }
+            }
+            else if (op.Equals(">"))
+            {
+                if (number1.CompareTo(number2) > 0)
+                {
+                    isTrue = true;
+                }
+            }
+
+            return isTrue;
+        }
+    
+            
 
         public void write()
         {
