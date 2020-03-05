@@ -60,7 +60,7 @@ namespace Test
 
         }
 
-      //  [TestMethod]
+      //[TestMethod]
         public void deleteData()
         {
 
