@@ -76,7 +76,7 @@ namespace Test
 
         }
 
-       // [TestMethod]
+        [TestMethod]
         public void select()
         {
             BDcreation.BDcreatioon();
@@ -87,9 +87,9 @@ namespace Test
             IList<string> list = new List<string>();
             list.Add("column");
 
-            Dictionary<string, Column> table = db.select(list, "table", "column", Operator.Equal, "data");
+           Table table = db.select(list, "table", "column", Operator.Equal, "data");
 
-            Assert.IsTrue(table.ContainsKey("column"));
+            Assert.IsTrue(table.Columns.ContainsKey("column"));
 
         }
 
