@@ -9,7 +9,7 @@ using Library;
 namespace Test
 {
     [TestClass]
-     class TableTest
+     public class TableTest
     {
         [TestMethod]
         public void searchColumnName()
@@ -26,7 +26,7 @@ namespace Test
 
         }
 
-        [TestMethod]
+       // [TestMethod]
         public void deleteColumn()
         {
             BDcreation.BDcreatioon();
@@ -38,7 +38,7 @@ namespace Test
             Assert.IsFalse(table.Columns.ContainsKey("column"));
         }
 
-        [TestMethod]
+       // [TestMethod]
         public void update()
         {
             BDcreation.BDcreatioon();
@@ -58,7 +58,7 @@ namespace Test
 
         }
 
-        [TestMethod]
+     //   [TestMethod]
         public void insert()
         {
             BDcreation.BDcreatioon();

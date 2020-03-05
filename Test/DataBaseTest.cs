@@ -35,7 +35,7 @@ namespace Test
 
         }
 
-        [TestMethod]
+       // [TestMethod]
         public void searchColumnName()
         {
             BDcreation.BDcreatioon();
@@ -45,7 +45,7 @@ namespace Test
             Assert.IsTrue(db.searchColumnName("column"));
         }
 
-        [TestMethod]
+       // [TestMethod]
         public void deleteColumn()
         {
 
@@ -60,7 +60,7 @@ namespace Test
 
         }
 
-        [TestMethod]
+      //  [TestMethod]
         public void deleteData()
         {
 
@@ -76,7 +76,7 @@ namespace Test
 
         }
 
-        [TestMethod]
+       // [TestMethod]
         public void select()
         {
             BDcreation.BDcreatioon();
@@ -94,7 +94,7 @@ namespace Test
         }
 
 
-        [TestMethod]
+      //  [TestMethod]
         public void update()
         {
             BDcreation.BDcreatioon();
@@ -112,7 +112,7 @@ namespace Test
             Assert.IsFalse("newdata" == newdata);
         }
 
-        [TestMethod]
+       // [TestMethod]
         public void insert()
         {
 
