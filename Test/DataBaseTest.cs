@@ -86,9 +86,12 @@ namespace Test
 
             IList<string> list = new List<string>();
             list.Add("column");
+            list.Add("columnIntNumbers");
 
            Table table = db.select(list, "table", "column", Operator.Equal, "data");
+           
 
+            Assert.IsTrue(table.Columns["columnIntNumbers"].list.Contains("1"));
             Assert.IsTrue(table.Columns.ContainsKey("column"));
 
         }
