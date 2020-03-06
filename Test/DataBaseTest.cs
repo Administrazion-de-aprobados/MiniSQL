@@ -132,6 +132,14 @@ namespace Test
         [TestMethod]
         public void where()
         {
+            Assert.IsTrue(whereEqual());
+            Assert.IsTrue(whereGreater());
+            Assert.IsTrue(whereLess());
+        }
+
+        public Boolean whereEqual()
+        {
+            Boolean isTrue = false;
             BDcreation.BDcreatioon();
             DataBase db = new DataBase();
             db.load("BD");
@@ -141,13 +149,54 @@ namespace Test
 
             IList<int> list = db.where("table", "column", Operator.Equal, "data");
 
-            Assert.IsTrue(lista[0] == list[0]);
-
-
+            if(lista[0] == list[0])
+            {
+                isTrue = true;
+            }
+            return isTrue;
         }
 
+        public Boolean whereGreater()
+        {
+            Boolean isTrue = false;
+            BDcreation.BDcreatioon();
+            DataBase db = new DataBase();
+            db.load("BD");
 
+            IList<int> lista = new List<int>();
+            lista.Add(2);
+            lista.Add(3);
 
+            IList<int> list = db.where("table", "columnIntNumbers", Operator.Greater, "2");
+
+            if(lista[0] == list[0] && lista[1] == list[1])
+            {
+                isTrue = true;
+            }
+
+            return isTrue;
+        }
+
+        public Boolean whereLess()
+        {
+            Boolean isTrue = false;
+            BDcreation.BDcreatioon();
+            DataBase db = new DataBase();
+            db.load("BD");
+
+            IList<int> lista = new List<int>();
+            lista.Add(0);
+            lista.Add(1);
+
+            IList<int> list = db.where("table", "columnDoubleNumbers", Operator.Less, "3.00");
+
+            if (lista[0] == list[0] && lista[1] == list[1])
+            {
+                isTrue = true;
+            }
+
+            return isTrue;
+        }
 
 
         [TestMethod]

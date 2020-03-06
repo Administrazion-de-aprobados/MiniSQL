@@ -269,70 +269,60 @@ namespace Library
 
         }
 
-       public void load(string txtName) 
+        public void load(string txtName)
         {
 
-            
-            if(File.Exists(txtName)){
+            if (File.Exists(txtName))
+            {
 
                 string[] filas = File.ReadAllLines(txtName);
 
                 string[] line1 = filas[0].Split(',');
 
                 string adminName = line1[0];
-               
+
                 string pass = line1[1];
 
-                Admin admiin = new Admin(adminName,pass);
+                Admin admiin = new Admin(adminName, pass);
 
                 admin = admiin;
-                Boolean newTable=true;
+                Boolean newTable = true;
 
-                for (int i =1; i<filas.Length; i++) {
-                    Table tab = null;
-                    string tableName;
-
-                    if (filas[i] == "")
+                for (int i = 1; i < filas.Length; i++)
+                {
+                    string tableName = filas[i];
+                    Table tab = new Table(tableName);
+                    i++;
+                    while (filas[i] != " ")
                     {
-                        newTable = true;
-                    }
+                        String[] line = filas[i].Split(',');
+                        string columnName = line[0];
+                        string datat = line[1];
+                        datat = datat.ToLower();
+                        List<string> data = new List<string>();
 
-                    else
-                    {
-                        if (newTable == true)
+                        Type tp = dataType(datat);
+                        for (int j = 2; j < line.Length; j++)
                         {
-
-                            tableName = filas[i];
-                            newTable = false;
-                            tab = new Table(tableName);
-
-                            String[] line = filas[i + 1].Split(',');
-                            string columnName = line[0];
-                            string datat = line[1];
-                            datat = datat.ToLower();
-                            List<string> data = new List<string>();
-
-                            Type tp = dataType(datat);
-                            for (int j = 2; j < line.Length; j++)
-                            {
-
-                                data.Add(line[j]);
-                            }
-
-                            tab.addToTable(columnName, tp, data);
-                            Tables.Add(tableName, tab);
+                            data.Add(line[j]);
                         }
-                     
-                    }
-                   
-                    }
 
+                        tab.addToTable(columnName, tp, data);
+                        i++;
+                    }
+                    Tables.Add(tableName, tab);
                 }
+            }
+        }
+                   
+                    
+
+                
 
 
             
         
-       }
+       
 
         public string operatorTostring(Operator op)
         {
