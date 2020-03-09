@@ -45,22 +45,9 @@ namespace Test
             Assert.IsTrue(db.searchColumnName("column"));
         }
 
-       // [TestMethod]
-        public void deleteColumn()
-        {
-
-            BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
 
 
-            db.deleteColumn("table", "column");
-            Table table = db.Tables["table"];
-            Assert.IsFalse(table.Columns.ContainsKey("column"));
-
-        }
-
-      //  [TestMethod]
+        [TestMethod]
         public void deleteData()
         {
 

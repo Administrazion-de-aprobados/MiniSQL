@@ -34,7 +34,6 @@ namespace Library
         }
 
 
-
         public void createTable(string name)
         {
             Table table = new Table(name);
@@ -46,15 +45,6 @@ namespace Library
             Tables.Remove(name);
         }
 
-        public Boolean searchColumnName(string name)
-        {
-            return false;
-        }
-
-        public void deleteColumn(string tablename, string name)
-        {
-
-        }
 
         // select all? no se si hay que hacerlo o no
         public Table select(IList<string> columnsNames, string tableName, string columnName, Operator op, string dataToCompare)
@@ -93,8 +83,26 @@ namespace Library
             }
             return tableToReturn;
         }
+
+
         public void deleteData(string tableName, string columnName, Operator op, string ValueToCompare)
         {
+
+            if (Tables.ContainsKey(tableName))
+            {
+                Table table = Tables[tableName];
+
+                IList<int> list = where(tableName, columnName, op, ValueToCompare);
+
+                foreach (int position in list)
+                {
+                    foreach (KeyValuePair<string, Column> key in table.Columns)
+                    {
+                        key.Value.deleteData(position);
+                    }
+                }
+
+            }
 
         }
 
@@ -105,6 +113,8 @@ namespace Library
 
         public void insert(string nameTable, string nameCol, string dataToIInsert)
         {
+
+
 
         }
 
