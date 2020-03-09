@@ -101,21 +101,75 @@ namespace Library
                     }
                 }
 
+        public void update(string tableName, string columnName, string newData, Operator op, string valueToCompare)
+        {
+
+            if (Tables.ContainsKey(tableName)) {
+
+                Table tabTables = Tables[tableName];
+
+                Dictionary<string,Column> tabColumn = tabTables.Columns;
+
+                if (tabColumn.ContainsKey(columnName)) {
+
+                    Column col = tabColumn[columnName];
+
+                   //IList<string> dataList = col.list;
+
+                    //this list contais the positions of the data to change
+                    IList<int> position = where(tableName,columnName,op, valueToCompare);
+
+                    foreach (int i in position) {
+
+                        //renplace into the list from the column hashtable
+
+                        col.list[i] = newData;
+                        
+                    }
+                                    
+                
+                }
+
             }
 
         }
 
-        public void update(string tableName, string columnName, string dataToUpdate, Operator op, string valueToCompare)
+        public void insert(string nameTable, List<string> dataToInsert)
         {
 
-        }
+            if (Tables.ContainsKey(nameTable))
+            {
 
-        public void insert(string nameTable, string nameCol, string dataToIInsert)
-        {
+                Table tabTables = Tables[nameTable];
 
+                Dictionary<string, Column> tabColumn = tabTables.Columns;
 
+                Dictionary<string, Column>.KeyCollection col = tabColumn.Keys;
 
-        }
+                int i = 0;
+               
+                    foreach (var f in col)
+                    {
+
+                    Boolean parar = true;
+                        Column column = tabColumn[f];
+
+                    while (parar == true && i < dataToInsert.Count)
+                    {
+
+                        string dataInsert = dataToInsert[i];
+
+                        column.list.Add(dataInsert);
+
+                        parar = false;
+                    }
+
+                    i++;
+
+                    }
+                }
+            }
+            
 
 
         //This code return a list of the positions the where should act

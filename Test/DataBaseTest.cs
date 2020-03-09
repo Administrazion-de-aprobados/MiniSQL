@@ -75,7 +75,7 @@ namespace Test
         }
 
 
-      //  [TestMethod]
+        [TestMethod]
         public void update()
         {
             BDcreation.BDcreatioon();
@@ -84,30 +84,34 @@ namespace Test
 
             Table table = db.Tables["table"];
             Column column = table.Columns["column"];
-            string data = column.list[1];
+            string data = column.list[0];
 
             db.update("table", "column", "newdata",Operator.Equal, "data");
 
-            string newdata = column.list[1];
+            string newdata = column.list[0];
 
-            Assert.IsFalse("newdata" == newdata);
+            Assert.IsTrue("newdata" == newdata);
         }
 
-       // [TestMethod]
+        [TestMethod]
         public void insert()
         {
 
             BDcreation.BDcreatioon();
             DataBase db = new DataBase();
             db.load("BD");
+            List<string> lista = new List<string>();
+            lista.Add("datos");
+            lista.Add("3");
+            lista.Add("2.3");
 
-            db.insert("table", "column", "newData");
+            db.insert("table", lista);
 
 
             Table table = db.Tables["table"];
-            Column column = table.Columns["column"];
+            Column column = table.Columns["columnIntNumbers"];
 
-            Assert.IsTrue(column.list.Contains("newData"));
+            Assert.IsTrue(column.list.Contains("3"));
         }
 
         [TestMethod]
