@@ -98,13 +98,42 @@ namespace Library
 
         }
 
-        public void insert(string nameTable, string nameCol, string dataToInsert)
+        public void insert(string nameTable, List<string> dataToInsert)
         {
 
+            if (Tables.ContainsKey(nameTable))
+            {
 
+                Table tabTables = Tables[nameTable];
 
+                Dictionary<string, Column> tabColumn = tabTables.Columns;
 
-        }
+                Dictionary<string, Column>.KeyCollection col = tabColumn.Keys;
+
+                int i = 0;
+               
+                    foreach (var f in col)
+                    {
+
+                    Boolean parar = true;
+                        Column column = tabColumn[f];
+
+                    while (parar == true && i < dataToInsert.Count)
+                    {
+
+                        string dataInsert = dataToInsert[i];
+
+                        column.list.Add(dataInsert);
+
+                        parar = false;
+                    }
+
+                    i++;
+
+                    }
+                }
+            }
+            
 
         //This code return a list of the positions the where should act
         public IList<int> where(string tableName, string columnName, Operator op, string valueToCompare)
