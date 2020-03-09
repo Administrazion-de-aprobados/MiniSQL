@@ -18,10 +18,7 @@ namespace Library
             Columns = new Dictionary<string, Column>();
 
         }
-        public void searchColumnName(string name)
-        {
-
-        }
+        
         public void addToTable(string name, Type type, List<String> columnValues) {
 
             Column column = new Column(name, type);
@@ -34,18 +31,6 @@ namespace Library
             
             Column column = new Column(name, type);
             Columns.Add(name, column);
-
-        }
-        public void deleteColumn(string name)
-        {
-
-        }
-        public void update(string columnName, string dataToUpdate, Operator op, String valueToCompare)
-        {
-
-        }
-        public void insert(string columnName, string data)
-        {
 
         }
     }

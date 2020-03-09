@@ -46,7 +46,6 @@ namespace Library
         }
 
 
-        // select all? no se si hay que hacerlo o no
         public Table select(IList<string> columnsNames, string tableName, string columnName, Operator op, string dataToCompare)
         {
             Table tableToReturn = new Table("select");

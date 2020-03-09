@@ -35,15 +35,6 @@ namespace Test
 
         }
 
-       // [TestMethod]
-        public void searchColumnName()
-        {
-            BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
-
-            Assert.IsTrue(db.searchColumnName("column"));
-        }
 
 
 

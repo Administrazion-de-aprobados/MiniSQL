@@ -19,11 +19,6 @@ namespace Library
             Name = name;
         }
 
-        public void searchData(Operator op) { 
-        
-            
-        }
-
         public void addColumns(List<String> columnValues) {
             foreach (string value in columnValues) {
                 list.Add(value);
@@ -35,11 +30,6 @@ namespace Library
             list.RemoveAt(i);
         }
 
-        public void updateData(string newdata, Operator op, string dataToChange) { 
-
-
-            
-        }
 
         public void insert(string data ) {
 
