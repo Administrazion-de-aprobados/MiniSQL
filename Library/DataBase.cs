@@ -80,25 +80,19 @@ namespace Library
 
                    //IList<string> dataList = col.list;
 
+                    //this list contais the positions of the data to change
                     IList<int> position = where(tableName,columnName,op, valueToCompare);
 
                     foreach (int i in position) {
 
-                       //remplace into the list from the column hashtable
+                        //renplace into the list from the column hashtable
 
-                    
+                        col.list[i] = newData;
+                        
                     }
-                    
-
-
-
-
-                
+                                    
                 
                 }
-
-
-
 
             }
 

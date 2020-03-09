@@ -94,7 +94,7 @@ namespace Test
         }
 
 
-      //  [TestMethod]
+        [TestMethod]
         public void update()
         {
             BDcreation.BDcreatioon();
@@ -103,13 +103,13 @@ namespace Test
 
             Table table = db.Tables["table"];
             Column column = table.Columns["column"];
-            string data = column.list[1];
+            string data = column.list[0];
 
             db.update("table", "column", "newdata",Operator.Equal, "data");
 
-            string newdata = column.list[1];
+            string newdata = column.list[0];
 
-            Assert.IsFalse("newdata" == newdata);
+            Assert.IsTrue("newdata" == newdata);
         }
 
        // [TestMethod]
