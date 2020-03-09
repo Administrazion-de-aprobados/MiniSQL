@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    public enum Operator { Greater, Less, Equal};
-    public enum Type {Text, Int, Double};
+    public enum Operator { Greater, Less, Equal };
+    public enum Type { Text, Int, Double };
 
 
     public class DataBase
@@ -100,34 +100,39 @@ namespace Library
                         key.Value.deleteData(position);
                     }
                 }
+            }
+        }
 
         public void update(string tableName, string columnName, string newData, Operator op, string valueToCompare)
         {
 
-            if (Tables.ContainsKey(tableName)) {
+            if (Tables.ContainsKey(tableName))
+            {
 
                 Table tabTables = Tables[tableName];
 
-                Dictionary<string,Column> tabColumn = tabTables.Columns;
+                Dictionary<string, Column> tabColumn = tabTables.Columns;
 
-                if (tabColumn.ContainsKey(columnName)) {
+                if (tabColumn.ContainsKey(columnName))
+                {
 
                     Column col = tabColumn[columnName];
 
-                   //IList<string> dataList = col.list;
+                    //IList<string> dataList = col.list;
 
                     //this list contais the positions of the data to change
-                    IList<int> position = where(tableName,columnName,op, valueToCompare);
+                    IList<int> position = where(tableName, columnName, op, valueToCompare);
 
-                    foreach (int i in position) {
+                    foreach (int i in position)
+                    {
 
                         //renplace into the list from the column hashtable
 
                         col.list[i] = newData;
-                        
+
                     }
-                                    
-                
+
+
                 }
 
             }
@@ -147,12 +152,12 @@ namespace Library
                 Dictionary<string, Column>.KeyCollection col = tabColumn.Keys;
 
                 int i = 0;
-               
-                    foreach (var f in col)
-                    {
+
+                foreach (var f in col)
+                {
 
                     Boolean parar = true;
-                        Column column = tabColumn[f];
+                    Column column = tabColumn[f];
 
                     while (parar == true && i < dataToInsert.Count)
                     {
@@ -166,10 +171,12 @@ namespace Library
 
                     i++;
 
-                    }
                 }
             }
-            
+        }
+
+
+
 
 
         //This code return a list of the positions the where should act
@@ -245,7 +252,7 @@ namespace Library
                 isTrue = compareTwoNumber<Double>(value1, operatoor, valueToCompare1);
 
             }
-            else if(type == Type.Int)
+            else if (type == Type.Int)
             {
                 int value1 = int.Parse(value);
                 int valueToCompare1 = int.Parse(valueToCompare);
@@ -257,13 +264,13 @@ namespace Library
         }
 
         //This method compares two dobles and depending of the comparator will return true or false
-        public Boolean compareTwoNumber<T>(T number1, string op,T number2) where T : System.IComparable<T>
+        public Boolean compareTwoNumber<T>(T number1, string op, T number2) where T : System.IComparable<T>
         {
             Boolean isTrue = false;
 
             if (op.Equals("="))
             {
-                if (number1.CompareTo(number2)==0)
+                if (number1.CompareTo(number2) == 0)
                 {
                     isTrue = true;
                 }
@@ -286,15 +293,15 @@ namespace Library
 
             return isTrue;
         }
-    
-            
+
+
 
         public void write()
         {
-             
-            if(File.Exists(Name))
+
+            if (File.Exists(Name))
             {
-                
+
                 deletefile(Name);
             }
 
@@ -303,23 +310,23 @@ namespace Library
 
             //admin name and password for the txt
             sw.WriteLine(admin.Name + "," + admin.Password);
-            
+
             //iterates the keys from the hastable
-            foreach(KeyValuePair<string, Table> entry in Tables)
+            foreach (KeyValuePair<string, Table> entry in Tables)
             {
                 string tableName = entry.Key;
                 sw.WriteLine(tableName);
 
                 Table table = entry.Value;
-                foreach(KeyValuePair<string, Column> entry2 in table.Columns)
+                foreach (KeyValuePair<string, Column> entry2 in table.Columns)
                 {
                     string columnName = entry2.Key; //the key from the line 
                     Column column = entry2.Value;//the value from the line 
                     string line = columnName + "," + column.ColumnType;
 
-                    foreach(string value in column.list)
+                    foreach (string value in column.list)
                     {
-                         line = line +","+ value;
+                        line = line + "," + value;
                     }
                     sw.WriteLine(line);
 
@@ -377,15 +384,15 @@ namespace Library
                 }
             }
         }
-                   
-                    
-
-                
 
 
-            
-        
-       
+
+
+
+
+
+
+
 
         public string operatorTostring(Operator op)
         {
@@ -409,7 +416,8 @@ namespace Library
 
 
 
-        public Type dataType(string loadData) {
+        public Type dataType(string loadData)
+        {
 
             Type tipo = Type.Text;
             if (loadData == "text")
@@ -421,7 +429,9 @@ namespace Library
             {
                 tipo = Type.Int;
             }
-            else {
+
+            else
+            {
 
                 tipo = Type.Double;
             }
@@ -434,5 +444,9 @@ namespace Library
         {
             File.Delete(name);
         }
+
     }
 }
+
+
+
