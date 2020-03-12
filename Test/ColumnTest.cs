@@ -35,7 +35,7 @@ namespace Test
         }
 
        // [TestMethod]
-        public void updateData()
+        /*public void updateData()
         {
             BDcreation.BDcreatioon();
             DataBase db = new DataBase();
@@ -52,7 +52,7 @@ namespace Test
 
             Assert.IsFalse(data == newdata);
         }
-
+        */
        // [TestMethod]
         public void insert()
         {

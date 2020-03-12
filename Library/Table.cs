@@ -19,18 +19,30 @@ namespace Library
 
         }
         
-        public void addToTable(string name, Type type, List<String> columnValues) {
+        public void addToTable(string name, Type type, List<string> columnValues) {
 
-            Column column = new Column(name, type);
+            Column column;
+
+            if (!Columns.ContainsKey(name))
+            {
+                column = new Column(name, type);
+                Columns.Add(name, column);
+
+            }
+            else {
+                column = Columns[name];
+            }
             column.addColumns(columnValues);
-            Columns.Add(name,column);
-           
-            
-        }
+
+            }
         public void createColumn(string name, Type type) {
-            
-            Column column = new Column(name, type);
-            Columns.Add(name, column);
+
+            if (!Columns.ContainsKey(name))
+            {
+                Column column = new Column(name, type);
+                Columns.Add(name, column);
+
+            }
 
         }
     }
