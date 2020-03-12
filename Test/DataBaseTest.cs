@@ -30,7 +30,7 @@ namespace Test
 
             db.dropTable("table");
 
-           Assert.IsFalse(db.Tables.ContainsKey("table"));
+            Assert.IsFalse(db.Tables.ContainsKey("table"));
 
 
         }
@@ -66,8 +66,8 @@ namespace Test
             list.Add("column");
             list.Add("columnIntNumbers");
 
-           Table table = db.select(list, "table", "column", Operator.Equal, "data");
-           
+            Table table = db.select(list, "table", "column", Operator.Equal, "data");
+
 
             Assert.IsTrue(table.Columns["columnIntNumbers"].list.Contains("1"));
             Assert.IsTrue(table.Columns.ContainsKey("column"));
@@ -86,7 +86,7 @@ namespace Test
             Column column = table.Columns["column"];
             string data = column.list[0];
 
-            db.update("table", "column", "newdata",Operator.Equal, "data");
+            db.update("table", "column", "newdata", Operator.Equal, "data");
 
             string newdata = column.list[0];
 
@@ -134,7 +134,7 @@ namespace Test
 
             IList<int> list = db.where("table", "column", Operator.Equal, "data");
 
-            if(lista[0] == list[0])
+            if (lista[0] == list[0])
             {
                 isTrue = true;
             }
@@ -154,7 +154,7 @@ namespace Test
 
             IList<int> list = db.where("table", "columnIntNumbers", Operator.Greater, "2");
 
-            if(lista[0] == list[0] && lista[1] == list[1])
+            if (lista[0] == list[0] && lista[1] == list[1])
             {
                 isTrue = true;
             }
@@ -207,7 +207,7 @@ namespace Test
             {
                 Table table1 = db.Tables["table"];
 
-                if (table1.Columns.ContainsKey("column")) 
+                if (table1.Columns.ContainsKey("column"))
                 {
                     Column column1 = table1.Columns["column"];
                     if (column1.list.Contains("data"))
@@ -252,6 +252,70 @@ namespace Test
 
         }
 
+        [TestMethod]
+        public void operatorTostringEqual()
+        {
+            DataBase database = new DataBase("BD", "admin", "admin");
+            Operator op = Operator.Equal;
 
+            Assert.IsTrue(database.operatorTostring(op).Equals("="));
+
+
+        }
+        [TestMethod]
+        public void operatorTostringGreater()
+        {
+            DataBase database = new DataBase("BD", "admin", "admin");
+            Operator op = Operator.Greater;
+
+            Assert.IsTrue(database.operatorTostring(op).Equals(">"));
+
+
+        }
+        [TestMethod]
+        public void operatorTostringLess()
+        {
+            DataBase database = new DataBase("BD", "admin", "admin");
+            Operator op = Operator.Less;
+
+            Assert.IsTrue(database.operatorTostring(op).Equals("<"));
+
+
+        }
+
+        [TestMethod]
+        public void dataTypeText()
+        {
+            DataBase database = new DataBase("BD", "admin", "admin");
+            string tipo = "text";
+
+           
+            Assert.IsTrue(database.dataType(tipo).Equals(Library.Type.Text));
+
+
+        }
+        [TestMethod]
+        public void dataTypeInt()
+        {
+            DataBase database = new DataBase("BD", "admin", "admin");
+            string tipo = "int";
+
+
+            Assert.IsTrue(database.dataType(tipo).Equals(Library.Type.Int));
+
+
+        }
+        [TestMethod]
+        public void dataTypeDouble()
+        {
+            DataBase database = new DataBase("BD", "admin", "admin");
+            string tipo = "double";
+
+
+            Assert.IsTrue(database.dataType(tipo).Equals(Library.Type.Double));
+
+
+        }
     }
+
 }
