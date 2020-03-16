@@ -42,6 +42,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin.cs" />
+    <Compile Include="Insert.cs" />
+    <Compile Include="Update.cs" />
+    <Compile Include="Delete.cs" />
+    <Compile Include="Select.cs" />
+    <Compile Include="Sentence.cs" />
+    <Compile Include="Query.cs" />
     <Compile Include="Column.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DataBase.cs" />
