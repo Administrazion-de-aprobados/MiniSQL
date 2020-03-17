@@ -8,9 +8,21 @@ namespace Library
 {
     public class Select : Sentence
     {
+        string tipoSentence;
+        string tableName;
+        Where sentenceWhere;
+        List<string> listColumns;
+        public Select(string tipo, string table , Where where,List<string> columns) : base(tipo, table)
+        {
 
-        public Select() { 
-        
+            tipoSentence = tipo;
+            tableName = table;
+            sentenceWhere = where;
+            listColumns = columns;
+
+
+
         }
+
     }
 }

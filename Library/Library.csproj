@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin.cs" />
+    <Compile Include="Where.cs" />
     <Compile Include="Insert.cs" />
     <Compile Include="Update.cs" />
     <Compile Include="Delete.cs" />
