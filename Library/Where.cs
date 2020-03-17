@@ -10,9 +10,9 @@ namespace Library
     public class Where
     {
 
-        string colData;
-        string col;
-        Operator op;
+        public string colData;
+        public string col;
+        public Operator op;
 
         public Where(string column, Operator ope, string data) {
 

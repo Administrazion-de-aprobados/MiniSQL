@@ -8,13 +8,13 @@ namespace Library
 {
     public class Insert: Sentence
     {
-        string tipoSentence;
-        string tableName;
-        List<string> row;
+        public string tipoSentence;
+        public string tableName;
+        public List<string> row;
         
-        public Insert(string tipo, string table,List<string> newRow) : base(tipo, table)
+        public Insert(string table,List<string> newRow) : base(table)
         {
-            tipoSentence = tipo;
+            tipoSentence = "INSERT";
             tableName = table;
             row=newRow;
         }

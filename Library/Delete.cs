@@ -9,14 +9,14 @@ namespace Library
 {
     public class Delete : Sentence
     {
-        string tipoSentence;
-        string tableName;
-        Where sentenceWhere;
+        public string tipoSentence;
+        public string tableName;
+        public Where sentenceWhere;
       
-        public Delete(string tipo, string table, Where where) : base(tipo, table)
+        public Delete( string table, Where where) : base( table)
         {
 
-            tipoSentence = tipo;
+            tipoSentence = "DELETE";
             tableName = table;
             sentenceWhere = where;
           

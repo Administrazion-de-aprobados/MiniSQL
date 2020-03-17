@@ -8,15 +8,15 @@ namespace Library
 {
     class Update: Sentence
     {
-        string tipoSentence;
-        string tableName;
-        Where sentenceWhere;
-        List<string> column;
-        List<string> newValue;
+        public string tipoSentence;
+        public string tableName;
+        public Where sentenceWhere;
+        public List<string> column;
+        public List<string> newValue;
 
-        public Update(string tipo, string table, List<string> col, List<string> newData, Where where) : base(tipo, table)
+        public Update(string table, List<string> col, List<string> newData, Where where) : base(table)
         {
-            tipoSentence = tipo;
+            tipoSentence = "UPDATE";
             tableName = table;
             sentenceWhere = where;
             column = col;

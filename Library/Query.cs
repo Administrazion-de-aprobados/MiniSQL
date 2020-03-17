@@ -12,33 +12,145 @@ namespace Library
 
         public static Sentence parse(String sentenc)
         {
-            String patterSelect = "SELECT\\s(\\*|\\w+[,*\\w+]*)\\sFROM\\s(\\w*)\\sWHERE\\s(\\w+[<|=|>]\\w+)";
-            String patterDelete = "DELETE\\sFROM\\s\\w+\\sWHERE\\s(\\w+[<|=|>]\\w+)";
-            String patternInsert = "INSERT\\sINTO\\s\\w+\\sVALUES\\s\\(\\w+(\\w*,*)*\\)";
-            String patternUpdate = "UPDATE\\s\\w+\\sSET\\s\\((\\w+=\\w+)(,*(\\w+=\\w+))*\\)\\sWHERE\\s(\\w+[<|=|>]\\w+)";
 
+
+            Sentence sentence = null;
+
+            String patterSelect = "SELECT\\s(\\*|\\w+(?:,*\\w+)*)\\sFROM\\s(\\w+)\\sWHERE\\s(\\w+[<|=|>]\\w+)";
+            String patterDelete = "DELETE\\sFROM\\s(\\w+)\\sWHERE\\s(\\w+[<|=|>]\\w+)";
+            String patternInsert = "INSERT\\sINTO\\s(\\w+)\\sVALUES\\s\\((\\w+[\\w*,*]*)\\)";
+            String patternUpdate = "UPDATE\\s(\\w+)\\sSET\\s(\\w+=\\w+(?:,*\\w+=\\w+)*)\\sWHERE\\s(\\w+[<|=|>]\\w+)";
+
+
+            // For the select
             if (Regex.IsMatch(sentenc, patterSelect))
             {
                 Match match = Regex.Match(sentenc, patterSelect);
 
                 List<String> list = new List<String>();
 
-                String columns = match.Groups[1].Value;
-                String[] split = columns.Split(',');
-                foreach (string i in split)
-                {
-                    list.Add(i);
-                }
+                // List of columns
+                list = stringToList(match.Groups[1].Value);
+                
+                // Table name
+                String table = match.Groups[2].Value;
 
+                // Where creation
+                Where where = stringToWhere(match.Groups[3].Value);
 
-            
-
+                // Select creation
+                sentence = new Select(table, list, where);
             }
 
 
+            // For the delete
+            if(Regex.IsMatch(sentenc, patterDelete))
+            {
+                Match match = Regex.Match(sentenc, patterDelete);
+                String table = match.Groups[1].Value;
+                Where where = stringToWhere(match.Groups[2].Value);
+
+                sentence = new Delete(table, where);
+            }
+
+            // For the insert
+            if(Regex.IsMatch(sentenc, patternInsert))
+            {
+                Match match = Regex.Match(sentenc, patternInsert);
+                String table = match.Groups[1].Value;
+
+                List<String> list = new List<String>();
+                // List of columns
+                list = stringToList(match.Groups[2].Value);
+
+                sentence = new Insert(table, list);
+            }
+
+            // For the update 
+            if (Regex.IsMatch(sentenc, patternUpdate))
+            {
+                Match match = Regex.Match(sentenc, patternInsert);
+                String table = match.Groups[1].Value;
 
 
-            return null;
+                List<String> list = new List<String>();
+                // List of columns
+                var tuple = listToTwoList(stringToList(match.Groups[2].Value));
+
+                List<string> colum = tuple.Item1;
+                List<string> values = tuple.Item2;
+
+                Where where = stringToWhere(match.Groups[3].Value);
+
+                sentence = new Update(table, colum, values, where);
+            }
+
+
+            return sentence;
         }
+
+
+        public static Operator stringToOperator(String op)
+        {
+            Operator operatoor = Operator.Equal;
+
+            if (op == "=")
+            { 
+                   operatoor = Operator.Equal;
+            }
+            else if (op == ">" )
+            {
+                operatoor = Operator.Greater;
+            }
+            else if (op == "<" )
+            {
+                operatoor = Operator.Less;
+            }
+
+            return operatoor;
+        }
+
+        public static Where stringToWhere(String input)
+        {
+            String column = input[0].ToString();
+            String ooperator = input[1].ToString();
+            String valueToCompare = input[2].ToString();
+
+            Operator op = stringToOperator(ooperator);
+
+            Where where = new Where(column, op, valueToCompare);
+
+            return where;
+        }
+
+        public static List<String> stringToList(String input)
+        {
+            List<String> list = new List<string>();
+
+            String[] splitedInput = input.Split(',');
+
+            foreach (string i in splitedInput)
+            {
+                list.Add(i);
+            }
+
+
+            return list;
+        }
+
+        public static Tuple<List<string>, List<string>> listToTwoList (List<string> list)
+        {
+            List<string> colum = new List<string>();
+            List<string> values = new List<string>();
+
+            foreach(string i in list)
+            {
+                colum.Add(i[0].ToString());
+                values.Add(i[2].ToString());
+            }
+
+            return Tuple.Create(colum, values);
+        }
+
     }
 }
