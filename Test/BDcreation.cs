@@ -46,6 +46,10 @@ namespace Test
 
             database.write();
 
+
+            Query.parse("SELECT hola,asd FROM table WHERE 1>1");
+
+
         }
 
 
