@@ -9,9 +9,10 @@ namespace Library
     public class Sentence
     {
 
-        public Sentence()
+        public Sentence(string type, string table)
         {
-
+            string sentenceType = type;
+            string tableName = table;
         }
     }
 }
