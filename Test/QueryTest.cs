@@ -7,29 +7,118 @@ using Library;
 
 namespace Test
 {
-    //[TestClass]
-    class QueryTest
+    [TestClass]
+    public class QueryTest
     { 
-        //[TestMethod]
+        [TestMethod]
         public void parse()
         {
-            BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
 
-
+            Assert.IsTrue(parseSelect());
+            Assert.IsTrue(parseDelete());
+            Assert.IsTrue(parseInsert());
+            Assert.IsTrue(parseUpdate());
         }
 
         public Boolean parseSelect()
         {
 
-            //Select select = Query.parse("SELECT column FROM table WHERE 1>1");
+            Sentence sentence = Query.parse("SELECT column FROM table WHERE 1>1");
 
-            
+            Select select = sentence as Select;
+
+            Where where = new Where("1", Operator.Greater, "1");
+
+            List<string> list = new List<string>();
+            list.Add("column");
+
+
+            if (select.tableName.Equals("table"))
+            {
+                if (select.sentenceWhere.col == where.col && select.sentenceWhere.op == where.op && select.sentenceWhere.colData == where.colData)
+                {
+                    if (select.listColumns[0] == list[0])
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                    return false;
+
+            }
+            return false;
+        }
+
+        public Boolean parseDelete()
+        {
+            Sentence sentence = Query.parse("DELETE FROM table WHERE 1=1");
+
+            Delete delete = sentence as Delete;
+
+            Where where = new Where("1", Operator.Equal, "1");
+
+            if (delete.tableName.Equals("table"))
+            {
+                if (delete.sentenceWhere.col == where.col && delete.sentenceWhere.op == where.op && delete.sentenceWhere.colData == where.colData)
+                    return true;
+                else
+                    return false;
+            }
 
 
             return false;
         }
+
+        public Boolean parseInsert()
+        {
+            Sentence sentence = Query.parse("INSERT INTO table VALUES (prueba1,prueba2)");
+
+            Insert insert = sentence as Insert;
+
+            List<String> list = new List<string>();
+
+            list.Add("prueba1");
+            list.Add("prueba2");
+
+            if (insert.tableName.Equals("table"))
+            {
+                if (insert.row[0] == list[0] && insert.row[1] == list[1])
+                    return true;
+                else
+                    return false;
+            }
+
+                return false;
+        }
+
+        public Boolean parseUpdate()
+        {
+            Sentence sentece = Query.parse("UPDATE table SET columna1=1,columna2=2,columna3=3 WHERE 1<1");
+
+            Update update = sentece as Update;
+
+            List<string> columns = new List<string>();
+            columns.Add("columna1");
+            columns.Add("columna2"); 
+            columns.Add("columna3");
+
+            List<String> data = new List<string>();
+            data.Add("1");
+            data.Add("2");
+            data.Add("3");
+
+            Where where = new Where("1", Operator.Less, "1");
+
+            if (update.tableName.Equals("table"))
+                if (update.column[0] == columns[0] && update.column[1] == columns[1] && update.column[2] == columns[2])
+                    if (update.newValue[0] == data[0] && update.newValue[1] == data[1] && update.newValue[2] == data[2])
+                        if (update.sentenceWhere.col == where.col && update.sentenceWhere.op == where.op && update.sentenceWhere.colData == where.colData)
+                            return true;
+
+                return false;
+        }
+
+
 
 
     }

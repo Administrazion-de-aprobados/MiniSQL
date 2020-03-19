@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    class Update: Sentence
+    public class Update: Sentence
     {
         public string tipoSentence;
         public string tableName;

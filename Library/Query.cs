@@ -69,13 +69,15 @@ namespace Library
             // For the update 
             if (Regex.IsMatch(sentenc, patternUpdate))
             {
-                Match match = Regex.Match(sentenc, patternInsert);
+                Match match = Regex.Match(sentenc, patternUpdate);
                 String table = match.Groups[1].Value;
 
 
                 List<String> list = new List<String>();
+
+                String valuees = match.Groups[2].Value;
                 // List of columns
-                var tuple = listToTwoList(stringToList(match.Groups[2].Value));
+                var tuple = listToTwoList(stringToList(valuees));
 
                 List<string> colum = tuple.Item1;
                 List<string> values = tuple.Item2;
@@ -145,8 +147,10 @@ namespace Library
 
             foreach(string i in list)
             {
-                colum.Add(i[0].ToString());
-                values.Add(i[2].ToString());
+                String[] splitedInput = i.Split('=');
+
+                colum.Add(splitedInput[0]);
+                values.Add(splitedInput[1]);
             }
 
             return Tuple.Create(colum, values);
