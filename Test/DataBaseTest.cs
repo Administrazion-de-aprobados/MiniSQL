@@ -16,7 +16,9 @@ namespace Test
             DataBase db = new DataBase();
             db.load("BD");
 
-            db.createTable("newTable");
+            List<String> list = new List<string>(); 
+            
+            db.createTable("newTable", list);
 
             Assert.IsTrue(db.Tables.ContainsKey("newTable"));
         }
@@ -189,10 +191,14 @@ namespace Test
         {
 
             DataBase database = new DataBase("BD", "admin", "admin");
-            database.createTable("table");
+
+            List<String> list = new List<string>();
+            list.Add("column TEXT");
+
+            database.createTable("table", list);
 
             Table table = database.Tables["table"];
-            table.createColumn("column", Library.Type.Text);
+            //table.createColumn("column", Library.Type.Text);
 
             Column column = table.Columns["column"];
             column.list.Add("data");
@@ -235,18 +241,11 @@ namespace Test
         public void delete()
         {
 
-            DataBase database = new DataBase("BD", "admin", "admin");
-            database.createTable("table");
+            BDcreation.BDcreatioon();
+            DataBase db = new DataBase();
+            db.load("BD");
 
-            Table table = database.Tables["table"];
-            table.createColumn("column", Library.Type.Text);
-
-            Column column = table.Columns["column"];
-            column.list.Add("data");
-
-            database.write();
-
-            database.deletefile("BD");
+            db.deletefile("BD");
 
             Assert.IsFalse(File.Exists("BD"));
 

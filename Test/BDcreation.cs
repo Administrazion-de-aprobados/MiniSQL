@@ -15,12 +15,19 @@ namespace Test
         {
            
             DataBase database = new DataBase("BD","admin","admin");
-            database.createTable("table");
+
+            List<string> list = new List<string>();
+
+            list.Add("column TEXT");
+            list.Add("columnIntNumbers INT");
+            list.Add("columnDoubleNumbers DOUBLE");
+
+            database.createTable("table", list);
             
             Table table = database.Tables["table"];
-            table.createColumn("column", Library.Type.Text);
-            table.createColumn("columnIntNumbers", Library.Type.Int);
-            table.createColumn("columnDoubleNumbers", Library.Type.Double);
+            //table.createColumn("column", Library.Type.Text);
+            //table.createColumn("columnIntNumbers", Library.Type.Int);
+            //table.createColumn("columnDoubleNumbers", Library.Type.Double);
 
             Column column = table.Columns["column"];
             column.list.Add("data");
@@ -37,9 +44,13 @@ namespace Test
             columnDouble.list.Add("3.10");
             columnDouble.list.Add("4.99");
 
-            database.createTable("table2");
+
+            List<String> list2 = new List<string>();
+            list2.Add("prueba TEXT");
+
+            database.createTable("table2", list2);
             Table table2 = database.Tables["table2"];
-            table2.createColumn("prueba", Library.Type.Text);
+            //table2.createColumn("prueba", Library.Type.Text);
 
             Column columnPrueba = table2.Columns["prueba"];
             columnPrueba.list.Add("data");
