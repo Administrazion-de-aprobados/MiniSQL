@@ -45,5 +45,38 @@ namespace Library
             }
 
         }
+
+        public string selectToString() {
+
+
+            string line1 = "[";
+
+            int numLines=0;
+            foreach (Column col in Columns.Values ) {
+
+                line1 = line1 + col.Name + ",";
+                numLines=col.list.Count; 
+            }
+            
+            line1=line1.TrimEnd(',');
+            line1 = line1 + "]";
+
+            if (numLines!=0) {
+                for (int i = 0; i < numLines; i++) {
+
+                    string list = "{";
+                    foreach (Column col in Columns.Values) {
+
+                        list = list + col.list[i] + ",";
+
+                    }
+                    list = list.TrimEnd(',');
+                    list = list + "}";
+                    line1 = line1 + list;
+
+                }
+            }
+            return line1;
+        }
     }
 }
