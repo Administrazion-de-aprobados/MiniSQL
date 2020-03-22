@@ -18,6 +18,8 @@ namespace Test
             Assert.IsTrue(parseDelete());
             Assert.IsTrue(parseInsert());
             Assert.IsTrue(parseUpdate());
+            Assert.IsTrue(parseCreatetable());
+            Assert.IsTrue(parseDropTable());
         }
 
         public Boolean parseSelect()
@@ -118,7 +120,32 @@ namespace Test
                 return false;
         }
 
+        public Boolean parseCreatetable()
+        {
+            Sentence sentence = Query.parse("CREATE TABLE table (column1 INT, column2 TEXT, column3 DOUBLE)");
 
+            CreateTable createTable = sentence as CreateTable;
+
+            if (createTable.tableName.Equals("table"))
+                if (createTable.ListOfColumns[0] == "column1 INT" && createTable.ListOfColumns[1] == "column2 TEXT" && createTable.ListOfColumns[2] == "column3 DOUBLE")
+                    return true;
+
+            return false;
+        }
+
+
+        public Boolean parseDropTable()
+        {
+            Sentence sentence = Query.parse("DROP TABLE table");
+
+            DropTable dropTable = sentence as DropTable;
+
+            if (dropTable.tableName.Equals("table"))
+                return true;
+
+
+            return false;
+        }
 
 
     }

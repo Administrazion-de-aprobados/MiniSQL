@@ -34,10 +34,19 @@ namespace Library
         }
 
 
-        public void createTable(string name)
+        public void createTable(string name, List<String> list)
         {
             Table table = new Table(name);
             Tables.Add(name, table);
+
+            foreach(string i in list)
+            {
+                String[] splitedString = i.Split(' ');
+
+                Type type = dataType(splitedString[1].ToLower());
+
+                table.createColumn(splitedString[0], type);
+            }
         }
 
         public void dropTable(string name)

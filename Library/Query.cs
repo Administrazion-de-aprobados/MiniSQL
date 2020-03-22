@@ -18,8 +18,10 @@ namespace Library
 
             String patterSelect = "SELECT\\s(\\*|\\w+(?:,*\\w+)*)\\sFROM\\s(\\w+)\\sWHERE\\s(\\w+[<|=|>]\\w+)";
             String patterDelete = "DELETE\\sFROM\\s(\\w+)\\sWHERE\\s(\\w+[<|=|>]\\w+)";
-            String patternInsert = "INSERT\\sINTO\\s(\\w+)\\sVALUES\\s\\((\\w+[\\w*,*]*)\\)";
-            String patternUpdate = "UPDATE\\s(\\w+)\\sSET\\s(\\w+=\\w+(?:,*\\w+=\\w+)*)\\sWHERE\\s(\\w+[<|=|>]\\w+)";
+            String patternInsert = "INSERT\\sINTO\\s(\\w+)\\sVALUES\\s\\((\\w+(?:,?\\w+)*)\\)";
+            String patternUpdate = "UPDATE\\s(\\w+)\\sSET\\s(\\w+=\\w+(?:,?\\w+=\\w+)*)\\sWHERE\\s(\\w+[<|=|>]\\w+)";
+            String patternCreateTable = "CREATE\\sTABLE\\s(\\w+)\\s\\((\\w+\\s[TEXT|INT|DOUBLE]+(?:,?\\s\\w+\\s[TEXT|INT|DOUBLE]+)*)\\)";
+            String patterDropTable = "DROP\\sTABLE\\s(\\w+)";
 
 
             // For the select
@@ -30,7 +32,7 @@ namespace Library
                 List<String> list = new List<String>();
 
                 // List of columns
-                list = stringToList(match.Groups[1].Value);
+                list = stringToList(match.Groups[1].Value, ',');
                 
                 // Table name
                 String table = match.Groups[2].Value;
@@ -61,7 +63,7 @@ namespace Library
 
                 List<String> list = new List<String>();
                 // List of columns
-                list = stringToList(match.Groups[2].Value);
+                list = stringToList(match.Groups[2].Value, ',');
 
                 sentence = new Insert(table, list);
             }
@@ -77,7 +79,7 @@ namespace Library
 
                 String valuees = match.Groups[2].Value;
                 // List of columns
-                var tuple = listToTwoList(stringToList(valuees));
+                var tuple = listToTwoList(stringToList(valuees, ','));
 
                 List<string> colum = tuple.Item1;
                 List<string> values = tuple.Item2;
@@ -87,6 +89,29 @@ namespace Library
                 sentence = new Update(table, colum, values, where);
             }
 
+            //For the create table
+            if(Regex.IsMatch(sentenc, patternCreateTable))
+            {
+
+                Match match = Regex.Match(sentenc, patternCreateTable);
+                String table = match.Groups[1].Value;
+
+                List<String> list = new List<String>();
+                // List of columns
+                list = stringToList(match.Groups[2].Value, ',');
+
+                sentence = new CreateTable(table, list);
+            }
+
+            // For the drop table
+            if(Regex.IsMatch(sentenc, patterDropTable))
+            {
+                Match match = Regex.Match(sentenc, patterDropTable);
+                String table = match.Groups[1].Value;
+
+                sentence = new DropTable(table);
+
+            }
 
             return sentence;
         }
@@ -125,15 +150,18 @@ namespace Library
             return where;
         }
 
-        public static List<String> stringToList(String input)
+        public static List<String> stringToList(String input, Char spliter)
         {
             List<String> list = new List<string>();
 
-            String[] splitedInput = input.Split(',');
+
+            String[] splitedInput = input.Split(spliter);
 
             foreach (string i in splitedInput)
             {
-                list.Add(i);
+
+                string newi = i.Trim();
+                list.Add(newi);
             }
 
 
