@@ -45,5 +45,24 @@ namespace Test
 
             Assert.IsTrue(table.Columns.ContainsKey("column1"));
         }
+
+        [TestMethod]
+        public void selectToString() {
+
+            BDcreation.BDcreatioon();
+            DataBase db = new DataBase();
+            db.load("BD");
+            Operator op = Operator.Equal;
+            IList<string> listColumns = new List<string>();
+            listColumns.Add("columnIntNumbers");
+            
+
+            string select = db.select(listColumns, "table", "columnIntNumbers", op, "1").selectToString();
+
+            string result = "['columnIntNumbers'] {'1'}";
+
+            Assert.IsTrue(result.Equals(select));
+
+        }
     }
 }

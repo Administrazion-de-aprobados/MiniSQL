@@ -54,7 +54,7 @@ namespace Library
             int numLines=0;
             foreach (Column col in Columns.Values ) {
 
-                line1 = line1 + col.Name + ",";
+                line1 = line1 + "'" + col.Name + "'" + ",";
                 numLines=col.list.Count; 
             }
             
@@ -67,12 +67,13 @@ namespace Library
                     string list = "{";
                     foreach (Column col in Columns.Values) {
 
-                        list = list + col.list[i] + ",";
+                        list = list + "'" + col.list[i]  + "'" + ",";
 
                     }
+
                     list = list.TrimEnd(',');
                     list = list + "}";
-                    line1 = line1 + list;
+                    line1 = line1 + " " + list;
 
                 }
             }
