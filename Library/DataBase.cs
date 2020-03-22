@@ -445,6 +445,43 @@ namespace Library
             File.Delete(name);
         }
 
+        public string output(string input) {
+
+            Sentence sentence =Query.parse(input);
+
+            if (sentence is Select) {
+
+                Select select = sentence as Select;
+
+            }
+
+            else if (sentence is Delete) {
+
+                Delete delete = sentence as Delete;
+
+            }
+
+            else if (sentence is Insert) {
+
+                Insert insert = sentence as Insert;
+
+
+            }
+
+            else if (sentence is Update) {
+
+                Update update = sentence as Update;
+            
+            }
+
+
+            
+           
+
+
+            return null;
+        }
+
     }
 }
 
