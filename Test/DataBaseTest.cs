@@ -72,7 +72,7 @@ namespace Test
 
 
             Assert.IsTrue(table.Columns["columnIntNumbers"].list.Contains("1"));
-            Assert.IsTrue(table.Columns.ContainsKey("column"));
+            //Assert.IsTrue(table.Columns.ContainsKey("column"));
 
         }
 

@@ -14,11 +14,6 @@ namespace Library
     public class DataBase
     {
 
-        public const string CreateTableSuccess = "Table created";
-        public const string InsertSuccess = "Tuple added";
-        public const string TupleDeleteSuccess = "Tuple(s) deleted";
-        public const string TupleUpdateSuccess = "Tuple(s) updated";
-
         public Dictionary<string, User> Users;
         public Dictionary<string, Table> Tables;
         private Admin admin;
@@ -463,94 +458,102 @@ namespace Library
         public string output(string input) {
 
             
-            Sentence sentence =Query.parse(input);
+            Sentence sentence = Query.parse(input);
 
             string output = "";
-
-            if (sentence is Select)
+            try
             {
-                
-                Select sel = sentence as Select;
+                if (sentence is Select)
+                {
 
-                IList<string> columnsNames = sel.listColumns;
-                string tableName = sel.tableName;
-                Where where = sel.sentenceWhere;
-                Operator op = where.op;
-                string columnName = where.col;
-                string dataToCompare = where.colData;
-                
-                output = select(columnsNames, tableName, columnName, op, dataToCompare).selectToString();
+                    Select sel = sentence as Select;
 
-            }
+                    IList<string> columnsNames = sel.listColumns;
+                    string tableName = sel.tableName;
+                    Where where = sel.sentenceWhere;
+                    Operator op = where.op;
+                    string columnName = where.col;
+                    string dataToCompare = where.colData;
 
-            else if (sentence is Delete)
-            {
+                    output = select(columnsNames, tableName, columnName, op, dataToCompare).selectToString();
 
-                Delete delete = sentence as Delete;
-
-                string tabName = delete.tableName;
-                Where where = delete.sentenceWhere;
-                string column = where.col;
-                Operator op = where.op;
-                string data = where.colData;
-                deleteData(tabName,column,op,data);
-
-                output = TupleDeleteSuccess;
-            }
-
-            else if (sentence is Insert)
-            {
-
-                Insert ins = sentence as Insert;
-                string nameTable = ins.tableName ;
-                List<string> dataToInsert =  ins.row;
-                insert(nameTable, dataToInsert);
-
-                output = InsertSuccess;
-            }
-
-            else if (sentence is Update)
-            {
-
-                Update upd = sentence as Update;
-                string tableName = upd.tableName;
-                List<string> columnNames = upd.column;
-                List<string> newValues = upd.newValue;
-                Where where = upd.sentenceWhere;
-                Operator op = where.op;
-                string data = where.colData;
-
-                for ( int i = 0; i<columnNames.Count; i++) {
-
-                    string columnName = columnNames[i];
-                    string newData = newValues[i];
-                    update(tableName, columnName, newData, op, data);
                 }
 
-                output = TupleUpdateSuccess;
-               
-            }
+                else if (sentence is Delete)
+                {
 
-            else if (sentence is DropTable)
+                    Delete delete = sentence as Delete;
+
+                    string tabName = delete.tableName;
+                    Where where = delete.sentenceWhere;
+                    string column = where.col;
+                    Operator op = where.op;
+                    string data = where.colData;
+                    deleteData(tabName, column, op, data);
+
+                    output = Constants.TupleDeleteSuccess;
+                }
+
+                else if (sentence is Insert)
+                {
+
+                    Insert ins = sentence as Insert;
+                    string nameTable = ins.tableName;
+                    List<string> dataToInsert = ins.row;
+                    insert(nameTable, dataToInsert);
+
+                    output = Constants.InsertSuccess;
+                }
+
+                else if (sentence is Update)
+                {
+
+                    Update upd = sentence as Update;
+                    string tableName = upd.tableName;
+                    List<string> columnNames = upd.column;
+                    List<string> newValues = upd.newValue;
+                    Where where = upd.sentenceWhere;
+                    Operator op = where.op;
+                    string data = where.colData;
+
+                    for (int i = 0; i < columnNames.Count; i++)
+                    {
+
+                        string columnName = columnNames[i];
+                        string newData = newValues[i];
+                        update(tableName, columnName, newData, op, data);
+                    }
+
+                    output = Constants.TupleUpdateSuccess;
+
+                }
+
+                else if (sentence is DropTable)
+                {
+
+                    DropTable drop = sentence as DropTable;
+                    string tableName = drop.tableName;
+                    dropTable(tableName);
+
+                    output = "table droped";
+                }
+
+                else if (sentence is CreateTable)
+                {
+
+                    CreateTable create = sentence as CreateTable;
+                    string tableName = create.tableName;
+                    List<string> colNames = create.ListOfColumns;
+                    createTable(tableName, colNames);
+
+                    output = Constants.CreateTableSuccess;
+
+
+                }
+            }
+            catch
             {
-
-                DropTable drop = sentence as DropTable;
-                string tableName = drop.tableName;
-                dropTable(tableName);
-
-                output = "table droped";
-            }
-
-            else {
-
-                CreateTable create = sentence as CreateTable;
-                string tableName = create.tableName;
-                List<string> colNames = create.ListOfColumns;
-                createTable(tableName,colNames);
-
-                output = CreateTableSuccess;
-
-
+                output = Constants.WrongSyntax;
             }
 
             return output;
