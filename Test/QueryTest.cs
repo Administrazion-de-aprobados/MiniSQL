@@ -73,14 +73,14 @@ namespace Test
 
         public Boolean parseInsert()
         {
-            Sentence sentence = Query.parse("INSERT INTO table VALUES (prueba1,prueba2)");
+            Sentence sentence = Query.parse("INSERT INTO table VALUES ('prueba1','prueba2')");
 
             Insert insert = sentence as Insert;
 
             List<String> list = new List<string>();
 
-            list.Add("prueba1");
-            list.Add("prueba2");
+            list.Add("'prueba1'");
+            list.Add("'prueba2'");
 
             if (insert.tableName.Equals("table"))
             {

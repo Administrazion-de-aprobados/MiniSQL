@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="AdminTest.cs" />
     <Compile Include="BDcreation.cs" />
+    <Compile Include="MiniSQLTest.cs" />
     <Compile Include="QueryTest.cs" />
     <Compile Include="ColumnTest.cs" />
     <Compile Include="DataBaseTest.cs" />

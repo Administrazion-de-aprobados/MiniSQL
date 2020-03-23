@@ -44,6 +44,7 @@
     <Compile Include="Admin.cs" />
     <Compile Include="DropTable.cs" />
     <Compile Include="CreateTable.cs" />
+    <Compile Include="MiniSQL.cs" />
     <Compile Include="Where.cs" />
     <Compile Include="Insert.cs" />
     <Compile Include="Update.cs" />
