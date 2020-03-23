@@ -18,7 +18,7 @@ namespace Library
 
             String patterSelect = "SELECT\\s(\\*|\\w+(?:,*\\w+)*)\\sFROM\\s(\\w+)\\sWHERE\\s(\\w+)([<|=|>])(\\w+)";
             String patterDelete = "DELETE\\sFROM\\s(\\w+)\\sWHERE\\s(\\w+)([<|=|>])(\\w+)";
-            String patternInsert = "INSERT\\sINTO\\s(\\w+)\\sVALUES\\s\\(((?:'[^',]+'|-?\\d+.?\\d+)(?:,(?:'[^',]+'|-?\\d+.?\\d+))*)\\)";
+            String patternInsert = "INSERT\\sINTO\\s(\\w+)\\sVALUES\\s\\(((?:'[^',]+'|-?\\d+.?\\d*)(?:,(?:'[^',]+'|-?\\d+.?\\d*))*)\\)";
             String patternUpdate = "UPDATE\\s(\\w+)\\sSET\\s(\\w+=\\w+(?:,?\\w+=\\w+)*)\\sWHERE\\s(\\w+)([<|=|>])(\\w+)";
             String patternCreateTable = "CREATE\\sTABLE\\s(\\w+)\\s\\((\\w+\\s[TEXT|INT|DOUBLE]+(?:,?\\s\\w+\\s[TEXT|INT|DOUBLE]+)*)\\)";
             String patterDropTable = "DROP\\sTABLE\\s(\\w+)";

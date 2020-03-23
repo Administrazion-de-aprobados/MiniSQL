@@ -319,16 +319,97 @@ namespace Test
         [TestMethod]
         public void output()
         {
+            outputSelect();
+            outputDelete();
+            outputInsert();
+            outputUpdate();
+            outputCreateTable();
+            outputDropTable();
+        }
+
+        public void outputSelect() {
             BDcreation.BDcreatioon();
             DataBase db = new DataBase();
             db.load("BD");
+
             string input = "SELECT columnIntNumbers FROM table WHERE columnIntNumbers=1";
 
             string output = db.output(input);
-            
+
             Assert.IsTrue(output.Equals("['columnIntNumbers'] {'1'}"));
+
+        }
+        public void outputDelete()
+        {
+            BDcreation.BDcreatioon();
+           DataBase db = new DataBase();
+            db.load("BD");
+
+            string input = "DELETE FROM table WHERE columnIntNumbers=1";
+
+            string output = db.output(input);
+
+            Assert.IsTrue(output.Equals("Tuple(s) deleted"));
+
+        }
+
+        public void outputInsert() {
+
+            BDcreation.BDcreatioon();
+            DataBase db = new DataBase();
+            db.load("BD");
+
+            string input = "INSERT INTO table VALUES ('data',5,5.05)";
+
+            string output = db.output(input);
+
+            Assert.IsTrue(output.Equals("Tuple added"));
+
            
         }
 
+        public void outputUpdate(){
+
+
+            BDcreation.BDcreatioon();
+            DataBase db = new DataBase();
+            db.load("BD");
+
+            string input = "UPDATE table SET columnIntNumbers=5 WHERE columnIntNumbers=1";
+
+            string output = db.output(input);
+
+            Assert.IsTrue(output.Equals("Tuple(s) updated"));
+
+        }
+
+        public void outputCreateTable()
+        {
+
+            BDcreation.BDcreatioon();
+            DataBase db = new DataBase();
+            db.load("BD");
+
+            string input = "CREATE TABLE table444 (column1 DOUBLE, column2 TEXT)";
+
+            string output = db.output(input);
+
+            Assert.IsTrue(output.Equals("Table created"));
+
+        }
+        public void outputDropTable()
+        {
+
+            BDcreation.BDcreatioon();
+            DataBase db = new DataBase();
+            db.load("BD");
+
+            string input = "DROP TABLE table";
+
+            string output = db.output(input);
+
+            Assert.IsTrue(output.Equals("table droped"));
+
+        }
     }
 }
