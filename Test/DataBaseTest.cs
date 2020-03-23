@@ -16,8 +16,8 @@ namespace Test
             DataBase db = new DataBase();
             db.load("BD");
 
-            List<String> list = new List<string>(); 
-            
+            List<String> list = new List<string>();
+
             db.createTable("newTable", list);
 
             Assert.IsTrue(db.Tables.ContainsKey("newTable"));
@@ -288,7 +288,7 @@ namespace Test
             DataBase database = new DataBase("BD", "admin", "admin");
             string tipo = "text";
 
-           
+
             Assert.IsTrue(database.dataType(tipo).Equals(Library.Type.Text));
 
 
@@ -315,6 +315,20 @@ namespace Test
 
 
         }
-    }
 
+        [TestMethod]
+        public void output()
+        {
+            BDcreation.BDcreatioon();
+            DataBase db = new DataBase();
+            db.load("BD");
+            string input = "SELECT columnIntNumbers FROM table WHERE columnIntNumbers=1";
+
+            string output = db.output(input);
+            
+            Assert.IsTrue(output.Equals("['columnIntNumbers'] {'1'}"));
+           
+        }
+
+    }
 }
