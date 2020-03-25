@@ -59,7 +59,7 @@ namespace Test
 
             string select = db.select(listColumns, "table", "columnIntNumbers", op, "1").selectToString();
 
-            string result = "{'columnIntNumbers'} {'1'}";
+            string result = "['columnIntNumbers'] {'1'}";
 
             Assert.IsTrue(result.Equals(select));
 

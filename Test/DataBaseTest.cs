@@ -336,7 +336,7 @@ namespace Test
 
             string output = db.output(input);
 
-            Assert.IsTrue(output.Equals("{'columnIntNumbers'} {'1'}"));
+            Assert.IsTrue(output.Equals("['columnIntNumbers'] {'1'}"));
 
         }
         public void outputDelete()

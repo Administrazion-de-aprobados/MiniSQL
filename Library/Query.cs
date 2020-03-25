@@ -17,12 +17,29 @@ namespace Library
             Sentence sentence = null;
 
             String patterSelect = "SELECT\\s(\\*|\\w+(?:,*\\w+)*)\\sFROM\\s(\\w+)\\sWHERE\\s(\\w+)([<|=|>])'?([^',]+)'?";
+            String patternSelectAll = "SELECT\\s(\\*|\\w+(?:,*\\w+)*)\\sFROM\\s(\\w+)";
             String patterDelete = "DELETE\\sFROM\\s(\\w+)\\sWHERE\\s(\\w+)([<|=|>])'?([^',]+)'?";
             String patternInsert = "INSERT\\sINTO\\s(\\w+)\\sVALUES\\s\\(((?:'[^',]+'|-?\\d+.?\\d*)(?:,(?:'[^',]+'|-?\\d+.?\\d*))*)\\)";
             String patternUpdate = "UPDATE\\s(\\w+)\\sSET\\s(\\w+=\\w+(?:,?\\w+=\\w+)*)\\sWHERE\\s(\\w+)([<|=|>])'?([^',]+)'?";
             String patternCreateTable = "CREATE\\sTABLE\\s(\\w+)\\s\\((\\w+\\s[TEXT|INT|DOUBLE]+(?:,?\\s\\w+\\s[TEXT|INT|DOUBLE]+)*)\\)";
             String patterDropTable = "DROP\\sTABLE\\s(\\w+)";
 
+            // For the selectAll
+            if (Regex.IsMatch(sentenc, patternSelectAll))
+            {
+                Match match = Regex.Match(sentenc, patternSelectAll);
+
+                List<String> list = new List<String>();
+
+                // List of columns
+                list = stringToList(match.Groups[1].Value, ',');
+
+                // Table name
+                String table = match.Groups[2].Value;
+
+                sentence = new SelectAll(table, list);
+
+            }
 
             // For the select
             if (Regex.IsMatch(sentenc, patterSelect))
@@ -33,7 +50,7 @@ namespace Library
 
                 // List of columns
                 list = stringToList(match.Groups[1].Value, ',');
-                
+
                 // Table name
                 String table = match.Groups[2].Value;
 
@@ -41,7 +58,7 @@ namespace Library
 
                 Operator op = stringToOperator(match.Groups[4].Value);
 
-                Where where = new Where(match.Groups[3].Value,op, match.Groups[5].Value);
+                Where where = new Where(match.Groups[3].Value, op, match.Groups[5].Value);
 
                 // Select creation
                 sentence = new Select(table, list, where);

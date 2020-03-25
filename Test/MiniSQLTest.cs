@@ -8,16 +8,16 @@ using System.IO;
 namespace Test
 {
 
-    [TestClass]
+    //[TestClass]
      public class MiniSQLTest
     {
 
-        [TestMethod]
+        //[TestMethod]
         public void tester()
         {
 
 
-            MiniSQL.tester("C:\\Users\\yeray\\Desktop\\input-file.txt", "C:\\Users\\yeray\\Desktop\\output-file.txt");
+            MiniSQL.tester("input-file.txt", "output-file.txt");
 
             Assert.IsTrue(true);
 

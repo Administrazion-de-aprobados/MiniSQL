@@ -562,6 +562,17 @@ namespace Library
 
                 }
 
+                else if(sentence is SelectAll)
+                {
+                    SelectAll sel = sentence as SelectAll;
+
+                    IList<string> columnsNames = sel.listColumns;
+                    string tableName = sel.tableName;
+
+                    output = selectAll(columnsNames, tableName).selectToString();
+
+                }
+
                 else if (sentence is Delete)
                 {
 
