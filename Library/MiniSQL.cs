@@ -19,7 +19,7 @@ namespace Library
 
         public static void tester(string inputFile, string outputName)
         {
-            DataBase DB = new DataBase();
+           
 
             string[] filas = File.ReadAllLines(inputFile);
 
@@ -28,13 +28,15 @@ namespace Library
             int k = 1;
             for(int i=0; i<filas.Length; i++)
             {
+                DataBase DB = new DataBase();
+
                 DateTime timeStartTest = DateTime.Now;
                 
                 sw.WriteLine("# TEST "+k);
 
                 int num = filas.Length;
 
-                while (filas[i] != "" && i < num-1)
+                while (i < num && filas[i] != "")
                 {
                     DateTime timeStartSentence = DateTime.Now;
 

@@ -37,22 +37,36 @@ namespace Library
 
         public void createTable(string name, List<String> list)
         {
-            Table table = new Table(name);
-            Tables.Add(name, table);
-
-            foreach(string i in list)
+            if (Tables.ContainsKey(name))
             {
-                String[] splitedString = i.Split(' ');
+                Table table = new Table(name);
+                Tables.Add(name, table);
 
-                Type type = dataType(splitedString[1].ToLower());
+                foreach (string i in list)
+                {
+                    String[] splitedString = i.Split(' ');
 
-                table.createColumn(splitedString[0], type);
+                    Type type = dataType(splitedString[1].ToLower());
+
+                    table.createColumn(splitedString[0], type);
+                }
+            }
+            else
+            {
+                throw new Exception(Constants.TableAlreadyExists);
             }
         }
 
         public void dropTable(string name)
         {
-            Tables.Remove(name);
+            if (Tables.ContainsKey(name))
+            {
+                Tables.Remove(name);
+            }
+            else
+            {
+               throw new Exception(Constants.TableDoesNotExist);
+            }
         }
 
 
@@ -82,13 +96,13 @@ namespace Library
                     }
                     else
                     {
-                        //error columns doesnt exist
+                        throw new Exception(Constants.ColumnDoesNotExist);
                     }
                 }
             }
             else
             {
-                // error table doesnt exist
+                throw new Exception(Constants.TableDoesNotExist);
             }
             return tableToReturn;
         }
@@ -110,6 +124,10 @@ namespace Library
                         key.Value.deleteData(position);
                     }
                 }
+            }
+            else
+            {
+                throw new Exception(Constants.TableDoesNotExist);
             }
         }
 
@@ -136,7 +154,7 @@ namespace Library
                     foreach (int i in position)
                     {
 
-                        //renplace into the list from the column hashtable
+                        //replace into the list from the column hashtable
 
                         col.list[i] = newData;
 
@@ -144,7 +162,15 @@ namespace Library
 
 
                 }
+                else
+                {
+                    throw new Exception(Constants.ColumnDoesNotExist);
+                }
 
+            }
+            else
+            {
+                throw new Exception(Constants.TableDoesNotExist);
             }
 
         }
@@ -183,6 +209,12 @@ namespace Library
 
                 }
             }
+            else
+            {
+
+                throw new Exception(Constants.TableDoesNotExist);
+
+            }
         }
 
 
@@ -217,13 +249,13 @@ namespace Library
                 }
                 else
                 {
-                    //this should return an error from constatns but as we dont know how we will do the console we will implement this when we start with the console code
+                    throw new Exception(Constants.ColumnDoesNotExist);
                 }
 
             }
             else
             {
-                //this should return an error from constatns but as we dont know how we will do the console we will implement this when we start with the console code
+                throw new Exception(Constants.TableDoesNotExist);
             }
 
 
@@ -501,8 +533,9 @@ namespace Library
                     string nameTable = ins.tableName;
                     List<string> dataToInsert = ins.row;
                     insert(nameTable, dataToInsert);
-
                     output = Constants.InsertSuccess;
+
+                    
                 }
 
                 else if (sentence is Update)
@@ -550,10 +583,16 @@ namespace Library
 
 
                 }
+                else
+                {
+                    output = Constants.WrongSyntax;
+                }
             }
-            catch
+            catch (Exception e)
             {
-                output = Constants.WrongSyntax;
+
+                output = e.Message;
+
             }
 
             return output;

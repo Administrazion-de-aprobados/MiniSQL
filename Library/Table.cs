@@ -49,7 +49,7 @@ namespace Library
         public string selectToString() {
 
 
-            string line1 = "[";
+            string line1 = "{";
 
             int numLines=0;
             foreach (Column col in Columns.Values ) {
@@ -59,7 +59,7 @@ namespace Library
             }
             
             line1=line1.TrimEnd(',');
-            line1 = line1 + "]";
+            line1 = line1 + "}";
 
             if (numLines!=0) {
                 for (int i = 0; i < numLines; i++) {
