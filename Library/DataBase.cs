@@ -37,7 +37,7 @@ namespace Library
 
         public void createTable(string name, List<String> list)
         {
-            if (Tables.ContainsKey(name))
+            if (!Tables.ContainsKey(name))
             {
                 Table table = new Table(name);
                 Tables.Add(name, table);
