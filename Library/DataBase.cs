@@ -79,7 +79,21 @@ namespace Library
 
                 IList<int> itemsPosition = where(tableName, columnName, op, dataToCompare);
 
-                foreach (string column in columnsNames)
+                IList<string> columns = new List<string>();
+
+                if (columnsNames.Contains("*"))
+                {
+                    foreach (string key in table.Columns.Keys)
+                    {
+                        columns.Add(key);
+                    }
+                }
+                else
+                {
+                    columns = columnsNames;
+                }
+
+                foreach (string column in columns)
                 {
                     if (table.Columns.ContainsKey(column))
                     {
@@ -104,6 +118,43 @@ namespace Library
             {
                 throw new Exception(Constants.TableDoesNotExist);
             }
+            return tableToReturn;
+        }
+
+        public Table selectAll(IList<string> columnsNames, string tableName)
+        {
+            Table tableToReturn = new Table("select");
+            if (Tables.ContainsKey(tableName))
+            {
+                Table table = Tables[tableName];
+
+                IList<string> columns = new List<string>();
+
+                if (columnsNames.Contains("*"))
+                {
+                    foreach (string key in table.Columns.Keys)
+                    {
+                        columns.Add(key);
+                    }
+                }
+                else
+                {
+                    columns = columnsNames;
+                }
+
+                foreach (string column in columns)
+                {
+
+                    Column coluumn = table.Columns[column];
+
+                    tableToReturn.Columns.Add(coluumn.Name, coluumn);
+                }
+            }
+            else
+            {
+                throw new Exception(Constants.TableDoesNotExist);
+            }
+
             return tableToReturn;
         }
 
