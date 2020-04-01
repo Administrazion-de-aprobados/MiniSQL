@@ -10,13 +10,6 @@ namespace Library
     public class MiniSQL
     {
 
-        public static void Main (string[] Args)
-        {
-
-        }
-
-
-
         public static void tester(string inputFile, string outputName)
         {
            
