@@ -182,7 +182,7 @@ namespace Library
             }
         }
 
-        public void update(string tableName, string columnName, string newData, Operator op, string valueToCompare)
+        public void update(string tableName, string columnName, string newData,string columnToCompare, Operator op, string valueToCompare)
         {
 
             if (Tables.ContainsKey(tableName))
@@ -200,7 +200,7 @@ namespace Library
                     //IList<string> dataList = col.list;
 
                     //this list contais the positions of the data to change
-                    IList<int> position = where(tableName, columnName, op, valueToCompare);
+                    IList<int> position = where(tableName, columnToCompare, op, valueToCompare);
 
                     foreach (int i in position)
                     {
@@ -449,7 +449,7 @@ namespace Library
                 Admin admiin = new Admin(adminName, pass);
 
                 admin = admiin;
-                Boolean newTable = true;
+               
 
                 for (int i = 1; i < filas.Length; i++)
                 {
@@ -608,6 +608,7 @@ namespace Library
                     List<string> columnNames = upd.column;
                     List<string> newValues = upd.newValue;
                     Where where = upd.sentenceWhere;
+                    string columnToCompare = where.col;
                     Operator op = where.op;
                     string data = where.colData;
 
@@ -616,7 +617,7 @@ namespace Library
 
                         string columnName = columnNames[i];
                         string newData = newValues[i];
-                        update(tableName, columnName, newData, op, data);
+                        update(tableName, columnName, newData, columnToCompare, op, data);
                     }
 
                     output = Constants.TupleUpdateSuccess;

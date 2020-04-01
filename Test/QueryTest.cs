@@ -79,8 +79,8 @@ namespace Test
 
             List<String> list = new List<string>();
 
-            list.Add("'prueba1'");
-            list.Add("'prueba2'");
+            list.Add("prueba1");
+            list.Add("prueba2");
 
             if (insert.tableName.Equals("table"))
             {

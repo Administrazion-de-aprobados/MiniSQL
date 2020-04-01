@@ -86,9 +86,8 @@ namespace Test
 
             Table table = db.Tables["table"];
             Column column = table.Columns["column"];
-            string data = column.list[0];
 
-            db.update("table", "column", "newdata", Operator.Equal, "data");
+            db.update("table", "column", "newdata","column", Operator.Equal, "data");
 
             string newdata = column.list[0];
 

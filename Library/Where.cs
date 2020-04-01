@@ -18,7 +18,9 @@ namespace Library
 
             col = column;
             op = ope;
-            colData = data;
+
+            string dataUpdated = data.Replace("'", "");
+            colData = dataUpdated;
 
         }
     }

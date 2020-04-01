@@ -17,8 +17,8 @@ namespace Test
         {
 
 
-            MiniSQL.tester("input-file.txt", "output-file.txt");
-
+            //MiniSQL.tester("input-file.txt", "output-file.txt");
+           // MiniSQL.tester("C:\\Users\\yeray\\Desktop\\input-file.txt", "C:\\Users\\yeray\\Desktop\\outputprueba-file.txt");
             Assert.IsTrue(true);
 
         }

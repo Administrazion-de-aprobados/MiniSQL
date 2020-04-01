@@ -16,11 +16,11 @@ namespace Library
 
             Sentence sentence = null;
 
-            String patterSelect = "SELECT\\s(\\*|\\w+(?:,*\\w+)*)\\sFROM\\s(\\w+)\\sWHERE\\s(\\w+)([<|=|>])'?([^',]+)'?";
+            String patterSelect = "SELECT\\s(\\*|\\w+(?:,*\\w+)*)\\sFROM\\s(\\w+)\\sWHERE\\s(\\w+)([<|=|>])('[^',]+'|-?\\d+\\.?\\d*)";
             String patternSelectAll = "SELECT\\s(\\*|\\w+(?:,*\\w+)*)\\sFROM\\s(\\w+)";
-            String patterDelete = "DELETE\\sFROM\\s(\\w+)\\sWHERE\\s(\\w+)([<|=|>])'?([^',]+)'?";
-            String patternInsert = "INSERT\\sINTO\\s(\\w+)\\sVALUES\\s\\(((?:'[^',]+'|-?\\d+.?\\d*)(?:,(?:'[^',]+'|-?\\d+.?\\d*))*)\\)";
-            String patternUpdate = "UPDATE\\s(\\w+)\\sSET\\s(\\w+=\\w+(?:,?\\w+=\\w+)*)\\sWHERE\\s(\\w+)([<|=|>])'?([^',]+)'?";
+            String patterDelete = "DELETE\\sFROM\\s(\\w+)\\sWHERE\\s(\\w+)([<|=|>])('[^',]+'|-?\\d+\\.?\\d*)";
+            String patternInsert = "INSERT\\sINTO\\s(\\w+)\\sVALUES\\s\\(((?:'[^',]+'|-?\\d+\\.?\\d*)(?:,(?:'[^',]+'|-?\\d+\\.?\\d*))*)\\)";
+            String patternUpdate = "UPDATE\\s(\\w+)\\sSET\\s(\\w+=(?:'[^',]+'|-?\\d+\\.?\\d*)(?:,?\\w+=(?:'[^',]+'|-?\\d+\\.?\\d*))*)\\sWHERE\\s(\\w+)([<|=|>])('[^',]+'|-?\\d+\\.?\\d*)";
             String patternCreateTable = "CREATE\\sTABLE\\s(\\w+)\\s\\((\\w+\\s[TEXT|INT|DOUBLE]+(?:,?\\s\\w+\\s[TEXT|INT|DOUBLE]+)*)\\)";
             String patterDropTable = "DROP\\sTABLE\\s(\\w+)";
 
@@ -143,6 +143,8 @@ namespace Library
         }
 
 
+
+
         public static Operator stringToOperator(String op)
         {
             Operator operatoor = Operator.Equal;
@@ -175,7 +177,8 @@ namespace Library
             {
 
                 string newi = i.Trim();
-                list.Add(newi);
+                string newi2 = newi.Replace(@"'", "");
+                list.Add(newi2);
             }
 
 
