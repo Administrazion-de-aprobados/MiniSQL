@@ -331,7 +331,7 @@ namespace Test
             DataBase db = new DataBase();
             db.load("BD");
 
-            string input = "SELECT columnIntNumbers FROM table WHERE columnIntNumbers=1";
+            string input = "SELECT columnIntNumbers FROM table WHERE columnIntNumbers=1;";
 
             string output = db.output(input);
 
@@ -344,7 +344,7 @@ namespace Test
            DataBase db = new DataBase();
             db.load("BD");
 
-            string input = "DELETE FROM table WHERE columnIntNumbers=1";
+            string input = "DELETE FROM table WHERE columnIntNumbers=1;";
 
             string output = db.output(input);
 
@@ -358,7 +358,7 @@ namespace Test
             DataBase db = new DataBase();
             db.load("BD");
 
-            string input = "INSERT INTO table VALUES ('data',5,5.05)";
+            string input = "INSERT INTO table VALUES ('data',5,5.05);";
 
             string output = db.output(input);
 
@@ -374,7 +374,7 @@ namespace Test
             DataBase db = new DataBase();
             db.load("BD");
 
-            string input = "UPDATE table SET columnIntNumbers=5 WHERE columnIntNumbers=1";
+            string input = "UPDATE table SET columnIntNumbers=5 WHERE columnIntNumbers=1;";
 
             string output = db.output(input);
 
@@ -389,7 +389,7 @@ namespace Test
             DataBase db = new DataBase();
             db.load("BD");
 
-            string input = "CREATE TABLE table444 (column1 DOUBLE, column2 TEXT)";
+            string input = "CREATE TABLE table444 (column1 DOUBLE,column2 TEXT);";
 
             string output = db.output(input);
 
@@ -403,7 +403,7 @@ namespace Test
             DataBase db = new DataBase();
             db.load("BD");
 
-            string input = "DROP TABLE table";
+            string input = "DROP TABLE table;";
 
             string output = db.output(input);
 

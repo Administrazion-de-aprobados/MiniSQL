@@ -33,7 +33,7 @@ namespace Library
                 {
                     DateTime timeStartSentence = DateTime.Now;
 
-                    string sentence = filas[i].TrimEnd(';');
+                    string sentence = filas[i];
 
                     string result = DB.output(sentence);
 
@@ -41,7 +41,7 @@ namespace Library
                     TimeSpan timeDiffSentence =  timeFinishSentence - timeStartSentence;
                     double secondsSentence = timeDiffSentence.TotalMilliseconds / 1000.0;
 
-                    sw.WriteLine(result+" ("+secondsSentence+")");
+                    sw.WriteLine(result+" ("+secondsSentence+"s)");
                     i++;
                 }
 
@@ -49,7 +49,7 @@ namespace Library
                 TimeSpan timeDiffTest = timeFinishTest - timeStartTest;
                 double secondsTest = timeDiffTest.TotalMilliseconds / 1000.0;
 
-                sw.WriteLine("TOTAL TIME: " + secondsTest);
+                sw.WriteLine("TOTAL TIME: " + secondsTest+"s");
                 sw.WriteLine(" ");
                 k = k + 1;
             }

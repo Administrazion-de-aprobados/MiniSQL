@@ -25,7 +25,7 @@ namespace Test
         public Boolean parseSelect()
         {
 
-            Sentence sentence = Query.parse("SELECT column FROM table WHERE 1>1");
+            Sentence sentence = Query.parse("SELECT column FROM table WHERE 1>1;");
 
             Select select = sentence as Select;
 
@@ -53,7 +53,7 @@ namespace Test
 
         public Boolean parseDelete()
         {
-            Sentence sentence = Query.parse("DELETE FROM table WHERE 1=1");
+            Sentence sentence = Query.parse("DELETE FROM table WHERE 1=1;");
 
             Delete delete = sentence as Delete;
 
@@ -73,7 +73,7 @@ namespace Test
 
         public Boolean parseInsert()
         {
-            Sentence sentence = Query.parse("INSERT INTO table VALUES ('prueba1','prueba2')");
+            Sentence sentence = Query.parse("INSERT INTO table VALUES ('prueba1','prueba2');");
 
             Insert insert = sentence as Insert;
 
@@ -95,7 +95,7 @@ namespace Test
 
         public Boolean parseUpdate()
         {
-            Sentence sentece = Query.parse("UPDATE table SET columna1=1,columna2=2,columna3=3 WHERE 1<1");
+            Sentence sentece = Query.parse("UPDATE table SET columna1=1,columna2=2,columna3=3 WHERE 1<1;");
 
             Update update = sentece as Update;
 
@@ -122,7 +122,7 @@ namespace Test
 
         public Boolean parseCreatetable()
         {
-            Sentence sentence = Query.parse("CREATE TABLE table (column1 INT, column2 TEXT, column3 DOUBLE)");
+            Sentence sentence = Query.parse("CREATE TABLE table (column1 INT,column2 TEXT,column3 DOUBLE);");
 
             CreateTable createTable = sentence as CreateTable;
 
@@ -136,7 +136,7 @@ namespace Test
 
         public Boolean parseDropTable()
         {
-            Sentence sentence = Query.parse("DROP TABLE table");
+            Sentence sentence = Query.parse("DROP TABLE table;");
 
             DropTable dropTable = sentence as DropTable;
 

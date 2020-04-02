@@ -16,30 +16,14 @@ namespace Library
 
             Sentence sentence = null;
 
-            String patterSelect = "SELECT\\s(\\*|\\w+(?:,*\\w+)*)\\sFROM\\s(\\w+)\\sWHERE\\s(\\w+)([<|=|>])('[^',]+'|-?\\d+\\.?\\d*)";
-            String patternSelectAll = "SELECT\\s(\\*|\\w+(?:,*\\w+)*)\\sFROM\\s(\\w+)";
-            String patterDelete = "DELETE\\sFROM\\s(\\w+)\\sWHERE\\s(\\w+)([<|=|>])('[^',]+'|-?\\d+\\.?\\d*)";
-            String patternInsert = "INSERT\\sINTO\\s(\\w+)\\sVALUES\\s\\(((?:'[^',]+'|-?\\d+\\.?\\d*)(?:,(?:'[^',]+'|-?\\d+\\.?\\d*))*)\\)";
-            String patternUpdate = "UPDATE\\s(\\w+)\\sSET\\s(\\w+=(?:'[^',]+'|-?\\d+\\.?\\d*)(?:,?\\w+=(?:'[^',]+'|-?\\d+\\.?\\d*))*)\\sWHERE\\s(\\w+)([<|=|>])('[^',]+'|-?\\d+\\.?\\d*)";
-            String patternCreateTable = "CREATE\\sTABLE\\s(\\w+)\\s\\((\\w+\\s[TEXT|INT|DOUBLE]+(?:,?\\s\\w+\\s[TEXT|INT|DOUBLE]+)*)\\)";
-            String patterDropTable = "DROP\\sTABLE\\s(\\w+)";
+            String patterSelect = "SELECT\\s(\\*|\\w+(?:,*\\w+)*)\\sFROM\\s(\\w+)\\sWHERE\\s(\\w+)([<|=|>])('[^',]+'|-?\\d+\\.?\\d*);";
+            String patternSelectAll = "SELECT\\s(\\*|\\w+(?:,*\\w+)*)\\sFROM\\s(\\w+);";
+            String patterDelete = "DELETE\\sFROM\\s(\\w+)\\sWHERE\\s(\\w+)([<|=|>])('[^',]+'|-?\\d+\\.?\\d*);";
+            String patternInsert = "INSERT\\sINTO\\s(\\w+)\\sVALUES\\s\\(((?:'[^',]+'|-?\\d+\\.?\\d*)(?:,(?:'[^',]+'|-?\\d+\\.?\\d*))*)\\);";
+            String patternUpdate = "UPDATE\\s(\\w+)\\sSET\\s(\\w+=(?:'[^',]+'|-?\\d+\\.?\\d*)(?:,?\\w+=(?:'[^',]+'|-?\\d+\\.?\\d*))*)\\sWHERE\\s(\\w+)([<|=|>])('[^',]+'|-?\\d+\\.?\\d*);";
+            String patternCreateTable = "CREATE\\sTABLE\\s(\\w+)\\s\\((\\w+\\s[TEXT|INT|DOUBLE]+(?:,?\\w+\\s[TEXT|INT|DOUBLE]+)*)\\);";
+            String patterDropTable = "DROP\\sTABLE\\s(\\w+);";
 
-            // For the selectAll
-            if (Regex.IsMatch(sentenc, patternSelectAll))
-            {
-                Match match = Regex.Match(sentenc, patternSelectAll);
-
-                List<String> list = new List<String>();
-
-                // List of columns
-                list = stringToList(match.Groups[1].Value, ',');
-
-                // Table name
-                String table = match.Groups[2].Value;
-
-                sentence = new SelectAll(table, list);
-
-            }
 
             // For the select
             if (Regex.IsMatch(sentenc, patterSelect))
@@ -64,9 +48,28 @@ namespace Library
                 sentence = new Select(table, list, where);
             }
 
+            // For the selectAll
+            else if (Regex.IsMatch(sentenc, patternSelectAll))
+            {
+                Match match = Regex.Match(sentenc, patternSelectAll);
+
+                List<String> list = new List<String>();
+
+                // List of columns
+                list = stringToList(match.Groups[1].Value, ',');
+
+                // Table name
+                String table = match.Groups[2].Value;
+
+                sentence = new SelectAll(table, list);
+
+            }
+
+            
+
 
             // For the delete
-            if(Regex.IsMatch(sentenc, patterDelete))
+            else if(Regex.IsMatch(sentenc, patterDelete))
             {
                 Match match = Regex.Match(sentenc, patterDelete);
                 String table = match.Groups[1].Value;
@@ -79,7 +82,7 @@ namespace Library
             }
 
             // For the insert
-            if(Regex.IsMatch(sentenc, patternInsert))
+            else if(Regex.IsMatch(sentenc, patternInsert))
             {
                 Match match = Regex.Match(sentenc, patternInsert);
                 String table = match.Groups[1].Value;
@@ -92,7 +95,7 @@ namespace Library
             }
 
             // For the update 
-            if (Regex.IsMatch(sentenc, patternUpdate))
+            else if(Regex.IsMatch(sentenc, patternUpdate))
             {
                 Match match = Regex.Match(sentenc, patternUpdate);
                 String table = match.Groups[1].Value;
@@ -116,7 +119,7 @@ namespace Library
             }
 
             //For the create table
-            if(Regex.IsMatch(sentenc, patternCreateTable))
+            else if(Regex.IsMatch(sentenc, patternCreateTable))
             {
 
                 Match match = Regex.Match(sentenc, patternCreateTable);
@@ -130,7 +133,7 @@ namespace Library
             }
 
             // For the drop table
-            if(Regex.IsMatch(sentenc, patterDropTable))
+            else if(Regex.IsMatch(sentenc, patterDropTable))
             {
                 Match match = Regex.Match(sentenc, patterDropTable);
                 String table = match.Groups[1].Value;
