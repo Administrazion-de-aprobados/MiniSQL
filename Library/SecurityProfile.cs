@@ -8,25 +8,14 @@ namespace Library
 {
     public class SecurityProfile
     {
-        string tableName;
-        IList<string> privileges;
+        string Name;
+        Dictionary<string, List<Library.Privilege>> Privileges;
 
-        public SecurityProfile(string table)
+        public SecurityProfile(string secName)
         {
-            tableName = table;
-            privileges = new List<string>();
+            Name = secName;
+            Privileges = new Dictionary<string, List<Privilege>>();
         } 
-
-        public void addPrivileges(string privilege)
-        {
-
-
-        }
-
-        public Boolean searchPrivilege(string privilege)
-        {
-            return false;
-        }
 
     }
 }

@@ -10,6 +10,7 @@ namespace Library
     public enum Operator { Greater, Less, Equal };
     public enum Type { Text, Int, Double };
 
+    public enum Privilege {SELECT, DELETE, UPDATE, INSERT };
   
     public class DataBase
     {
