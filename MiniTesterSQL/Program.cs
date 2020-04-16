@@ -12,7 +12,7 @@ namespace MiniTesterSQL
         public static void Main(string[] args)
         {
 
-            MiniSQL.tester(args[0], args[1]);
+            MiniSQL.tester(args[1], args[3]);
 
 
         }

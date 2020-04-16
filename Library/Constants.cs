@@ -13,6 +13,7 @@ namespace Library
         public const string DeleteDatabaseSuccess = "Database deleted";
         public const string BackupDatabaseSuccess = "Database backed up";
         public const string CreateTableSuccess = "Table created";
+        public const string TableDroppedSucess = "Table dropped";
         public const string InsertSuccess = "Tuple added";
         public const string TupleDeleteSuccess = "Tuple(s) deleted";
         public const string TupleUpdateSuccess = "Tuple(s) updated";

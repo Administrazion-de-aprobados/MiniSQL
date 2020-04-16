@@ -631,7 +631,7 @@ namespace Library
                     string tableName = drop.tableName;
                     dropTable(tableName);
 
-                    output = "table droped";
+                    output = Constants.TableDroppedSucess;
                 }
 
                 else if (sentence is CreateTable)
