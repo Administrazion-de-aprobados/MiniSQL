@@ -315,9 +315,8 @@ namespace Library
 
             User us = new User(name, password);
 
-           
 
-            if (SecProfiles.ContainsKey(securityProfileName))
+            if (!Users.ContainsKey(name))
             {
                 Users.Add(name, us);
 
@@ -329,11 +328,23 @@ namespace Library
 
             else
             {
-                throw new Exception(Constants.SecurityProfileDoesNotExist);
+                throw new Exception(Constants.SecurityUserAlreadyExists);
             }
 
 
 
+        }
+
+        public void deleteUser(string user) {
+
+            if (Users.ContainsKey(user))
+            {
+                Users.Remove(user);
+            }
+            else {
+                throw new Exception(Constants.SecurityUserDoesNotExist);
+            }
+        
         }
 
 
