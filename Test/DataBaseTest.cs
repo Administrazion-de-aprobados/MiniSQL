@@ -410,5 +410,23 @@ namespace Test
             Assert.IsTrue(output.Equals("Table dropped"));
 
         }
-    }
+        [TestMethod]
+        public void createSecurityProfile()
+        {
+
+            BDcreation.BDcreatioon();
+            DataBase db = new DataBase();
+            db.load("BD");
+
+            string secProf = "SECURITY";
+            
+
+            db.createSecurityProfile(secProf);
+
+            SecurityProfile sp = db.SecProfiles[secProf];
+            
+            Assert.IsTrue(secProf.Equals(sp.Name));
+
+        }
+        }
 }
