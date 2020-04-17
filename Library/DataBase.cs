@@ -38,6 +38,8 @@ namespace Library
             Tables = new Dictionary<string, Table>();
             SecProfiles = new Dictionary<string, SecurityProfile>();
 
+            User user = new User("admin", "admin");
+            Users.Add(user.Name, user);
         }
 
 
@@ -846,35 +848,70 @@ namespace Library
                     {
                         if(securityQueries is AddUser)
                         {
+                            AddUser addUseer = securityQueries as AddUser;
 
+                            string name = addUseer.User;
+                            string pass = addUseer.Password;
+                            string security = addUseer.SecurityProfileName;
 
+                            addUser(name, pass, security);
+                            output = Constants.SecurityUserAdded;
                         }
 
                         else if (securityQueries is DeleteUser)
                         {
+                            DeleteUser deleteeUser = securityQueries as DeleteUser;
 
+                            string name = deleteeUser.User;
+
+                            deleteUser(name);
+                            output = Constants.SecurityUserDeleted;
                         }
 
                         else if (securityQueries is CreateSecurityProfile)
                         {
+                            CreateSecurityProfile create = securityQueries as CreateSecurityProfile;
+
+                            string security = create.SecurityProfileName;
+
+                            createSecurityProfile(security);
+                            output = Constants.SecurityProfileCreated;
 
                         }
 
                         else if (securityQueries is DropSecurityProfile)
                         {
+                            DropSecurityProfile drop = securityQueries as DropSecurityProfile;
 
+                            string name = drop.SecurityProfileName;
+
+                            dropSecurityProfile(name);
+                            output = Constants.SecurityProfileDeleted;
 
                         }
 
                         else if (securityQueries is GrantPrivilege)
                         {
+                            GrantPrivilege graant = securityQueries as GrantPrivilege;
 
+                            Privilege type = graant.Type;
+                            string table = graant.Table;
+                            string security = graant.SecurityProfileName;
+
+                            grant(type, table, security);
+                            output = Constants.SecurityPrivilegeGranted;
                         }
 
                         else if (securityQueries is RevokePrivilege)
                         {
+                            RevokePrivilege revooke = securityQueries as RevokePrivilege;
 
+                            Privilege type = revooke.Type;
+                            string table = revooke.Table;
+                            string security = revooke.SecurityProfileName;
 
+                            revoke(type, table, security);
+                            output = Constants.SecurityPrivilegeRevoked;
                         }
 
                     }
