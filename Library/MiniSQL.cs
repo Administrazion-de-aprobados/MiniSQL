@@ -12,8 +12,6 @@ namespace Library
 
         public static void tester(string inputFile, string outputName)
         {
-           
-
             string[] filas = File.ReadAllLines(inputFile);
 
             StreamWriter sw = File.CreateText(outputName);
@@ -35,7 +33,8 @@ namespace Library
 
                     string sentence = filas[i];
 
-                    string result = DB.output(sentence);
+                    //change
+                    string result = DB.output(sentence,null);
 
                     DateTime timeFinishSentence = DateTime.Now;
                     TimeSpan timeDiffSentence =  timeFinishSentence - timeStartSentence;

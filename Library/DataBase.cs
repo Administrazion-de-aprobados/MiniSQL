@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Sentences.Security;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Library
     public enum Type { Text, Int, Double };
 
     public enum Privilege {SELECT, DELETE, UPDATE, INSERT };
-  
+
     public class DataBase
     {
 
@@ -70,7 +71,7 @@ namespace Library
             }
             else
             {
-               throw new Exception(Constants.TableDoesNotExist);
+                throw new Exception(Constants.TableDoesNotExist);
             }
         }
 
@@ -187,7 +188,7 @@ namespace Library
             }
         }
 
-        public void update(string tableName, string columnName, string newData,string columnToCompare, Operator op, string valueToCompare)
+        public void update(string tableName, string columnName, string newData, string columnToCompare, Operator op, string valueToCompare)
         {
 
             if (Tables.ContainsKey(tableName))
@@ -283,7 +284,7 @@ namespace Library
 
             }
             else {
-                
+
                 throw new Exception(Constants.SecurityProfileAlreadyExists);
             }
         }
@@ -295,9 +296,9 @@ namespace Library
             Dictionary<string, User>.KeyCollection users = Users.Keys;
 
             int i = 0;
-            
+
             foreach (string user in users) {
-               
+
                 User us = Users[user];
                 if (us.SecurityProfiles.Contains(secProfName)) {
 
@@ -306,7 +307,7 @@ namespace Library
                 }
 
             }
-            
+
 
         }
 
@@ -584,7 +585,7 @@ namespace Library
                 Admin admiin = new Admin(adminName, pass);
 
                 admin = admiin;
-               
+
 
                 for (int i = 1; i < filas.Length; i++)
                 {
@@ -673,12 +674,11 @@ namespace Library
             File.Delete(name);
         }
 
-        public string output(string input) {
 
-            
+
+        public string output(string input, User user) {
+
             Sentence sentence = Query.parse(input);
-
-           
 
             string output = "";
             try
@@ -699,8 +699,14 @@ namespace Library
                         string columnName = where.col;
                         string dataToCompare = where.colData;
 
-                        output = select(columnsNames, tableName, columnName, op, dataToCompare).selectToString();
-
+                        if (hasPrivilege(user, tableName, Privilege.SELECT))
+                        {
+                            output = select(columnsNames, tableName, columnName, op, dataToCompare).selectToString();
+                        }
+                        else
+                        {
+                            output = Constants.SecurityNotSufficientPrivileges;
+                        }
                     }
 
                     else if (statement is SelectAll)
@@ -710,8 +716,14 @@ namespace Library
                         IList<string> columnsNames = sel.listColumns;
                         string tableName = sel.tableName;
 
-                        output = selectAll(columnsNames, tableName).selectToString();
-
+                        if (hasPrivilege(user, tableName, Privilege.SELECT))
+                        {
+                            output = selectAll(columnsNames, tableName).selectToString();
+                        }
+                        else
+                        {
+                            output = Constants.SecurityNotSufficientPrivileges;
+                        }
                     }
 
                     else if (statement is Delete)
@@ -724,9 +736,16 @@ namespace Library
                         string column = where.col;
                         Operator op = where.op;
                         string data = where.colData;
-                        deleteData(tabName, column, op, data);
-
-                        output = Constants.TupleDeleteSuccess;
+                      
+                        if (hasPrivilege(user, tabName, Privilege.DELETE))
+                        {
+                            deleteData(tabName, column, op, data);
+                            output = Constants.TupleDeleteSuccess;
+                        }
+                        else
+                        {
+                            output = Constants.SecurityNotSufficientPrivileges;
+                        }
                     }
 
                     else if (statement is Insert)
@@ -735,9 +754,16 @@ namespace Library
                         Insert ins = statement as Insert;
                         string nameTable = ins.tableName;
                         List<string> dataToInsert = ins.row;
-                        insert(nameTable, dataToInsert);
-                        output = Constants.InsertSuccess;
 
+                        if (hasPrivilege(user, nameTable, Privilege.INSERT))
+                        {
+                            insert(nameTable, dataToInsert);
+                            output = Constants.InsertSuccess;
+                        }
+                        else
+                        {
+                            output = Constants.SecurityNotSufficientPrivileges;
+                        }
 
                     }
 
@@ -753,16 +779,22 @@ namespace Library
                         Operator op = where.op;
                         string data = where.colData;
 
-                        for (int i = 0; i < columnNames.Count; i++)
+                        if (hasPrivilege(user, tableName, Privilege.UPDATE))
                         {
+                            for (int i = 0; i < columnNames.Count; i++)
+                            {
 
-                            string columnName = columnNames[i];
-                            string newData = newValues[i];
-                            update(tableName, columnName, newData, columnToCompare, op, data);
+                                string columnName = columnNames[i];
+                                string newData = newValues[i];
+                                update(tableName, columnName, newData, columnToCompare, op, data);
+                            }
+
+                            output = Constants.TupleUpdateSuccess;
                         }
-
-                        output = Constants.TupleUpdateSuccess;
-
+                        else
+                        {
+                            output = Constants.SecurityNotSufficientPrivileges;
+                        }
                     }
 
                     else if (statement is DropTable)
@@ -770,9 +802,16 @@ namespace Library
 
                         DropTable drop = statement as DropTable;
                         string tableName = drop.tableName;
-                        dropTable(tableName);
 
-                        output = Constants.TableDroppedSucess;
+                        if (user.Name.Equals("admin"))
+                        {
+                            dropTable(tableName);
+                            output = Constants.TableDroppedSucess;
+                        }
+                        else
+                        {
+                            output = Constants.SecurityNotSufficientPrivileges;
+                        }
                     }
 
                     else if (statement is CreateTable)
@@ -781,17 +820,71 @@ namespace Library
                         CreateTable create = statement as CreateTable;
                         string tableName = create.tableName;
                         List<string> colNames = create.ListOfColumns;
-                        createTable(tableName, colNames);
 
-                        output = Constants.CreateTableSuccess;
+                        if (user.Name.Equals("admin"))
+                        {
+                            createTable(tableName, colNames);
+                            output = Constants.CreateTableSuccess;
+                        }
+                        else
+                        {
+                            output = Constants.SecurityNotSufficientPrivileges;
+                        }
+
+                    }
+                }
+                else if(sentence is SecurityQueries)
+                {
+                    SecurityQueries securityQueries = sentence as SecurityQueries;
 
 
+                    if(!user.Equals("admin") && !user.Password.Equals("admin"))
+                    {
+                        output = Constants.SecurityNotSufficientPrivileges;
                     }
                     else
                     {
-                        output = Constants.WrongSyntax;
+                        if(securityQueries is AddUser)
+                        {
+
+
+                        }
+
+                        else if (securityQueries is DeleteUser)
+                        {
+
+                        }
+
+                        else if (securityQueries is CreateSecurityProfile)
+                        {
+
+                        }
+
+                        else if (securityQueries is DropSecurityProfile)
+                        {
+
+
+                        }
+
+                        else if (securityQueries is GrantPrivilege)
+                        {
+
+                        }
+
+                        else if (securityQueries is RevokePrivilege)
+                        {
+
+
+                        }
+
                     }
+
                 }
+                else
+                {
+                    output = Constants.WrongSyntax;
+                }
+
             }
             catch (Exception e)
             {
@@ -801,6 +894,38 @@ namespace Library
             }
 
             return output;
+        }
+
+
+        public Boolean existUser(string name, string pass)
+        { 
+            if (Users.ContainsKey(name))
+            {
+                User user = Users[name];
+                if (user.Password.Equals(pass))
+                    return true;
+            }
+            return false;
+        }
+
+        public Boolean hasPrivilege(User user, string table, Privilege type)
+        {
+            if (user.Name.Equals("admin"))
+                return true;
+
+
+            foreach(string profile in user.SecurityProfiles)
+            {
+                if (SecProfiles.ContainsKey(profile))
+                {
+                    SecurityProfile securityProfile = SecProfiles[profile];
+
+                    if (securityProfile.Privileges.ContainsKey(table))
+                        if (securityProfile.Privileges[table].Contains(type))
+                            return true;
+                }
+            }
+            return false;
         }
 
     }

@@ -4,12 +4,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Library;
 using System.IO;
 using Library;
+using Library.Sentences.Security;
 
 namespace Test
 {
     [TestClass]
     public class QueryTest
-    { 
+    {
         [TestMethod]
         public void parse()
         {
@@ -20,6 +21,14 @@ namespace Test
             Assert.IsTrue(parseUpdate());
             Assert.IsTrue(parseCreatetable());
             Assert.IsTrue(parseDropTable());
+
+            Assert.IsTrue(parseAddUser());
+            Assert.IsTrue(parseDelete());
+            Assert.IsTrue(parseCreateSecurityProfile());
+            Assert.IsTrue(parseDropSecurityProfile());
+            Assert.IsTrue(parseGrantPrivilege());
+            Assert.IsTrue(parseRevokePrivilege());
+
         }
 
         public Boolean parseSelect()
@@ -149,6 +158,83 @@ namespace Test
             return false;
         }
 
+        public Boolean parseCreateSecurityProfile()
+        {
+            Sentence sentence = Query.parse("CREATE SECURITY PROFILE Employee;");
+
+            CreateSecurityProfile CreateSecurityProfile = sentence as CreateSecurityProfile;
+
+            if (CreateSecurityProfile.SecurityProfileName.Equals("Employee"))
+                return true;
+
+            return false;
+        }
+
+        public Boolean parseDropSecurityProfile()
+        {
+            Sentence sentence = Query.parse("DROP SECURITY PROFILE Employee;");
+
+            DropSecurityProfile DropSecurityProfile = sentence as DropSecurityProfile;
+
+            if (DropSecurityProfile.SecurityProfileName.Equals("Employee"))
+                return true;
+
+            return false;
+        }
+
+        public Boolean parseGrantPrivilege()
+        {
+            Sentence sentence = Query.parse("GRANT SELECT ON Employees_Public TO Employee;");
+
+            GrantPrivilege grantPrivilege = sentence as GrantPrivilege;
+
+            if (grantPrivilege.SecurityProfileName.Equals("Employee"))
+                if (grantPrivilege.Table.Equals("Employees_Public"))
+                    if (grantPrivilege.Type == Privilege.SELECT)
+                        return true;
+
+            return false;
+        }
+
+        public Boolean parseRevokePrivilege()
+        {
+            Sentence sentence = Query.parse("REVOKE SELECT ON Employees_Public TO Employee;");
+
+            RevokePrivilege revokePrivilege = sentence as RevokePrivilege;
+
+            if (revokePrivilege.SecurityProfileName.Equals("Employee"))
+                if (revokePrivilege.Table.Equals("Employees_Public"))
+                    if (revokePrivilege.Type == Privilege.SELECT)
+                        return true;
+
+            return false;
+        }
+
+        public Boolean parseAddUser()
+        {
+            Sentence sentence = Query.parse("ADD USER ('Eva','1234',Employee);");
+
+            AddUser addUser = sentence as AddUser;
+
+            if (addUser.User.Equals("Eva"))
+                if (addUser.Password.Equals("1234"))
+                    if (addUser.SecurityProfileName.Equals("Employee"))
+                        return true;
+
+            return false;
+        }
+
+        public Boolean parseDeleteUser()
+        {
+            Sentence sentence = Query.parse("DELETE USER Eva;");
+
+            DeleteUser deleteUser = sentence as DeleteUser;
+
+            if (deleteUser.User.Equals("Eva"))
+                return true;
+
+            return false;
+        }
 
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.Sentences.Security
 {
-    class RevokePrivilege: SecurityQueries
+    public class RevokePrivilege: SecurityQueries
     {
 
 

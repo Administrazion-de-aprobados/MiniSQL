@@ -160,7 +160,7 @@ namespace Library
             }
 
             // For the Drop security profile
-            else if(Regex.IsMatch(sentenc, patternDropSecurityProfile))
+            else if (Regex.IsMatch(sentenc, patternDropSecurityProfile))
             {
 
                 Match match = Regex.Match(sentenc, patternDropSecurityProfile);
@@ -169,13 +169,37 @@ namespace Library
                 sentence = new DropSecurityProfile(secutiryProfile);
             }
 
-            //Faltan los del enum
+            // For grant privilege
+            else if (Regex.IsMatch(sentenc, patternGrantPrivilege))
+            {
 
+                Match match = Regex.Match(sentenc, patternGrantPrivilege);
 
+                string typeString = match.Groups[1].Value;
+                Privilege type = stringToType(typeString);
 
+                string table = match.Groups[2].Value;
+                string securityProfile = match.Groups[3].Value;
 
+                sentence = new GrantPrivilege(type, table, securityProfile);
+            }
 
+            // For revoke privilege
+            else if (Regex.IsMatch(sentenc, patternRevokePrivilege))
+            {
 
+                Match match = Regex.Match(sentenc, patternRevokePrivilege);
+
+                string typeString = match.Groups[1].Value;
+                Privilege type = stringToType(typeString);
+
+                string table = match.Groups[2].Value;
+                string securityProfile = match.Groups[3].Value;
+
+                sentence = new RevokePrivilege(type, table, securityProfile);
+            }
+
+            // For Add user
             else if (Regex.IsMatch(sentenc, patternAddUser))
             {
 
@@ -187,22 +211,14 @@ namespace Library
                 sentence = new AddUser(name, pass, securityProfile);
             }
 
-            else if(Regex.IsMatch(sentenc, patternDeleteUser))
+            // For delete user
+            else if (Regex.IsMatch(sentenc, patternDeleteUser))
             {
                 Match match = Regex.Match(sentenc, patternDeleteUser);
                 string name = match.Groups[1].Value;
 
                 sentence = new DeleteUser(name);
             }
-
-
-
-
-
-
-
-
-
 
             return sentence;
         }
@@ -215,14 +231,14 @@ namespace Library
             Operator operatoor = Operator.Equal;
 
             if (op == "=")
-            { 
-                   operatoor = Operator.Equal;
+            {
+                operatoor = Operator.Equal;
             }
-            else if (op == ">" )
+            else if (op == ">")
             {
                 operatoor = Operator.Greater;
             }
-            else if (op == "<" )
+            else if (op == "<")
             {
                 operatoor = Operator.Less;
             }
@@ -250,12 +266,12 @@ namespace Library
             return list;
         }
 
-        public static Tuple<List<string>, List<string>> listToTwoList (List<string> list)
+        public static Tuple<List<string>, List<string>> listToTwoList(List<string> list)
         {
             List<string> colum = new List<string>();
             List<string> values = new List<string>();
 
-            foreach(string i in list)
+            foreach (string i in list)
             {
                 String[] splitedInput = i.Split('=');
 
@@ -266,5 +282,41 @@ namespace Library
             return Tuple.Create(colum, values);
         }
 
+
+
+        public static Privilege stringToType(string typeString)
+        {
+            Privilege type = Privilege.DELETE;
+
+            if (typeString.Equals("DELETE"))
+            {
+
+                type = Privilege.DELETE;
+
+            }
+            else if (typeString.Equals("UPDATE"))
+            {
+
+                type = Privilege.UPDATE;
+
+            }
+            else if (typeString.Equals("SELECT"))
+            {
+
+                type = Privilege.SELECT;
+
+            }
+            else if (typeString.Equals("INSERT"))
+            {
+
+                type = Privilege.INSERT;
+
+            }
+
+            return type;
+        }
+
+
     }
+
 }
