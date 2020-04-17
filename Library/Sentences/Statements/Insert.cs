@@ -6,18 +6,14 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    public class DropTable: Sentence
+    public class Insert: Statements
     {
-
-        public DropTable(string table): base(table)
+        public List<string> row;
+        
+        public Insert(string table,List<string> newRow) : base(table)
         {
-
             tableName = table;
-
+            row=newRow;
         }
-
-
-
-
     }
 }

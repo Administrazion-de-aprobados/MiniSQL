@@ -8,11 +8,12 @@ namespace Library
 {
     public class Sentence
     {
-        public string tableName;
 
-        public Sentence(string table)
+        public Sentence()
         {
-            tableName = table;
+
         }
+
+
     }
 }

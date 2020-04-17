@@ -6,20 +6,17 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    class SelectAll : Sentence
+    public class DropTable: Statements
     {
 
-        public List<string> listColumns;
-
-        public SelectAll(string table, List<string> columns) : base(table)
+        public DropTable(string table): base(table)
         {
 
             tableName = table;
-            
-            listColumns = columns;
-
 
         }
+
+
 
 
     }

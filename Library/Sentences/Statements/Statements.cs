@@ -4,19 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace Library
 {
-    public class Delete : Sentence
+    public class Statements : Sentence
     {
-        public Where sentenceWhere;
-      
-        public Delete( string table, Where where) : base( table)
+        public string tableName;
+
+        public Statements(string table)
         {
             tableName = table;
-            sentenceWhere = where;
-          
         }
-
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using Library.Sentences.Security;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,13 @@ namespace Library
             String patternUpdate = "UPDATE\\s(\\w+)\\sSET\\s(\\w+=(?:'[^',]+'|-?\\d+\\.?\\d*)(?:,?\\w+=(?:'[^',]+'|-?\\d+\\.?\\d*))*)\\sWHERE\\s(\\w+)([<|=|>])('[^',]+'|-?\\d+\\.?\\d*);";
             String patternCreateTable = "CREATE\\sTABLE\\s(\\w+)\\s\\((\\w+\\s[TEXT|INT|DOUBLE]+(?:,?\\w+\\s[TEXT|INT|DOUBLE]+)*)\\);";
             String patterDropTable = "DROP\\sTABLE\\s(\\w+);";
+
+            String patternCreateSecurityProfile = "CREATE\\sSECURITY\\sPROFILE\\s(\\w+);";
+            String patternDropSecurityProfile = "DROP\\sSECURITY\\sPROFILE\\s(\\w+);";
+            String patternGrantPrivilege = "GRANT\\s(DELETE|INSERT|SELECT|UPDATE)\\sON\\s(\\w+)\\sTO\\s(\\w+);";
+            String patternRevokePrivilege = "REVOKE\\s(DELETE|INSERT|SELECT|UPDATE)\\sON\\s(\\w+)\\sTO\\s(\\w+);";
+            String patternAddUser = "ADD\\sUSER\\s\\('(\\w+)','(\\w+)',(\\w+)\\);";
+            String patternDeleteUser = "DELETE\\sUSER\\s(\\w+);";
 
 
             // For the select
@@ -65,11 +74,8 @@ namespace Library
 
             }
 
-            
-
-
             // For the delete
-            else if(Regex.IsMatch(sentenc, patterDelete))
+            else if (Regex.IsMatch(sentenc, patterDelete))
             {
                 Match match = Regex.Match(sentenc, patterDelete);
                 String table = match.Groups[1].Value;
@@ -82,7 +88,7 @@ namespace Library
             }
 
             // For the insert
-            else if(Regex.IsMatch(sentenc, patternInsert))
+            else if (Regex.IsMatch(sentenc, patternInsert))
             {
                 Match match = Regex.Match(sentenc, patternInsert);
                 String table = match.Groups[1].Value;
@@ -95,7 +101,7 @@ namespace Library
             }
 
             // For the update 
-            else if(Regex.IsMatch(sentenc, patternUpdate))
+            else if (Regex.IsMatch(sentenc, patternUpdate))
             {
                 Match match = Regex.Match(sentenc, patternUpdate);
                 String table = match.Groups[1].Value;
@@ -119,7 +125,7 @@ namespace Library
             }
 
             //For the create table
-            else if(Regex.IsMatch(sentenc, patternCreateTable))
+            else if (Regex.IsMatch(sentenc, patternCreateTable))
             {
 
                 Match match = Regex.Match(sentenc, patternCreateTable);
@@ -133,14 +139,70 @@ namespace Library
             }
 
             // For the drop table
-            else if(Regex.IsMatch(sentenc, patterDropTable))
+            else if (Regex.IsMatch(sentenc, patterDropTable))
             {
                 Match match = Regex.Match(sentenc, patterDropTable);
                 String table = match.Groups[1].Value;
 
                 sentence = new DropTable(table);
-
             }
+
+
+            // For the Create security profile
+            else if (Regex.IsMatch(sentenc, patternCreateSecurityProfile))
+            {
+
+                Match match = Regex.Match(sentenc, patternCreateSecurityProfile);
+                String secutiryProfile = match.Groups[1].Value;
+
+
+                sentence = new CreateSecurityProfile(secutiryProfile);
+            }
+
+            // For the Drop security profile
+            else if(Regex.IsMatch(sentenc, patternDropSecurityProfile))
+            {
+
+                Match match = Regex.Match(sentenc, patternDropSecurityProfile);
+                String secutiryProfile = match.Groups[1].Value;
+
+                sentence = new DropSecurityProfile(secutiryProfile);
+            }
+
+            //Faltan los del enum
+
+
+
+
+
+
+            else if (Regex.IsMatch(sentenc, patternAddUser))
+            {
+
+                Match match = Regex.Match(sentenc, patternAddUser);
+                string name = match.Groups[1].Value;
+                string pass = match.Groups[2].Value;
+                string securityProfile = match.Groups[3].Value;
+
+                sentence = new AddUser(name, pass, securityProfile);
+            }
+
+            else if(Regex.IsMatch(sentenc, patternDeleteUser))
+            {
+                Match match = Regex.Match(sentenc, patternDeleteUser);
+                string name = match.Groups[1].Value;
+
+                sentence = new DeleteUser(name);
+            }
+
+
+
+
+
+
+
+
+
 
             return sentence;
         }

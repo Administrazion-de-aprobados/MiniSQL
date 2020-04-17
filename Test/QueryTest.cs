@@ -75,6 +75,8 @@ namespace Test
         {
             Sentence sentence = Query.parse("INSERT INTO table VALUES ('prueba1','prueba2');");
 
+            //Statements statement = sentence as Statements;
+
             Insert insert = sentence as Insert;
 
             List<String> list = new List<string>();
