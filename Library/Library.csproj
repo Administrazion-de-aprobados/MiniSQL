@@ -42,18 +42,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Admin.cs" />
-    <Compile Include="DropTable.cs" />
-    <Compile Include="CreateTable.cs" />
+    <Compile Include="Sentences\Security\AddUser.cs" />
+    <Compile Include="Sentences\Security\CreateSecurityProfile.cs" />
+    <Compile Include="Sentences\Security\DeleteUser.cs" />
+    <Compile Include="Sentences\Security\DropSecurityProfile.cs" />
+    <Compile Include="Sentences\Security\GrantPrivilege.cs" />
+    <Compile Include="Sentences\Security\RevokePrivilege.cs" />
+    <Compile Include="Sentences\Statements\DropTable.cs" />
+    <Compile Include="Sentences\Statements\CreateTable.cs" />
     <Compile Include="MiniSQL.cs" />
-    <Compile Include="SecurityQueries.cs" />
-    <Compile Include="SelectAll.cs" />
-    <Compile Include="Sentence.cs" />
-    <Compile Include="Where.cs" />
-    <Compile Include="Insert.cs" />
-    <Compile Include="Update.cs" />
-    <Compile Include="Delete.cs" />
-    <Compile Include="Select.cs" />
-    <Compile Include="Statements.cs" />
+    <Compile Include="Sentences\Security\SecurityQueries.cs" />
+    <Compile Include="Sentences\Statements\SelectAll.cs" />
+    <Compile Include="Sentences\Sentence.cs" />
+    <Compile Include="Sentences\Statements\Where.cs" />
+    <Compile Include="Sentences\Statements\Insert.cs" />
+    <Compile Include="Sentences\Statements\Update.cs" />
+    <Compile Include="Sentences\Statements\Delete.cs" />
+    <Compile Include="Sentences\Statements\Select.cs" />
+    <Compile Include="Sentences\Statements\Statements.cs" />
     <Compile Include="Query.cs" />
     <Compile Include="Column.cs" />
     <Compile Include="Constants.cs" />

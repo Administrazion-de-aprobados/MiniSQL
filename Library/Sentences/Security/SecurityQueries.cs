@@ -8,12 +8,12 @@ namespace Library
 {
     public class SecurityQueries : Sentence
     {
-        String securityProfileName;
+        public string SecurityProfileName;
 
-        public SecurityQueries(String name)
+        public SecurityQueries(string securityProfileName)
         {
 
-            securityProfileName = name;
+            SecurityProfileName = securityProfileName;
 
         }
     }
