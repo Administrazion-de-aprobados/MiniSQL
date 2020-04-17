@@ -457,7 +457,7 @@ namespace Test
             DataBase db = new DataBase();
             db.load("BD");
             db.createSecurityProfile("SECURITY");
-            db.addUser("Juan","123456","SECURITY");
+            db.addUser("Juan", "123456", "SECURITY");
 
             db.dropSecurityProfile(secProfileName);
 
@@ -479,6 +479,20 @@ namespace Test
                 }
 
             }
+        }
+        [TestMethod]
+        public void deleteUser()
+        {
+            string user = "Juan";
+            BDcreation.BDcreatioon();
+            DataBase db = new DataBase();
+            db.load("BD");
+            db.createSecurityProfile("SECURITY");
+            db.addUser("Juan", "123456", "SECURITY");
+
+            db.deleteUser(user);
+
+            Assert.IsFalse(db.Users.ContainsKey(user));
         }
         }
 }
