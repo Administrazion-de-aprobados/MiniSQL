@@ -9,7 +9,7 @@ namespace Library.Sentences.Security
     public class DeleteUser : SecurityQueries
     {
 
-        string User;
+        public string User;
 
         public DeleteUser(string user, string name = null) : base (name)  
         {

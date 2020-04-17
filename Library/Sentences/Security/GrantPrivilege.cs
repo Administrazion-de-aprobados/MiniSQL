@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.Sentences.Security
 {
-    class GrantPrivilege: SecurityQueries
+    public class GrantPrivilege: SecurityQueries
     {
 
         public Privilege Type;
