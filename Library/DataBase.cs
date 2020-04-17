@@ -17,6 +17,7 @@ namespace Library
 
         public Dictionary<string, User> Users;
         public Dictionary<string, Table> Tables;
+        public Dictionary<string, SecurityProfile> SecProfiles;
         private Admin admin;
         public string Name;
 
@@ -24,6 +25,7 @@ namespace Library
         {
             Users = new Dictionary<string, User>();
             Tables = new Dictionary<string, Table>();
+            SecProfiles = new Dictionary<string, SecurityProfile>();
 
             Name = name;
             admin = new Admin(adminName, pass);
@@ -33,6 +35,8 @@ namespace Library
         {
             Users = new Dictionary<string, User>();
             Tables = new Dictionary<string, Table>();
+            SecProfiles = new Dictionary<string, SecurityProfile>();
+
         }
 
 
@@ -269,8 +273,21 @@ namespace Library
             }
         }
 
+        public void createSecurityProfile(string secProfName) {
 
+            SecurityProfile securityProfile = new SecurityProfile(secProfName);
 
+            if (!SecProfiles.ContainsKey(secProfName)) {
+
+                SecProfiles.Add(secProfName, securityProfile);
+            }
+            else {
+                
+                throw new Exception(Constants.SecurityProfileAlreadyExists);
+            }
+        }
+
+        
 
 
         //This code return a list of the positions the where should act

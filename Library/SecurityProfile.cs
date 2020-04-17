@@ -8,8 +8,8 @@ namespace Library
 {
     public class SecurityProfile
     {
-        string Name;
-        Dictionary<string, List<Library.Privilege>> Privileges;
+        public string Name;
+        public Dictionary<string, List<Library.Privilege>> Privileges;
 
         public SecurityProfile(string secName)
         {
