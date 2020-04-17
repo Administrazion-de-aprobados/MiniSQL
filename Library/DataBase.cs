@@ -377,12 +377,38 @@ namespace Library
                 throw new Exception(Constants.SecurityProfileDoesNotExist);
             }
         }
-    
 
 
+        public void revoke(Privilege privilegeType, string table, string secProfile)
+        {
+            if (SecProfiles.ContainsKey(secProfile))
+            {
+                SecurityProfile sp = SecProfiles[secProfile];
 
-        //This code return a list of the positions the where should act
-        public IList<int> where(string tableName, string columnName, Operator op, string valueToCompare)
+                if (Tables.ContainsKey(table))
+                {
+                    if (sp.Privileges.ContainsKey(table)) {
+
+                        sp.Privileges[table].Remove(privilegeType);
+                    }
+                    else {
+                        throw new Exception("There is no privileges for this secProfile in that table");
+                    }
+                }
+                else
+                {
+                    throw new Exception(Constants.TableDoesNotExist);
+                }
+            }
+            else
+            {
+                throw new Exception(Constants.SecurityProfileDoesNotExist);
+            }
+        }
+
+
+            //This code return a list of the positions the where should act
+            public IList<int> where(string tableName, string columnName, Operator op, string valueToCompare)
         {
             IList<int> returnList = new List<int>();
 
