@@ -325,7 +325,8 @@ namespace Test
             outputDropTable();
         }
 
-        public void outputSelect() {
+        public void outputSelect()
+        {
             BDcreation.BDcreatioon();
             DataBase db = new DataBase();
             db.load("BD");
@@ -351,7 +352,8 @@ namespace Test
 
         }
 
-        public void outputInsert() {
+        public void outputInsert()
+        {
 
             BDcreation.BDcreatioon();
             DataBase db = new DataBase();
@@ -366,7 +368,8 @@ namespace Test
 
         }
 
-        public void outputUpdate() {
+        public void outputUpdate()
+        {
 
 
             BDcreation.BDcreatioon();
@@ -494,5 +497,23 @@ namespace Test
 
             Assert.IsFalse(db.Users.ContainsKey(user));
         }
+        [TestMethod]
+        public void grant()
+        {
+            BDcreation.BDcreatioon();
+            DataBase db = new DataBase();
+            db.load("BD");
+            db.createSecurityProfile("SECURITY");
+            Library.Privilege privilegeType = Library.Privilege.SELECT;
+            string table = "table";
+            string securityProfile = "SECURITY";
+
+            db.grant(privilegeType,table,securityProfile);
+
+           
+
+            Assert.IsTrue(db.SecProfiles[securityProfile].Privileges[table].Contains(privilegeType));
+
         }
+    }
 }

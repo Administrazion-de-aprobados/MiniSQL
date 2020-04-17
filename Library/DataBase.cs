@@ -347,6 +347,38 @@ namespace Library
         
         }
 
+        public void grant(Privilege privilegeType, string table, string secProfile ) {
+
+            if (SecProfiles.ContainsKey(secProfile))
+            {
+                SecurityProfile sp = SecProfiles[secProfile];
+
+                if (Tables.ContainsKey(table))
+                {
+                    if (sp.Privileges.ContainsKey(table)) {
+
+                        sp.Privileges[table].Add(privilegeType);
+                    }
+                    else {
+                        List<Privilege> listaPrivilegios = new List<Privilege>();
+                        listaPrivilegios.Add(privilegeType);
+                        
+                        sp.Privileges.Add(table,listaPrivilegios);
+
+                    }
+
+                }
+                else
+                {
+                    throw new Exception(Constants.TableDoesNotExist);
+                }
+            }
+            else {
+                throw new Exception(Constants.SecurityProfileDoesNotExist);
+            }
+        }
+    
+
 
 
         //This code return a list of the positions the where should act
