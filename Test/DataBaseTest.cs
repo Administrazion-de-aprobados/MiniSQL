@@ -87,7 +87,7 @@ namespace Test
             Table table = db.Tables["table"];
             Column column = table.Columns["column"];
 
-            db.update("table", "column", "newdata","column", Operator.Equal, "data");
+            db.update("table", "column", "newdata", "column", Operator.Equal, "data");
 
             string newdata = column.list[0];
 
@@ -340,7 +340,7 @@ namespace Test
         public void outputDelete()
         {
             BDcreation.BDcreatioon();
-           DataBase db = new DataBase();
+            DataBase db = new DataBase();
             db.load("BD");
 
             string input = "DELETE FROM table WHERE columnIntNumbers=1;";
@@ -363,10 +363,10 @@ namespace Test
 
             Assert.IsTrue(output.Equals("Tuple added"));
 
-           
+
         }
 
-        public void outputUpdate(){
+        public void outputUpdate() {
 
 
             BDcreation.BDcreatioon();
@@ -418,12 +418,12 @@ namespace Test
             db.load("BD");
 
             string secProf = "SECURITY";
-            
+
 
             db.createSecurityProfile(secProf);
 
             SecurityProfile sp = db.SecProfiles[secProf];
-            
+
             Assert.IsTrue(secProf.Equals(sp.Name));
 
         }
@@ -432,7 +432,7 @@ namespace Test
         {
             string name = "nombre";
             string password = "123456";
-            string secProf= "SECURITY";
+            string secProf = "SECURITY";
 
 
             BDcreation.BDcreatioon();
@@ -440,11 +440,45 @@ namespace Test
             db.load("BD");
             db.createSecurityProfile("SECURITY");
 
-            db.addUser(name,password,secProf);
+            db.addUser(name, password, secProf);
 
             User us = db.Users[name];
-            SecurityProfile sp = us.SecurityProfiles[secProf];
-            Assert.IsTrue(name.Equals(us.Name) && secProf.Equals(sp.Name));
+
+            Assert.IsTrue(name.Equals(us.Name) && us.SecurityProfiles.Contains(secProf));
+        }
+
+        [TestMethod]
+        public void dropSecurityProfile()
+        {
+
+            string secProfileName = "SECURITY";
+
+            BDcreation.BDcreatioon();
+            DataBase db = new DataBase();
+            db.load("BD");
+            db.createSecurityProfile("SECURITY");
+            db.addUser("Juan","123456","SECURITY");
+
+            db.dropSecurityProfile(secProfileName);
+
+            Assert.IsFalse(db.SecProfiles.ContainsKey(secProfileName));
+
+            Dictionary<string, User>.KeyCollection users = db.Users.Keys;
+
+            int i = 0;
+
+            foreach (string user in users)
+            {
+
+                User us = db.Users[user];
+                if (!us.SecurityProfiles.Contains(secProfileName))
+                {
+
+                    Assert.IsFalse(us.SecurityProfiles.Contains(secProfileName));
+
+                }
+
+            }
         }
         }
 }
