@@ -24,6 +24,13 @@ namespace Library
             String patternCreateTable = "CREATE\\sTABLE\\s(\\w+)\\s\\((\\w+\\s[TEXT|INT|DOUBLE]+(?:,?\\w+\\s[TEXT|INT|DOUBLE]+)*)\\);";
             String patterDropTable = "DROP\\sTABLE\\s(\\w+);";
 
+            String patternCreateSecurityProfile = "CREATE\\sSECURITY\\sPROFILE\\s(\\w+);";
+            String patternDropSecurityProfile = "DROP\\sSECURITY\\sPROFILE\\s(\\w+);";
+            String patternGrantPrivilege = "GRANT\\s(DELETE|INSERT|SELECT|UPDATE)\\sON\\s(\\w+)\\sTO\\s(\\w+);";
+            String patternRevokePrivilege = "REVOKE\\s(DELETE|INSERT|SELECT|UPDATE)\\sON\\s(\\w+)\\sTO\\s(\\w+);";
+            String patternAddUser = "ADD\\sUSER\\s\\('(\\w+)','(\\w+)',(\\w+)\\);";
+            String patternDeleteUser = "DELETE\\sUSER\\s(\\w+);";
+
 
             // For the select
             if (Regex.IsMatch(sentenc, patterSelect))
