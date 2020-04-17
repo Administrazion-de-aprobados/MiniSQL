@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    public class Update: Sentence
+    public class Update: Statements
     {
         public Where sentenceWhere;
         public List<string> column;

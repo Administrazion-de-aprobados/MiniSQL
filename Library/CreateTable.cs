@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    public class CreateTable: Sentence
+    public class CreateTable: Statements
     {
 
         public List<String> ListOfColumns;

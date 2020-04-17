@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    class SelectAll : Sentence
+    class SelectAll : Statements
     {
 
         public List<string> listColumns;

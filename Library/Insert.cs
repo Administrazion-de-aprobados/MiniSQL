@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    public class Insert: Sentence
+    public class Insert: Statements
     {
         public List<string> row;
         

@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    public class Sentence
+    public class Statements : Sentence
     {
+        public string tableName;
 
-        public Sentence()
+        public Statements(string table)
         {
-
+            tableName = table;
         }
-
-
     }
 }

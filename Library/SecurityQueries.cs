@@ -6,18 +6,15 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    public class DropTable: Statements
+    public class SecurityQueries : Sentence
     {
+        String securityProfileName;
 
-        public DropTable(string table): base(table)
+        public SecurityQueries(String name)
         {
 
-            tableName = table;
+            securityProfileName = name;
 
         }
-
-
-
-
     }
 }

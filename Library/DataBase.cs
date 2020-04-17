@@ -543,112 +543,119 @@ namespace Library
             
             Sentence sentence = Query.parse(input);
 
+           
+
             string output = "";
             try
             {
-                if (sentence is Select)
+                if (sentence is Statements)
                 {
+                    Statements statement = sentence as Statements;
 
-                    Select sel = sentence as Select;
-
-                    IList<string> columnsNames = sel.listColumns;
-                    string tableName = sel.tableName;
-                    Where where = sel.sentenceWhere;
-                    Operator op = where.op;
-                    string columnName = where.col;
-                    string dataToCompare = where.colData;
-
-                    output = select(columnsNames, tableName, columnName, op, dataToCompare).selectToString();
-
-                }
-
-                else if(sentence is SelectAll)
-                {
-                    SelectAll sel = sentence as SelectAll;
-
-                    IList<string> columnsNames = sel.listColumns;
-                    string tableName = sel.tableName;
-
-                    output = selectAll(columnsNames, tableName).selectToString();
-
-                }
-
-                else if (sentence is Delete)
-                {
-
-                    Delete delete = sentence as Delete;
-
-                    string tabName = delete.tableName;
-                    Where where = delete.sentenceWhere;
-                    string column = where.col;
-                    Operator op = where.op;
-                    string data = where.colData;
-                    deleteData(tabName, column, op, data);
-
-                    output = Constants.TupleDeleteSuccess;
-                }
-
-                else if (sentence is Insert)
-                {
-
-                    Insert ins = sentence as Insert;
-                    string nameTable = ins.tableName;
-                    List<string> dataToInsert = ins.row;
-                    insert(nameTable, dataToInsert);
-                    output = Constants.InsertSuccess;
-
-                    
-                }
-
-                else if (sentence is Update)
-                {
-
-                    Update upd = sentence as Update;
-                    string tableName = upd.tableName;
-                    List<string> columnNames = upd.column;
-                    List<string> newValues = upd.newValue;
-                    Where where = upd.sentenceWhere;
-                    string columnToCompare = where.col;
-                    Operator op = where.op;
-                    string data = where.colData;
-
-                    for (int i = 0; i < columnNames.Count; i++)
+                    if (statement is Select)
                     {
 
-                        string columnName = columnNames[i];
-                        string newData = newValues[i];
-                        update(tableName, columnName, newData, columnToCompare, op, data);
+                        Select sel = statement as Select;
+
+                        IList<string> columnsNames = sel.listColumns;
+                        string tableName = sel.tableName;
+                        Where where = sel.sentenceWhere;
+                        Operator op = where.op;
+                        string columnName = where.col;
+                        string dataToCompare = where.colData;
+
+                        output = select(columnsNames, tableName, columnName, op, dataToCompare).selectToString();
+
                     }
 
-                    output = Constants.TupleUpdateSuccess;
+                    else if (statement is SelectAll)
+                    {
+                        SelectAll sel = statement as SelectAll;
 
-                }
+                        IList<string> columnsNames = sel.listColumns;
+                        string tableName = sel.tableName;
 
-                else if (sentence is DropTable)
-                {
+                        output = selectAll(columnsNames, tableName).selectToString();
 
-                    DropTable drop = sentence as DropTable;
-                    string tableName = drop.tableName;
-                    dropTable(tableName);
+                    }
 
-                    output = Constants.TableDroppedSucess;
-                }
+                    else if (statement is Delete)
+                    {
 
-                else if (sentence is CreateTable)
-                {
+                        Delete delete = statement as Delete;
 
-                    CreateTable create = sentence as CreateTable;
-                    string tableName = create.tableName;
-                    List<string> colNames = create.ListOfColumns;
-                    createTable(tableName, colNames);
+                        string tabName = delete.tableName;
+                        Where where = delete.sentenceWhere;
+                        string column = where.col;
+                        Operator op = where.op;
+                        string data = where.colData;
+                        deleteData(tabName, column, op, data);
 
-                    output = Constants.CreateTableSuccess;
+                        output = Constants.TupleDeleteSuccess;
+                    }
+
+                    else if (statement is Insert)
+                    {
+
+                        Insert ins = statement as Insert;
+                        string nameTable = ins.tableName;
+                        List<string> dataToInsert = ins.row;
+                        insert(nameTable, dataToInsert);
+                        output = Constants.InsertSuccess;
 
 
-                }
-                else
-                {
-                    output = Constants.WrongSyntax;
+                    }
+
+                    else if (statement is Update)
+                    {
+
+                        Update upd = statement as Update;
+                        string tableName = upd.tableName;
+                        List<string> columnNames = upd.column;
+                        List<string> newValues = upd.newValue;
+                        Where where = upd.sentenceWhere;
+                        string columnToCompare = where.col;
+                        Operator op = where.op;
+                        string data = where.colData;
+
+                        for (int i = 0; i < columnNames.Count; i++)
+                        {
+
+                            string columnName = columnNames[i];
+                            string newData = newValues[i];
+                            update(tableName, columnName, newData, columnToCompare, op, data);
+                        }
+
+                        output = Constants.TupleUpdateSuccess;
+
+                    }
+
+                    else if (statement is DropTable)
+                    {
+
+                        DropTable drop = statement as DropTable;
+                        string tableName = drop.tableName;
+                        dropTable(tableName);
+
+                        output = Constants.TableDroppedSucess;
+                    }
+
+                    else if (statement is CreateTable)
+                    {
+
+                        CreateTable create = statement as CreateTable;
+                        string tableName = create.tableName;
+                        List<string> colNames = create.ListOfColumns;
+                        createTable(tableName, colNames);
+
+                        output = Constants.CreateTableSuccess;
+
+
+                    }
+                    else
+                    {
+                        output = Constants.WrongSyntax;
+                    }
                 }
             }
             catch (Exception e)

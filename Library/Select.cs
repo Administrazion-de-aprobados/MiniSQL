@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    public class Select : Sentence
+    public class Select : Statements
     {
         public Where sentenceWhere;
         public List<string> listColumns;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    public class Delete : Sentence
+    public class Delete : Statements
     {
         public Where sentenceWhere;
       
