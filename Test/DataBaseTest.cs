@@ -515,5 +515,25 @@ namespace Test
             Assert.IsTrue(db.SecProfiles[securityProfile].Privileges[table].Contains(privilegeType));
 
         }
+
+        [TestMethod]
+        public void revoke()
+        {
+
+            BDcreation.BDcreatioon();
+            DataBase db = new DataBase();
+            db.load("BD");
+            db.createSecurityProfile("SECURITY");
+            Library.Privilege privilegeType = Library.Privilege.SELECT;
+            string table = "table";
+            string securityProfile = "SECURITY";
+
+            db.grant(privilegeType, table, securityProfile);
+
+            db.revoke(privilegeType, table, securityProfile);
+
+            Assert.IsFalse(db.SecProfiles[securityProfile].Privileges[table].Contains(privilegeType));
+
+        }
     }
 }
