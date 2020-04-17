@@ -12,8 +12,6 @@ namespace Library
 
         public static void tester(string inputFile, string outputName)
         {
-           
-
             string[] filas = File.ReadAllLines(inputFile);
 
             StreamWriter sw = File.CreateText(outputName);

@@ -9,7 +9,7 @@ namespace Library
     public class SecurityProfile
     {
         public string Name;
-        public Dictionary<string, List<Library.Privilege>> Privileges;
+        public Dictionary<string, List<Privilege>> Privileges;
 
         public SecurityProfile(string secName)
         {
