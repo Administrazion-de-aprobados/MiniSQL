@@ -6,14 +6,21 @@ using System.Threading.Tasks;
 
 namespace Library
 {
-    public class Insert: Sentence
+    class SelectAll : Statements
     {
-        public List<string> row;
-        
-        public Insert(string table,List<string> newRow) : base(table)
+
+        public List<string> listColumns;
+
+        public SelectAll(string table, List<string> columns) : base(table)
         {
+
             tableName = table;
-            row=newRow;
+            
+            listColumns = columns;
+
+
         }
+
+
     }
 }
