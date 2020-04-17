@@ -287,7 +287,32 @@ namespace Library
             }
         }
 
-        
+        public void addUser(String name, String password, string securityProfileName)
+        {
+
+            User us = new User(name, password);
+
+           
+
+            if (SecProfiles.ContainsKey(securityProfileName))
+            {
+                Users.Add(name, us);
+
+                SecurityProfile secProf = SecProfiles[securityProfileName];
+
+                us.SecurityProfiles.Add(securityProfileName, secProf);
+
+            }
+
+            else
+            {
+                throw new Exception(Constants.SecurityProfileDoesNotExist);
+            }
+
+
+
+        }
+
 
 
         //This code return a list of the positions the where should act
