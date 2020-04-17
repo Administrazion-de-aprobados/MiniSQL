@@ -333,7 +333,7 @@ namespace Test
 
             string input = "SELECT columnIntNumbers FROM table WHERE columnIntNumbers=1;";
 
-            string output = db.output(input);
+            string output = db.output(input,null);
 
             Assert.IsTrue(output.Equals("['columnIntNumbers'] {'1'}"));
 
@@ -346,7 +346,7 @@ namespace Test
 
             string input = "DELETE FROM table WHERE columnIntNumbers=1;";
 
-            string output = db.output(input);
+            string output = db.output(input,null);
 
             Assert.IsTrue(output.Equals("Tuple(s) deleted"));
 
@@ -361,7 +361,7 @@ namespace Test
 
             string input = "INSERT INTO table VALUES ('data',5,5.05);";
 
-            string output = db.output(input);
+            string output = db.output(input,null);
 
             Assert.IsTrue(output.Equals("Tuple added"));
 
@@ -378,7 +378,7 @@ namespace Test
 
             string input = "UPDATE table SET columnIntNumbers=5 WHERE columnIntNumbers=1;";
 
-            string output = db.output(input);
+            string output = db.output(input,null);
 
             Assert.IsTrue(output.Equals("Tuple(s) updated"));
 
@@ -393,7 +393,7 @@ namespace Test
 
             string input = "CREATE TABLE table444 (column1 DOUBLE,column2 TEXT);";
 
-            string output = db.output(input);
+            string output = db.output(input,null);
 
             Assert.IsTrue(output.Equals("Table created"));
 
@@ -407,7 +407,7 @@ namespace Test
 
             string input = "DROP TABLE table;";
 
-            string output = db.output(input);
+            string output = db.output(input,null);
 
             Assert.IsTrue(output.Equals("Table dropped"));
 
