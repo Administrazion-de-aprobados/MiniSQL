@@ -287,7 +287,6 @@ namespace Test
             DataBase database = new DataBase("BD", "admin", "admin");
             string tipo = "text";
 
-
             Assert.IsTrue(database.dataType(tipo).Equals(Library.Type.Text));
 
 
@@ -427,6 +426,25 @@ namespace Test
             
             Assert.IsTrue(secProf.Equals(sp.Name));
 
+        }
+        [TestMethod]
+        public void addUser()
+        {
+            string name = "nombre";
+            string password = "123456";
+            string secProf= "SECURITY";
+
+
+            BDcreation.BDcreatioon();
+            DataBase db = new DataBase();
+            db.load("BD");
+            db.createSecurityProfile("SECURITY");
+
+            db.addUser(name,password,secProf);
+
+            User us = db.Users[name];
+            SecurityProfile sp = us.SecurityProfiles[secProf];
+            Assert.IsTrue(name.Equals(us.Name) && secProf.Equals(sp.Name));
         }
         }
 }
