@@ -33,7 +33,8 @@ namespace Library
 
                     string sentence = filas[i];
 
-                    string result = DB.output(sentence);
+                    //change
+                    string result = DB.output(sentence,null);
 
                     DateTime timeFinishSentence = DateTime.Now;
                     TimeSpan timeDiffSentence =  timeFinishSentence - timeStartSentence;
