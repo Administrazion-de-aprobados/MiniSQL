@@ -10,13 +10,13 @@ namespace Library
     {
         public string Name;
         public string Password;
-        public Dictionary<string, SecurityProfile> SecurityProfiles;
+        public List<string> SecurityProfiles;
 
         public User (String name, String pass)
         {
             Name = name;
             Password = pass;
-            SecurityProfiles = new Dictionary<string, SecurityProfile>();
+            SecurityProfiles = new List<string>();
         }
 
         public Boolean searchPrivilegeTable(string table, string privilege)

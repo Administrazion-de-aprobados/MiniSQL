@@ -280,11 +280,34 @@ namespace Library
             if (!SecProfiles.ContainsKey(secProfName)) {
 
                 SecProfiles.Add(secProfName, securityProfile);
+
             }
             else {
                 
                 throw new Exception(Constants.SecurityProfileAlreadyExists);
             }
+        }
+
+        public void dropSecurityProfile(string secProfName) {
+
+            SecProfiles.Remove(secProfName);
+
+            Dictionary<string, User>.KeyCollection users = Users.Keys;
+
+            int i = 0;
+            
+            foreach (string user in users) {
+               
+                User us = Users[user];
+                if (us.SecurityProfiles.Contains(secProfName)) {
+
+                    us.SecurityProfiles.Remove(secProfName);
+
+                }
+
+            }
+            
+
         }
 
         public void addUser(String name, String password, string securityProfileName)
@@ -300,7 +323,7 @@ namespace Library
 
                 SecurityProfile secProf = SecProfiles[securityProfileName];
 
-                us.SecurityProfiles.Add(securityProfileName, secProf);
+                us.SecurityProfiles.Add(securityProfileName);
 
             }
 
