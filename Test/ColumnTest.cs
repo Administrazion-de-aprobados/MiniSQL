@@ -15,8 +15,7 @@ namespace Test
         public void searchData()
         {
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
 
         }
@@ -25,8 +24,7 @@ namespace Test
         public void deleteData()
         {
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
             Table table = db.Tables["table"];
             Column column = table.Columns["column"];
@@ -57,8 +55,7 @@ namespace Test
         public void insert()
         {
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
             Table table = db.Tables["table"];
             Column column = table.Columns["column"];

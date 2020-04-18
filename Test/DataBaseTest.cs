@@ -13,8 +13,7 @@ namespace Test
         public void createTable()
         {
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
             List<String> list = new List<string>();
 
@@ -27,8 +26,7 @@ namespace Test
         public void dropTable()
         {
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
             db.dropTable("table");
 
@@ -45,8 +43,7 @@ namespace Test
         {
 
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
             db.deleteData("table", "column", Operator.Equal, "data");
 
@@ -60,8 +57,7 @@ namespace Test
         public void select()
         {
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
 
             IList<string> list = new List<string>();
@@ -81,8 +77,7 @@ namespace Test
         public void update()
         {
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
             Table table = db.Tables["table"];
             Column column = table.Columns["column"];
@@ -99,8 +94,8 @@ namespace Test
         {
 
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
+
             List<string> lista = new List<string>();
             lista.Add("datos");
             lista.Add("3");
@@ -127,8 +122,7 @@ namespace Test
         {
             Boolean isTrue = false;
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
             IList<int> lista = new List<int>();
             lista.Add(0);
@@ -146,8 +140,7 @@ namespace Test
         {
             Boolean isTrue = false;
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
             IList<int> lista = new List<int>();
             lista.Add(2);
@@ -167,8 +160,7 @@ namespace Test
         {
             Boolean isTrue = false;
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
             IList<int> lista = new List<int>();
             lista.Add(0);
@@ -203,10 +195,8 @@ namespace Test
             column.list.Add("data");
 
             database.write();
-
-            DataBase db = new DataBase();
-
-            db.load("BD");
+            
+            DataBase db = DataBase.load("BD");
 
             if (db.Tables.ContainsKey("table"))
             {
@@ -241,8 +231,7 @@ namespace Test
         {
 
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
             db.deletefile("BD");
 
@@ -328,8 +317,7 @@ namespace Test
         public void outputSelect()
         {
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
             string input = "SELECT columnIntNumbers FROM table WHERE columnIntNumbers=1;";
 
@@ -341,8 +329,7 @@ namespace Test
         public void outputDelete()
         {
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
             string input = "DELETE FROM table WHERE columnIntNumbers=1;";
 
@@ -356,8 +343,7 @@ namespace Test
         {
 
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
             string input = "INSERT INTO table VALUES ('data',5,5.05);";
 
@@ -373,8 +359,7 @@ namespace Test
 
 
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
             string input = "UPDATE table SET columnIntNumbers=5 WHERE columnIntNumbers=1;";
 
@@ -388,8 +373,7 @@ namespace Test
         {
 
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
             string input = "CREATE TABLE table444 (column1 DOUBLE,column2 TEXT);";
 
@@ -402,8 +386,7 @@ namespace Test
         {
 
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
             string input = "DROP TABLE table;";
 
@@ -417,8 +400,7 @@ namespace Test
         {
 
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
             string secProf = "SECURITY";
 
@@ -439,8 +421,8 @@ namespace Test
 
 
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
+
             db.createSecurityProfile("SECURITY");
 
             db.addUser(name, password, secProf);
@@ -457,8 +439,8 @@ namespace Test
             string secProfileName = "SECURITY";
 
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
+
             db.createSecurityProfile("SECURITY");
             db.addUser("Juan", "123456", "SECURITY");
 
@@ -488,8 +470,8 @@ namespace Test
         {
             string user = "Juan";
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
+
             db.createSecurityProfile("SECURITY");
             db.addUser("Juan", "123456", "SECURITY");
 
@@ -501,8 +483,8 @@ namespace Test
         public void grant()
         {
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
+
             db.createSecurityProfile("SECURITY");
             Library.Privilege privilegeType = Library.Privilege.SELECT;
             string table = "table";
@@ -521,8 +503,8 @@ namespace Test
         {
 
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
+
             db.createSecurityProfile("SECURITY");
             Library.Privilege privilegeType = Library.Privilege.SELECT;
             string table = "table";

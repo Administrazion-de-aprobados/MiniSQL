@@ -15,8 +15,7 @@ namespace Test
         public void addToTable()
         {
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
             string name = "column";
             Library.Type type = Library.Type.Text;
@@ -36,8 +35,7 @@ namespace Test
         {
 
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
 
 
             Table table = db.Tables["table"];
@@ -50,8 +48,8 @@ namespace Test
         public void selectToString() {
 
             BDcreation.BDcreatioon();
-            DataBase db = new DataBase();
-            db.load("BD");
+            DataBase db = DataBase.load("BD");
+
             Operator op = Operator.Equal;
             IList<string> listColumns = new List<string>();
             listColumns.Add("columnIntNumbers");

@@ -639,8 +639,9 @@ namespace Library
 
         }
 
-        public void load(string txtName)
+        public static DataBase load(string txtName)
         {
+            DataBase database = null;
 
             if (File.Exists(txtName))
             {
@@ -653,9 +654,7 @@ namespace Library
 
                 string pass = line1[1];
 
-                User admiin = new User(adminName, pass);
-
-                admin = admiin;
+                database = new DataBase(txtName, adminName, pass);
 
 
                 for (int i = 1; i < filas.Length; i++)
@@ -671,7 +670,7 @@ namespace Library
                         datat = datat.ToLower();
                         List<string> data = new List<string>();
 
-                        Type tp = dataType(datat);
+                        Type tp = database.dataType(datat);
                         for (int j = 2; j < line.Length; j++)
                         {
                             data.Add(line[j]);
@@ -680,9 +679,10 @@ namespace Library
                         tab.addToTable(columnName, tp, data);
                         i++;
                     }
-                    Tables.Add(tableName, tab);
+                    database.Tables.Add(tableName, tab);
                 }
             }
+            return database;
         }
 
         public void loadSecurity(string txtname)
