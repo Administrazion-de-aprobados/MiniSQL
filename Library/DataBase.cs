@@ -739,15 +739,17 @@ namespace Library
                     string name = part1[0];
                     string pass = part1[1];
 
-                    string[] part2 = split[1].Split(',');
-
-                    foreach(string profile in part2)
+                    if (!name.Equals(admin.Name))
                     {
+                        string[] part2 = split[1].Split(',');
 
-                        addUser(name, pass, profile);
+                        foreach (string profile in part2)
+                        {
 
+                            addUser(name, pass, profile);
+
+                        }
                     }
-
                 }
 
 
