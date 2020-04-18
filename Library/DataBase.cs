@@ -19,7 +19,7 @@ namespace Library
         public Dictionary<string, User> Users;
         public Dictionary<string, Table> Tables;
         public Dictionary<string, SecurityProfile> SecProfiles;
-        private Admin admin;
+        public User admin;
         public string Name;
 
         public DataBase(string name, string adminName, string pass)
@@ -29,8 +29,8 @@ namespace Library
             SecProfiles = new Dictionary<string, SecurityProfile>();
 
             Name = name;
-            admin = new Admin(adminName, pass);
-
+            admin = new User(adminName, pass);
+            Users.Add(adminName, admin);
         }
         public DataBase()
         {
@@ -532,7 +532,6 @@ namespace Library
 
             if (File.Exists(Name))
             {
-
                 deletefile(Name);
             }
 
@@ -570,6 +569,41 @@ namespace Library
 
         }
 
+        public void writeSecurity()
+        {
+            string name = Name + "Security";
+
+            if (File.Exists(name))
+                deletefile(name);
+
+            StreamWriter sw = File.CreateText(name);
+
+            foreach(SecurityProfile sp in SecProfiles.Values)
+            {
+                sw.WriteLine(sp.Name);
+                foreach (string table in sp.Privileges.Keys)
+                {
+                    string line = table+";";
+
+                    List<Privilege> list = sp.Privileges[table];
+
+                    foreach (Privilege type in list)
+                    {
+
+                        string stringType = privilegeToString(type);
+                        line = line + stringType + ",";
+
+                    }
+                    sw.WriteLine(line);
+                }
+                sw.WriteLine(" ");
+
+            }
+            sw.Close();
+
+        }
+
+
         public void load(string txtName)
         {
 
@@ -584,7 +618,7 @@ namespace Library
 
                 string pass = line1[1];
 
-                Admin admiin = new Admin(adminName, pass);
+                User admiin = new User(adminName, pass);
 
                 admin = admiin;
 
@@ -616,13 +650,67 @@ namespace Library
             }
         }
 
+        public void loadSecurity(string txtname)
+        {
+            if (File.Exists(txtname))
+            {
+
+                string[] lines = File.ReadAllLines(txtname);
+
+                for (int i = 0; i < lines.Length; i++)
+                {
+                    string profile = lines[i];
+
+                    createSecurityProfile(profile);
+                    i++;
+
+                    while(lines[i]!=" ")
+                    {
+                        string[] line = lines[i].Split(';');
+
+                        string table = line[0];
+
+                        string[] types = line[1].Split(',');
+
+                        foreach(string type in types)
+                        {
+                            Privilege typee = Query.stringToType(type);
+
+                            grant(typee, table, profile);
+
+                        }
+
+                        i++;
+
+                    }
+
+                }
+            }
+        }
 
 
+        public string privilegeToString(Privilege type)
+        {
 
+            if (type == Privilege.SELECT)
+            {
+                return "SELECT";
+            }
+            else if (type == Privilege.DELETE)
+            {
+                return "DELETE";
+            }
+            else if(type == Privilege.INSERT)
+            {
+                return "INSERT";
+            }
+            else if(type == Privilege.UPDATE)
+            {
+                return "UPDATE";
+            }
 
-
-
-
+            return Constants.Error;
+        }
 
 
         public string operatorTostring(Operator op)
@@ -840,7 +928,7 @@ namespace Library
                     SecurityQueries securityQueries = sentence as SecurityQueries;
 
 
-                    if(!user.Equals("admin") && !user.Password.Equals("admin"))
+                    if(!user.Equals(admin.Name) && !user.Password.Equals(admin.Password))
                     {
                         output = Constants.SecurityNotSufficientPrivileges;
                     }
@@ -947,7 +1035,7 @@ namespace Library
 
         public Boolean hasPrivilege(User user, string table, Privilege type)
         {
-            if (user.Name.Equals("admin"))
+            if (user.Name.Equals(admin.Name) && user.Name.Equals(admin.Password))
                 return true;
 
 

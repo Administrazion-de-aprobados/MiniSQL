@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin.cs" />
     <Compile Include="Sentences\Security\AddUser.cs" />
     <Compile Include="Sentences\Security\CreateSecurityProfile.cs" />
     <Compile Include="Sentences\Security\DeleteUser.cs" />

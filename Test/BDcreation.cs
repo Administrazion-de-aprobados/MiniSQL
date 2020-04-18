@@ -16,6 +16,8 @@ namespace Test
            
             DataBase database = new DataBase("BD","admin","admin");
 
+            User admin = new User("admin","admin");
+
             List<string> list = new List<string>();
 
             list.Add("column TEXT");
@@ -55,8 +57,20 @@ namespace Test
             Column columnPrueba = table2.Columns["prueba"];
             columnPrueba.list.Add("data");
 
-            database.write();
 
+            database.createSecurityProfile("profile1");
+            database.createSecurityProfile("profile2");
+
+            database.addUser("ane", "123", "profile1");
+            database.addUser("yeray", "321", "profile2");
+
+            database.grant(Privilege.SELECT, "table", "profile1");
+            database.grant(Privilege.INSERT, "table", "profile1");
+            database.grant(Privilege.DELETE, "table2", "profile2");
+
+
+            database.write();
+            database.writeSecurity();
 
            
 
