@@ -340,14 +340,22 @@ namespace Library
 
         public void deleteUser(string user) {
 
-            if (Users.ContainsKey(user))
+            if (admin.Name.Equals(user))
             {
-                Users.Remove(user);
+                throw new Exception("Admin user can't be deleted");
             }
-            else {
-                throw new Exception(Constants.SecurityUserDoesNotExist);
+            else
+            {
+
+                if (Users.ContainsKey(user))
+                {
+                    Users.Remove(user);
+                }
+                else
+                {
+                    throw new Exception(Constants.SecurityUserDoesNotExist);
+                }
             }
-        
         }
 
         public void grant(Privilege privilegeType, string table, string secProfile ) {
@@ -603,6 +611,33 @@ namespace Library
 
         }
 
+        public void writeUsers()
+        {
+            string name = Name + "Users";
+
+            if (File.Exists(name))
+                deletefile(name);
+
+            StreamWriter sw = File.CreateText(name);
+
+            foreach(User user in Users.Values)
+            {
+                string line = user.Name + "," + user.Password + ";";
+
+                List<string> list = user.SecurityProfiles;
+
+                foreach(string profile in list)
+                {
+                    line = line + profile + ",";
+                }
+
+                sw.WriteLine(line);
+
+            }
+
+            sw.Close();
+
+        }
 
         public void load(string txtName)
         {
@@ -687,6 +722,38 @@ namespace Library
                 }
             }
         }
+
+        public void loadUsers(string txtName)
+        {
+            if (File.Exists(txtName))
+            {
+                string[] file = File.ReadAllLines(txtName);
+
+                foreach(string line in file)
+                {
+
+                    string[] split = line.Split(';');
+
+                    string[] part1 = split[0].Split(',');
+
+                    string name = part1[0];
+                    string pass = part1[1];
+
+                    string[] part2 = split[1].Split(',');
+
+                    foreach(string profile in part2)
+                    {
+
+                        addUser(name, pass, profile);
+
+                    }
+
+                }
+
+
+            }
+        }
+
 
 
         public string privilegeToString(Privilege type)

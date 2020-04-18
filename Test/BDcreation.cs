@@ -71,6 +71,7 @@ namespace Test
 
             database.write();
             database.writeSecurity();
+            database.writeUsers();
 
            
 
