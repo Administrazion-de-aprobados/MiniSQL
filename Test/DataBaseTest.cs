@@ -303,7 +303,7 @@ namespace Test
 
         }
 
-        //[TestMethod]
+        [TestMethod]
         public void output()
         {
             outputSelect();
@@ -312,6 +312,13 @@ namespace Test
             outputUpdate();
             outputCreateTable();
             outputDropTable();
+
+            outputAddUser();
+            outputDeleteUser();
+            outputCreateSecurityProfile();
+            outputDropSecurityProfile();
+            outputGrantPrivilege();
+            outputRevokePrivilege();
         }
 
         public void outputSelect()
@@ -321,10 +328,9 @@ namespace Test
 
             string input = "SELECT columnIntNumbers FROM table WHERE columnIntNumbers=1;";
 
-            string output = db.output(input,null);
+            string output = db.output(input,db.admin);
 
             Assert.IsTrue(output.Equals("['columnIntNumbers'] {'1'}"));
-
         }
         public void outputDelete()
         {
@@ -333,9 +339,9 @@ namespace Test
 
             string input = "DELETE FROM table WHERE columnIntNumbers=1;";
 
-            string output = db.output(input,null);
+            string output = db.output(input, db.admin);
 
-            Assert.IsTrue(output.Equals("Tuple(s) deleted"));
+            Assert.IsTrue(output.Equals(Constants.TupleDeleteSuccess));
 
         }
 
@@ -347,9 +353,9 @@ namespace Test
 
             string input = "INSERT INTO table VALUES ('data',5,5.05);";
 
-            string output = db.output(input,null);
+            string output = db.output(input, db.admin);
 
-            Assert.IsTrue(output.Equals("Tuple added"));
+            Assert.IsTrue(output.Equals(Constants.InsertSuccess));
 
 
         }
@@ -363,9 +369,9 @@ namespace Test
 
             string input = "UPDATE table SET columnIntNumbers=5 WHERE columnIntNumbers=1;";
 
-            string output = db.output(input,null);
+            string output = db.output(input, db.admin);
 
-            Assert.IsTrue(output.Equals("Tuple(s) updated"));
+            Assert.IsTrue(output.Equals(Constants.TupleUpdateSuccess));
 
         }
 
@@ -377,9 +383,9 @@ namespace Test
 
             string input = "CREATE TABLE table444 (column1 DOUBLE,column2 TEXT);";
 
-            string output = db.output(input,null);
+            string output = db.output(input, db.admin);
 
-            Assert.IsTrue(output.Equals("Table created"));
+            Assert.IsTrue(output.Equals(Constants.CreateTableSuccess));
 
         }
         public void outputDropTable()
@@ -390,11 +396,112 @@ namespace Test
 
             string input = "DROP TABLE table;";
 
-            string output = db.output(input,null);
+            string output = db.output(input, db.admin);
 
-            Assert.IsTrue(output.Equals("Table dropped"));
+            Assert.IsTrue(output.Equals(Constants.TableDroppedSucess));
 
         }
+
+        public void outputCreateSecurityProfile()
+        {
+
+            BDcreation.BDcreatioon();
+            DataBase db = DataBase.load("BD");
+
+            string input = "CREATE SECURITY PROFILE Employee;";
+
+            string output = db.output(input, db.admin);
+
+            Assert.IsTrue(output.Equals(Constants.SecurityProfileCreated));
+
+        }
+
+        public void outputDropSecurityProfile()
+        {
+
+            BDcreation.BDcreatioon();
+            DataBase db = DataBase.load("BD");
+            db.loadSecurity("BDSecurity");
+            db.loadUsers("BDUsers");
+
+            string input = "DROP SECURITY PROFILE profile1;";
+
+            string output = db.output(input, db.admin);
+
+            Assert.IsTrue(output.Equals(Constants.SecurityProfileDeleted));
+
+        }
+
+        public void outputGrantPrivilege()
+        {
+
+            BDcreation.BDcreatioon();
+            DataBase db = DataBase.load("BD");
+            db.loadSecurity("BDSecurity");
+            db.loadUsers("BDUsers");
+
+            string input = "GRANT SELECT ON table2 TO profile2;";
+
+            string output = db.output(input, db.admin);
+
+            Assert.IsTrue(output.Equals(Constants.SecurityPrivilegeGranted));
+
+        }
+
+        public void outputRevokePrivilege()
+        {
+
+            BDcreation.BDcreatioon();
+            DataBase db = DataBase.load("BD");
+            db.loadSecurity("BDSecurity");
+            db.loadUsers("BDUsers");
+
+            string input = "REVOKE SELECT ON table TO profile1;";
+
+            string output = db.output(input, db.admin);
+
+            Assert.IsTrue(output.Equals(Constants.SecurityPrivilegeRevoked));
+
+        }
+
+        public void outputAddUser()
+        {
+
+            BDcreation.BDcreatioon();
+            DataBase db = DataBase.load("BD");
+            db.loadSecurity("BDSecurity");
+            db.loadUsers("BDUsers");
+
+            string input = "ADD USER ('Eva','1234',profile2);";
+
+            string output = db.output(input, db.admin);
+
+            Assert.IsTrue(output.Equals(Constants.SecurityUserAdded));
+
+        }
+
+        public void outputDeleteUser()
+        {
+
+            BDcreation.BDcreatioon();
+            DataBase db = DataBase.load("BD");
+            db.loadSecurity("BDSecurity");
+            db.loadUsers("BDUsers");
+
+            string input = "DELETE USER yeray;";
+
+            string output = db.output(input, db.admin);
+
+            Assert.IsTrue(output.Equals(Constants.SecurityUserDeleted));
+
+        }
+
+
+
+
+
+
+
         [TestMethod]
         public void createSecurityProfile()
         {

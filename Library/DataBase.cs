@@ -595,11 +595,17 @@ namespace Library
 
                     List<Privilege> list = sp.Privileges[table];
 
+                    Privilege last = list.Last();
+
                     foreach (Privilege type in list)
                     {
 
                         string stringType = privilegeToString(type);
-                        line = line + stringType + ",";
+
+                        if (type == last)
+                            line = line + stringType;
+                        else
+                            line = line + stringType + ",";
 
                     }
                     sw.WriteLine(line);
@@ -626,11 +632,21 @@ namespace Library
 
                 List<string> list = user.SecurityProfiles;
 
-                foreach(string profile in list)
+                if (list.Count > 0)
                 {
-                    line = line + profile + ",";
-                }
 
+                    string last = list.Last();
+
+                    foreach (string profile in list)
+                    {
+
+                        if (profile.Equals(last))
+                            line = line + profile;
+                        else
+                            line = line + profile + ",";
+
+                    }
+                }
                 sw.WriteLine(line);
 
             }
