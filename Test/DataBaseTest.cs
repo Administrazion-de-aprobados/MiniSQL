@@ -227,6 +227,72 @@ namespace Test
         }
 
         [TestMethod]
+        public void writeloadSecurity()
+        {
+            BDcreation.BDcreatioon();
+            DataBase db = DataBase.load("BD");
+            db.loadSecurity("BDSecurity");
+
+            if (db.SecProfiles.ContainsKey("profile1") && db.SecProfiles.ContainsKey("profile2"))
+            {
+                SecurityProfile sec1 = db.SecProfiles["profile1"];
+                SecurityProfile sec2 = db.SecProfiles["profile2"];
+
+                if (sec1.Privileges.ContainsKey("table") && sec2.Privileges.ContainsKey("table2"))
+                {
+
+                    if (sec1.Privileges["table"].Contains(Privilege.SELECT) && sec1.Privileges["table"].Contains(Privilege.INSERT) && sec2.Privileges["table2"].Contains(Privilege.DELETE))
+                        Assert.IsTrue(true);
+                        
+
+
+                }
+                else
+                {
+                    Assert.IsTrue(false);
+                }
+            }
+            else
+            {
+                Assert.IsTrue(false);
+            }
+
+        }
+
+        [TestMethod]
+        public void writteloadUsers()
+        {
+            BDcreation.BDcreatioon();
+            DataBase db = DataBase.load("BD");
+            db.loadSecurity("BDSecurity");
+            db.loadUsers("BDUsers");
+
+            if(db.Users.ContainsKey("ane") && db.Users.ContainsKey("yeray"))
+            {
+                User user1 = db.Users["ane"];
+                User user2 = db.Users["yeray"];
+
+                if (user1.Password.Equals("123") && user2.Password.Equals("321"))
+                    if (user1.SecurityProfiles.Contains("profile1") && user2.SecurityProfiles.Contains("profile2"))
+                        Assert.IsTrue(true);
+                    else
+                        Assert.IsTrue(false);
+                else
+                    Assert.IsTrue(false);
+
+            }
+            else
+            {
+                Assert.IsTrue(false);
+            }
+
+
+        }
+
+
+
+
+        [TestMethod]
         public void delete()
         {
 
@@ -624,5 +690,40 @@ namespace Test
             Assert.IsFalse(db.SecProfiles[securityProfile].Privileges[table].Contains(privilegeType));
 
         }
+
+        [TestMethod]
+        public void existUser()
+        {
+
+            BDcreation.BDcreatioon();
+            DataBase db = DataBase.load("BD");
+            db.loadSecurity("BDSecurity");
+            db.loadUsers("BDUsers");
+
+            Assert.IsTrue(db.existUser("yeray", "321"));
+            Assert.IsFalse(db.existUser("Borja", "123"));
+            Assert.IsFalse(db.existUser("ane", "789"));
+
+        }
+
+        [TestMethod]
+        public void hasPrivilege()
+        {
+            BDcreation.BDcreatioon();
+            DataBase db = DataBase.load("BD");
+            db.loadSecurity("BDSecurity");
+            db.loadUsers("BDUsers");
+
+            User user = db.Users["yeray"];
+
+
+            Assert.IsTrue(db.hasPrivilege(user, "table2", Privilege.DELETE));
+            Assert.IsFalse(db.hasPrivilege(user, "table", Privilege.SELECT));
+            Assert.IsFalse(db.hasPrivilege(user, "table2", Privilege.SELECT));
+
+        }
+
+
+
     }
 }

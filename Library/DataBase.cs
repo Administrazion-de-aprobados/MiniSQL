@@ -39,6 +39,7 @@ namespace Library
             SecProfiles = new Dictionary<string, SecurityProfile>();
 
             User user = new User("admin", "admin");
+            admin = user;
             Users.Add(user.Name, user);
         }
 
@@ -293,23 +294,32 @@ namespace Library
 
         public void dropSecurityProfile(string secProfName) {
 
-            SecProfiles.Remove(secProfName);
+            if (SecProfiles.ContainsKey(secProfName))
+            {
 
-            Dictionary<string, User>.KeyCollection users = Users.Keys;
+                SecProfiles.Remove(secProfName);
 
-            int i = 0;
+                Dictionary<string, User>.KeyCollection users = Users.Keys;
 
-            foreach (string user in users) {
+                int i = 0;
 
-                User us = Users[user];
-                if (us.SecurityProfiles.Contains(secProfName)) {
+                foreach (string user in users)
+                {
 
-                    us.SecurityProfiles.Remove(secProfName);
+                    User us = Users[user];
+                    if (us.SecurityProfiles.Contains(secProfName))
+                    {
+
+                        us.SecurityProfiles.Remove(secProfName);
+
+                    }
 
                 }
-
             }
-
+            else
+            {
+                throw new Exception(Constants.SecurityProfileDoesNotExist);
+            }
 
         }
 

@@ -8,7 +8,7 @@ using System.IO;
 namespace Test
 {
 
-    //[TestClass]
+//[TestClass]
      public class MiniSQLTest
     {
 
@@ -18,7 +18,7 @@ namespace Test
 
 
             //MiniSQL.tester("input-file.txt", "output-file.txt");
-           //MiniSQL.tester("C:\\Users\\yeray\\Desktop\\input-file.txt", "C:\\Users\\yeray\\Desktop\\outputtest-file.txt");
+           MiniSQL.tester("C:\\Users\\yeray\\Desktop\\goodInput.txt", "C:\\Users\\yeray\\Desktop\\output03.txt");
             Assert.IsTrue(true);
 
         }

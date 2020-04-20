@@ -15,11 +15,61 @@ namespace Library
             string[] filas = File.ReadAllLines(inputFile);
 
             StreamWriter sw = File.CreateText(outputName);
-            DataBase DB = new DataBase();
 
-            int k = 1;
-            for(int i=0; i<filas.Length; i++)
+
+            sw.WriteLine("# TEST 1");
+
+            DateTime timeStartTest1 = DateTime.Now;
+
+            string create = filas[0];
+            String[] linee = create.Split(',');
+            string database = linee[0];
+            string adminName = linee[1];    
+            string adminPass = linee[2];
+
+            User firstUser = new User(adminName, adminPass);
+
+            DataBase DB = new DataBase(database, adminName, adminPass);
+            DateTime test1 = DateTime.Now;
+            TimeSpan Diff = test1 - timeStartTest1;
+            double seconds = Diff.TotalMilliseconds / 1000.0;
+
+            sw.WriteLine(Constants.CreateDatabaseSuccess + " (" + seconds + "s)");
+
+
+            int j = 1;
+            while (j < filas.Length && filas[j] != "")
             {
+                DateTime timeStartSentence = DateTime.Now;
+
+                string sentence = filas[j];
+
+                string result = DB.output(sentence, firstUser);
+
+                DateTime timeFinishSentence = DateTime.Now;
+                TimeSpan timeDiffSentence = timeFinishSentence - timeStartSentence;
+                double secondsSentence = timeDiffSentence.TotalMilliseconds / 1000.0;
+
+                sw.WriteLine(result + " (" + secondsSentence + "s)");
+               
+                j++;
+            }
+
+            DateTime timeFinishTest1 = DateTime.Now;
+            TimeSpan timeDiffTest1 = timeFinishTest1 - timeStartTest1;
+            double secondsTest1 = timeDiffTest1.TotalMilliseconds / 1000.0;
+
+            sw.WriteLine("TOTAL TIME: " + secondsTest1 + "s");
+            sw.WriteLine(" ");
+
+            j++;
+
+            int k = 2;
+            for(int i=j; i<filas.Length; i++)
+            {
+
+                DateTime timelogin1 = DateTime.Now; 
+
                 string sentencee = filas[i];
                 String[] line = sentencee.Split(',');
                 string name = line[1];
@@ -28,8 +78,12 @@ namespace Library
 
                 if (DB.existUser(name, pass))
                 {
+                    DateTime timelogin2 = DateTime.Now;
+                    TimeSpan timeDiff = timelogin2 - timelogin1;
+                    double secondslogin = timeDiff.TotalMilliseconds / 1000.0;
+
                     sw.WriteLine("# TEST " + k);
-                    sw.WriteLine("Success");
+                    sw.WriteLine(Constants.OpenDatabaseSuccess + " (" + secondslogin + "s)");
 
                     User user = DB.Users[name];
 
@@ -63,8 +117,14 @@ namespace Library
                 }
                 else
                 {
+                    DateTime timelogin2 = DateTime.Now;
+                    TimeSpan timeDiff = timelogin2 - timelogin1;
+                    double secondslogin = timeDiff.TotalMilliseconds / 1000.0;
+
                     sw.WriteLine("# TEST " + k);
-                    sw.WriteLine(Constants.SecurityIncorrectLogin);
+                    k = k + 1;
+                    sw.WriteLine(Constants.SecurityIncorrectLogin + " (" + secondslogin + "s)");
+                    sw.WriteLine("TOTAL TIME: " + secondslogin + "s");
                     sw.WriteLine(" ");
                     i = i + 1;
                     while (i < filas.Length && filas[i] != "")
