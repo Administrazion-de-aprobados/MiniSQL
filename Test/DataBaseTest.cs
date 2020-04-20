@@ -259,6 +259,35 @@ namespace Test
 
         }
 
+        [TestMethod]
+        public void writteloadUsers()
+        {
+            BDcreation.BDcreatioon();
+            DataBase db = DataBase.load("BD");
+            db.loadSecurity("BDSecurity");
+            db.loadUsers("BDUsers");
+
+            if(db.Users.ContainsKey("ane") && db.Users.ContainsKey("yeray"))
+            {
+                User user1 = db.Users["ane"];
+                User user2 = db.Users["yeray"];
+
+                if (user1.Password.Equals("123") && user2.Password.Equals("321"))
+                    if (user1.SecurityProfiles.Contains("profile1") && user2.SecurityProfiles.Contains("profile2"))
+                        Assert.IsTrue(true);
+                    else
+                        Assert.IsTrue(false);
+                else
+                    Assert.IsTrue(false);
+
+            }
+            else
+            {
+                Assert.IsTrue(false);
+            }
+
+
+        }
 
 
 
