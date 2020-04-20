@@ -226,6 +226,16 @@ namespace Test
 
         }
 
+        public void writeloadSecurity()
+        {
+
+
+
+
+        }
+
+
+
         [TestMethod]
         public void delete()
         {
@@ -624,5 +634,40 @@ namespace Test
             Assert.IsFalse(db.SecProfiles[securityProfile].Privileges[table].Contains(privilegeType));
 
         }
+
+        [TestMethod]
+        public void existUser()
+        {
+
+            BDcreation.BDcreatioon();
+            DataBase db = DataBase.load("BD");
+            db.loadSecurity("BDSecurity");
+            db.loadUsers("BDUsers");
+
+            Assert.IsTrue(db.existUser("yeray", "321"));
+            Assert.IsFalse(db.existUser("Borja", "123"));
+            Assert.IsFalse(db.existUser("ane", "789"));
+
+        }
+
+        [TestMethod]
+        public void hasPrivilege()
+        {
+            BDcreation.BDcreatioon();
+            DataBase db = DataBase.load("BD");
+            db.loadSecurity("BDSecurity");
+            db.loadUsers("BDUsers");
+
+            User user = db.Users["yeray"];
+
+
+            Assert.IsTrue(db.hasPrivilege(user, "table2", Privilege.DELETE));
+            Assert.IsFalse(db.hasPrivilege(user, "table", Privilege.SELECT));
+            Assert.IsFalse(db.hasPrivilege(user, "table2", Privilege.SELECT));
+
+        }
+
+
+
     }
 }

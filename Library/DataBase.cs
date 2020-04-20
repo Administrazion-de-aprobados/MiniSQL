@@ -39,6 +39,7 @@ namespace Library
             SecProfiles = new Dictionary<string, SecurityProfile>();
 
             User user = new User("admin", "admin");
+            admin = user;
             Users.Add(user.Name, user);
         }
 
