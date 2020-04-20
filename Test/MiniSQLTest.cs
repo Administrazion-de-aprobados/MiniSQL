@@ -8,7 +8,7 @@ using System.IO;
 namespace Test
 {
 
-    //[TestClass]
+//[TestClass]
      public class MiniSQLTest
     {
 
