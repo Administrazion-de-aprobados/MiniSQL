@@ -226,13 +226,40 @@ namespace Test
 
         }
 
+        [TestMethod]
         public void writeloadSecurity()
         {
+            BDcreation.BDcreatioon();
+            DataBase db = DataBase.load("BD");
+            db.loadSecurity("BDSecurity");
+
+            if (db.SecProfiles.ContainsKey("profile1") && db.SecProfiles.ContainsKey("profile2"))
+            {
+                SecurityProfile sec1 = db.SecProfiles["profile1"];
+                SecurityProfile sec2 = db.SecProfiles["profile2"];
+
+                if (sec1.Privileges.ContainsKey("table") && sec2.Privileges.ContainsKey("table2"))
+                {
+
+                    if (sec1.Privileges["table"].Contains(Privilege.SELECT) && sec1.Privileges["table"].Contains(Privilege.INSERT) && sec2.Privileges["table2"].Contains(Privilege.DELETE))
+                        Assert.IsTrue(true);
+                        
 
 
-
+                }
+                else
+                {
+                    Assert.IsTrue(false);
+                }
+            }
+            else
+            {
+                Assert.IsTrue(false);
+            }
 
         }
+
+
 
 
 
