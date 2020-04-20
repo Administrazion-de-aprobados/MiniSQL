@@ -29,3 +29,10 @@ steps:
   inputs:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+
+- task: CmdLine@2
+  inputs:
+    script: |
+      cd bin
+      Bundler.exe
+    failOnStderr: true
