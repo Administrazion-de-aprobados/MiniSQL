@@ -70,16 +70,6 @@ namespace ServerTCP
                             byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
 
 
-
-
-
-
-
-
-
-
-
-
                             // Send back a response.
                             stream.Write(msg, 0, msg.Length);
                             Console.WriteLine("Sent: {0}", data);
