@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniTesterSQL", "MiniTester
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bundler", "Bundler\Bundler.csproj", "{117A13E0-7E78-4689-9F75-02379B817AC7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerTCP", "ServerTCP\ServerTCP.csproj", "{0E8E9624-78D2-4A7A-88B3-71E81F74C572}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{117A13E0-7E78-4689-9F75-02379B817AC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{117A13E0-7E78-4689-9F75-02379B817AC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{117A13E0-7E78-4689-9F75-02379B817AC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E8E9624-78D2-4A7A-88B3-71E81F74C572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E8E9624-78D2-4A7A-88B3-71E81F74C572}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E8E9624-78D2-4A7A-88B3-71E81F74C572}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E8E9624-78D2-4A7A-88B3-71E81F74C572}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
