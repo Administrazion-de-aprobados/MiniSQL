@@ -14,8 +14,8 @@ namespace ServerTCP
     class MyTcpListener
     {
 
-        DataBase dataBase = null;
-        User user = null;
+        public static DataBase database = null;
+        public static User user = null;
 
 
 
@@ -66,15 +66,9 @@ namespace ServerTCP
                         // Process the data sent by the client. AQUI ABAJO LO DE QUE HACIAMOS ANTES
 
 
+                        string respuesta = serverParser(data);
 
-
-
-
-
-
-                        data = data.ToUpper();
-
-                        byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
+                        byte[] msg = System.Text.Encoding.ASCII.GetBytes(respuesta);
 
 
                         // Send back a response.
@@ -103,11 +97,12 @@ namespace ServerTCP
 
 
 
-        public string serverParser (string sentence){
+        public static string serverParser (string sentence){
+
 
             String patternQuery = "<Query>([^<>]+)</Query>";
             String patternClose = "<Close/>";
-            String patternOpen = "<Open\\sDatabase=”(\\w+)”\\sUser=”(\\w+)”\\sPassword=”(\\w+)”/>";
+            String patternOpen = "<Open Database=\\\"(\\w+)\\\"\\sUser=\\\"(\\w+)\\\"\\sPassword=\\\"(\\w+)\\\"\\/>";
 
 
 
@@ -119,33 +114,31 @@ namespace ServerTCP
                 string password = match.Groups[3].Value;
 
 
-                if (dataBase == null)
+                if (database == null)
                 {
-                    DataBase db = DataBase.load(DatabaseName);
-                    db.loadSecurity();
-                    db.loadUsers();
-
-                    if (db != null)
+                    database = DataBase.load(DatabaseName);
+                    if (database != null)
                     {
-                        if (db.Users.ContainsKey(userName))
+                        database.loadSecurity();
+                        database.loadUsers();
+                        if (database.existUser(userName, password))
                         {
-                            dataBase = db;
-                            user = new User(userName, password);
+                            user = database.Users[userName];
                             string success = "<Success/>";
                             return success;
                         }
                         else
                         {
-                            db = null;
-                            string errorUsuario = "<Error>Error: Incorrect login</Error>";
+                            database = null;
+                            string errorUsuario = "<Error>"+Constants.SecurityIncorrectLogin+"</Error>";
                             return errorUsuario;
                         }
                     }
                     else
                     {
                         DataBase nuevadb = new DataBase(DatabaseName, userName, password);
-                        dataBase = nuevadb;
-                        user = new User(userName, password);
+                        database = nuevadb;
+                        user = database.admin;
                         string dbcreated = "<Success>" + Constants.CreateDatabaseSuccess + "</Success>";
                         return dbcreated;
                     }
@@ -157,35 +150,27 @@ namespace ServerTCP
                 {
                     Match match = Regex.Match(sentence, patternQuery);
                     string querysentence = match.Groups[1].Value;
-                    string output = dataBase.output(querysentence, user);
+                    string output = database.output(querysentence, user);
                     string querysent = "<Answer>" + output + "</Answer>";
                     return querysent;
                 }
                 catch (Exception e)
                 {
                     string error = "<Answer><Error>" + e + "</Error></Answer>";
+                    return error;
                 }
             }
             else if (Regex.IsMatch(sentence, patternClose)) {
-                dataBase.write();
-                dataBase = null;
+                database.write();
+                database.writeSecurity();
+                database.writeUsers();
+                database = null;
                 user = null;
-                string closesentence = "<Close/> ";
+                string closesentence = "<Close/>";
                 return closesentence;
             }
 
-                
-
-         
-
-
-
-
-
-
-
-
-            return null;
+            return "otro error, corregir";
         }
 
 

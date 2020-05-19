@@ -16,11 +16,12 @@ namespace Portable_Badger
             List<string> files = new List<string>();
             string version;
 
-            version = GetVersion(RelPathToSolutionRootFolder + "Release/MiniTesterSQL.exe");
+            version = GetVersion(RelPathToSolutionRootFolder + "Release/ServerTCP.exe");
 
             RootFolderInZip = "MiniSQL/"; //name of the folder created inside the zip file
 
-            files.Add(RelPathToSolutionRootFolder + "Release/MiniTesterSQL.exe");
+            files.Add(RelPathToSolutionRootFolder + "Release/Console.exe");
+            files.Add(RelPathToSolutionRootFolder + "Release/ServerTCP.exe");
             files.Add(RelPathToSolutionRootFolder + "Release/Library.dll");
 
             string outputFile = RelPathToSolutionRootFolder + "MiniSQL-" + version + ".zip"; //name of the output zip file

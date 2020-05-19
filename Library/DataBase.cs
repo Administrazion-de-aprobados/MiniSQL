@@ -871,8 +871,7 @@ namespace Library
             Sentence sentence = Query.parse(input);
 
             string output = "";
-            try
-            {
+       
                 if (sentence is Statements)
                 {
                     Statements statement = sentence as Statements;
@@ -1107,16 +1106,9 @@ namespace Library
                 }
                 else
                 {
-                    output = Constants.WrongSyntax;
+                    throw new Exception(Constants.WrongSyntax); 
                 }
 
-            }
-            catch (Exception e)
-            {
-
-                output = e.Message;
-
-            }
 
             return output;
         }

@@ -14,10 +14,10 @@ namespace Consola
     {
         public static void Main(string[] args)
         {
-
-            String patternQuery = "<Query>([^<>]+)</Query>";
+            Task.Delay(1000).Wait();
             String patternClose = "<Close/>";
 
+            Boolean database = false;
 
             try
             {
@@ -32,20 +32,48 @@ namespace Consola
 
                 while (true)
                 {
-                    Console.WriteLine("Mensaje");
+                    if (database is false)
+                    {
+                        Console.WriteLine("Login into Database");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Insert query");
+                    }
+
+
                     Me = Console.ReadLine();
 
-                    if (Regex.IsMatch(Me, patternClose))
+                    if (Regex.IsMatch(Me, patternClose) && database is true)
+                    {
+                        database = false;
+
+                        Byte[] data = System.Text.Encoding.ASCII.GetBytes(Me);
+                        stream.Write(data, 0, data.Length);
+
+
+                        data = new Byte[256];
+                        String responseData = String.Empty;
+
+                        Int32 bytes = stream.Read(data, 0, data.Length);
+                        responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+                        Console.WriteLine(responseData);
+                        Console.WriteLine("");
+
+
+
+
+                    }
+                    else if(Regex.IsMatch(Me, patternClose) && database is false)
                     {
                         stream.Close();
                         client.Close();
                         break;
                     }
-                    else if (Regex.IsMatch(Me, patternQuery))
+                    else
                     {
-                        Match match = Regex.Match(Me, patternQuery);
 
-                        Byte[] data = System.Text.Encoding.ASCII.GetBytes(match.Groups[1].Value);
+                        Byte[] data = System.Text.Encoding.ASCII.GetBytes(Me);
                         stream.Write(data, 0, data.Length);
 
                         data = new Byte[256];
@@ -53,8 +81,12 @@ namespace Consola
 
                         Int32 bytes = stream.Read(data, 0, data.Length);
                         responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
-                        Console.WriteLine("<Answer>" + responseData + "</Answer>");
 
+                        if (responseData.Equals("<Success>Database created</Success>") || responseData.Equals("</Success>"))
+                            database = true;
+
+                        Console.WriteLine( responseData );
+                        Console.WriteLine("");
                     }
                 }
             }
