@@ -299,20 +299,10 @@ namespace Library
 
                 SecProfiles.Remove(secProfName);
 
-                Dictionary<string, User>.KeyCollection users = Users.Keys;
-
-                int i = 0;
-
-                foreach (string user in users)
+                foreach (var x in Users.Where(kv => kv.Value.SecurityProfiles.Contains(secProfName)).ToList())
                 {
-
-                    User us = Users[user];
-                    if (us.SecurityProfiles.Contains(secProfName))
-                    {
-
-                        us.SecurityProfiles.Remove(secProfName);
-
-                    }
+                    
+                        deleteUser(x.Value.Name);
 
                 }
             }

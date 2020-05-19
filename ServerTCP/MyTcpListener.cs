@@ -100,7 +100,7 @@ namespace ServerTCP
         public static string serverParser (string sentence){
 
 
-            String patternQuery = "<Query>([^<>]+)</Query>";
+            String patternQuery = "<Query>(.+)</Query>";
             String patternClose = "<Close/>";
             String patternOpen = "<Open Database=\\\"(\\w+)\\\"\\sUser=\\\"(\\w+)\\\"\\sPassword=\\\"(\\w+)\\\"\\/>";
 
@@ -146,17 +146,25 @@ namespace ServerTCP
             }
             else if (Regex.IsMatch(sentence, patternQuery))
             {
-                try
+                if (database != null && user != null)
                 {
-                    Match match = Regex.Match(sentence, patternQuery);
-                    string querysentence = match.Groups[1].Value;
-                    string output = database.output(querysentence, user);
-                    string querysent = "<Answer>" + output + "</Answer>";
-                    return querysent;
+                    try
+                    {
+                        Match match = Regex.Match(sentence, patternQuery);
+                        string querysentence = match.Groups[1].Value;
+                        string output = database.output(querysentence, user);
+                        string querysent = "<Answer>" + output + "</Answer>";
+                        return querysent;
+                    }
+                    catch (Exception e)
+                    {
+                        string error = "<Answer><Error>" + e.Message + "</Error></Answer>";
+                        return error;
+                    }
                 }
-                catch (Exception e)
+                else
                 {
-                    string error = "<Answer><Error>" + e + "</Error></Answer>";
+                    string error = "<Error>Login first to be able to send any query</Error>";
                     return error;
                 }
             }
@@ -170,7 +178,7 @@ namespace ServerTCP
                 return closesentence;
             }
 
-            return "otro error, corregir";
+            return "<Error>"+Constants.WrongSyntax+"</Error>";
         }
 
 

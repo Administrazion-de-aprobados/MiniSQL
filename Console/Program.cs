@@ -82,7 +82,9 @@ namespace Consola
                         Int32 bytes = stream.Read(data, 0, data.Length);
                         responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
 
-                        if (responseData.Equals("<Success>Database created</Success>") || responseData.Equals("</Success>"))
+                        if (responseData.Equals("<Success>Database created</Success>"))
+                            database = true;
+                        else if (responseData.Equals("<Success/>"))
                             database = true;
 
                         Console.WriteLine( responseData );
