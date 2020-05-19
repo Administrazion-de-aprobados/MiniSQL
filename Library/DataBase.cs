@@ -711,8 +711,10 @@ namespace Library
             return database;
         }
 
-        public void loadSecurity(string txtname)
+        public void loadSecurity()
         {
+            string txtname = Name + "Security";
+
             if (File.Exists(txtname))
             {
 
@@ -749,8 +751,11 @@ namespace Library
             }
         }
 
-        public void loadUsers(string txtName)
+        public void loadUsers()
         {
+
+            string txtName = Name + "Users";
+
             if (File.Exists(txtName))
             {
                 string[] file = File.ReadAllLines(txtName);

@@ -231,7 +231,7 @@ namespace Test
         {
             BDcreation.BDcreatioon();
             DataBase db = DataBase.load("BD");
-            db.loadSecurity("BDSecurity");
+            db.loadSecurity();
 
             if (db.SecProfiles.ContainsKey("profile1") && db.SecProfiles.ContainsKey("profile2"))
             {
@@ -264,8 +264,8 @@ namespace Test
         {
             BDcreation.BDcreatioon();
             DataBase db = DataBase.load("BD");
-            db.loadSecurity("BDSecurity");
-            db.loadUsers("BDUsers");
+            db.loadSecurity();
+            db.loadUsers();
 
             if(db.Users.ContainsKey("ane") && db.Users.ContainsKey("yeray"))
             {
@@ -487,8 +487,8 @@ namespace Test
 
             BDcreation.BDcreatioon();
             DataBase db = DataBase.load("BD");
-            db.loadSecurity("BDSecurity");
-            db.loadUsers("BDUsers");
+            db.loadSecurity();
+            db.loadUsers();
 
             string input = "DROP SECURITY PROFILE profile1;";
 
@@ -503,8 +503,8 @@ namespace Test
 
             BDcreation.BDcreatioon();
             DataBase db = DataBase.load("BD");
-            db.loadSecurity("BDSecurity");
-            db.loadUsers("BDUsers");
+            db.loadSecurity();
+            db.loadUsers();
 
             string input = "GRANT SELECT ON table2 TO profile2;";
 
@@ -519,8 +519,8 @@ namespace Test
 
             BDcreation.BDcreatioon();
             DataBase db = DataBase.load("BD");
-            db.loadSecurity("BDSecurity");
-            db.loadUsers("BDUsers");
+            db.loadSecurity();
+            db.loadUsers();
 
             string input = "REVOKE SELECT ON table TO profile1;";
 
@@ -535,8 +535,8 @@ namespace Test
 
             BDcreation.BDcreatioon();
             DataBase db = DataBase.load("BD");
-            db.loadSecurity("BDSecurity");
-            db.loadUsers("BDUsers");
+            db.loadSecurity();
+            db.loadUsers();
 
             string input = "ADD USER ('Eva','1234',profile2);";
 
@@ -551,8 +551,8 @@ namespace Test
 
             BDcreation.BDcreatioon();
             DataBase db = DataBase.load("BD");
-            db.loadSecurity("BDSecurity");
-            db.loadUsers("BDUsers");
+            db.loadSecurity();
+            db.loadUsers();
 
             string input = "DELETE USER yeray;";
 
@@ -697,8 +697,8 @@ namespace Test
 
             BDcreation.BDcreatioon();
             DataBase db = DataBase.load("BD");
-            db.loadSecurity("BDSecurity");
-            db.loadUsers("BDUsers");
+            db.loadSecurity();
+            db.loadUsers();
 
             Assert.IsTrue(db.existUser("yeray", "321"));
             Assert.IsFalse(db.existUser("Borja", "123"));
@@ -711,8 +711,8 @@ namespace Test
         {
             BDcreation.BDcreatioon();
             DataBase db = DataBase.load("BD");
-            db.loadSecurity("BDSecurity");
-            db.loadUsers("BDUsers");
+            db.loadSecurity();
+            db.loadUsers();
 
             User user = db.Users["yeray"];
 
