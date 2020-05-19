@@ -38,7 +38,7 @@ steps:
     failOnStderr: true
 
 - task: GitHubRelease@1
-  condition: eq(variables['build,sourceBranch'],'refs/heads/master')
+  condition: eq(variables['build.sourceBranch'],'refs/heads/master')
   inputs:
     gitHubConnection: 'github.com_aecheverria044'
     repositoryName: '$(Build.Repository.Name)'
