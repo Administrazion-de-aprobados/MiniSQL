@@ -14,15 +14,15 @@ namespace ServerTCP
     class MyTcpListener
     {
 
-
-
-
+        DataBase dataBase = null;
+        User user = null;
 
 
 
         public static void Main()
         {
             TcpListener server = null;
+           
             try
             {
                 // Set the TcpListener on port 1200.
@@ -119,9 +119,64 @@ namespace ServerTCP
                 string password = match.Groups[3].Value;
 
 
+                if (dataBase == null)
+                {
+                    DataBase db = DataBase.load(DatabaseName);
+                    db.loadSecurity();
+                    db.loadUsers();
 
-
+                    if (db != null)
+                    {
+                        if (db.Users.ContainsKey(userName))
+                        {
+                            dataBase = db;
+                            user = new User(userName, password);
+                            string success = "<Success/>";
+                            return success;
+                        }
+                        else
+                        {
+                            db = null;
+                            string errorUsuario = "<Error>Error: Incorrect login</Error>";
+                            return errorUsuario;
+                        }
+                    }
+                    else
+                    {
+                        DataBase nuevadb = new DataBase(DatabaseName, userName, password);
+                        dataBase = nuevadb;
+                        user = new User(userName, password);
+                        string dbcreated = "<Success>" + Constants.CreateDatabaseSuccess + "</Success>";
+                        return dbcreated;
+                    }
+                }
             }
+            else if (Regex.IsMatch(sentence, patternQuery))
+            {
+                try
+                {
+                    Match match = Regex.Match(sentence, patternQuery);
+                    string querysentence = match.Groups[1].Value;
+                    string output = dataBase.output(querysentence, user);
+                    string querysent = "<Answer>" + output + "</Answer>";
+                    return querysent;
+                }
+                catch (Exception e)
+                {
+                    string error = "<Answer><Error>" + e + "</Error></Answer>";
+                }
+            }
+            else if (Regex.IsMatch(sentence, patternClose)) {
+                dataBase.write();
+                dataBase = null;
+                user = null;
+                string closesentence = "<Close/> ";
+                return closesentence;
+            }
+
+                
+
+         
 
 
 
