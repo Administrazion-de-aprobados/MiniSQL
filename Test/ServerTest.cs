@@ -13,24 +13,42 @@ namespace Test
     [TestClass]
      public class ServerTest
     {
-      //  [TestMethod]
+      [TestMethod]
 
         public void serverParser()
         {
             serverParserOpen();
-            
+            serverParserQuery();
+            serverParserClose();
         }
 
         public void serverParserOpen() {
 
             string sentenceOpen = "<Open Database=\"Database1\" User=\"admin\" Password=\"admin\"/>";
-            BDcreation.BDcreatioon();
-            DataBase db = DataBase.load("BD");
+           
             string respuesta = MyTcpListener.serverParser(sentenceOpen);
 
-            Assert.IsTrue(sentenceOpen.Equals("<Success>Database created</Success>"));
+            Assert.IsTrue(respuesta.Equals("<Success>Database created</Success>"));
 
         }
 
+        public void serverParserQuery()
+        {
+
+            string sentenceQuery = "<Query>CREATE TABLE EmployeesPersonal (Name TEXT,Age INT,Address TEXT);</Query>";
+            
+            string respuesta = MyTcpListener.serverParser(sentenceQuery);
+
+            Assert.IsTrue(respuesta.Equals("<Answer>Table created</Answer>"));
+
         }
+
+        
+        public void serverParserClose() {
+            string sentenceClose = "<Close/>";
+            string respuesta = MyTcpListener.serverParser(sentenceClose);
+            Assert.IsTrue(respuesta.Equals("<Close/>"));
+        }
+
+    }
 }
