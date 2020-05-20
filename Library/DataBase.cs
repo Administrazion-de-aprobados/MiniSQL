@@ -32,6 +32,7 @@ namespace Library
             admin = new User(adminName, pass);
             Users.Add(adminName, admin);
         }
+        
         public DataBase()
         {
             Users = new Dictionary<string, User>();

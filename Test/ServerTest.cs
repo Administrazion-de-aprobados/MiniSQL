@@ -23,12 +23,13 @@ namespace Test
         }
 
         public void serverParserOpen() {
-
+            
+            
             string sentenceOpen = "<Open Database=\"Database1\" User=\"admin\" Password=\"admin\"/>";
            
             string respuesta = MyTcpListener.serverParser(sentenceOpen);
 
-            Assert.IsTrue(respuesta.Equals("<Success>Database created</Success>"));
+            Assert.IsTrue(respuesta.Equals("<Success/>"));
 
         }
 
@@ -39,8 +40,8 @@ namespace Test
             
             string respuesta = MyTcpListener.serverParser(sentenceQuery);
 
-            Assert.IsTrue(respuesta.Equals("<Answer>Table created</Answer>"));
-
+            Assert.IsTrue(respuesta.Equals("<Answer>Table created</Answer>") );
+            
         }
 
         
