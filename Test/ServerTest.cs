@@ -11,9 +11,9 @@ using ServerTCP;
 namespace Test
 {
     [TestClass]
-     class ServerTest
+     public class ServerTest
     {
-        [TestMethod]
+      //  [TestMethod]
 
         public void serverParser()
         {
