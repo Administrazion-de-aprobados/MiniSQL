@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 
 namespace ServerTCP
 {
-    class MyTcpListener
+    public class MyTcpListener
     {
 
         public static DataBase database = null;

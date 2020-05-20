@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BDcreation.cs" />
+    <Compile Include="ServerTest.cs" />
     <Compile Include="MiniSQLTest.cs" />
     <Compile Include="QueryTest.cs" />
     <Compile Include="ColumnTest.cs" />
@@ -66,6 +67,10 @@
     <ProjectReference Include="..\Library\Library.csproj">
       <Project>{c4e7ef77-f8e6-4439-bba6-885aea82227c}</Project>
       <Name>Library</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServerTCP\ServerTCP.csproj">
+      <Project>{0e8e9624-78d2-4a7a-88b3-71e81f74c572}</Project>
+      <Name>ServerTCP</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
